@@ -7,8 +7,8 @@
     "build": "ng build --prod",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "analysis:all": "npx source-map-explorer \"dist/fe-customer/*.js --no-border-checks\"",
-    "analysis:main": "npx source-map-explorer \"dist/fe-customer/main.*.js --no-border-checks\""
+    "analysis:all": "npx source-map-explorer \"dist/front-end/*.js --no-border-checks\"",
+    "analysis:main": "npx source-map-explorer \"dist/front-end/main.*.js --no-border-checks\""
   },
   "private": true,
   "dependencies": {

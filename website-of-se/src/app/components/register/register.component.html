@@ -1,0 +1,80 @@
+<div class="flex">
+    <div class="w-3/5 justify-center items-center" style="
+      min-height: calc(100vh);
+    ">
+        <img class="w-full h-full" alt="" src="../../../assets/img/daihocfpt.jpg" />
+    </div>
+    <div class="w-2/5 px-20 py-40">
+        <div class="h-full bg-white py-16 rounded-lg shadow-2xl">
+            <form (ngSubmit)="onSubmit()" [formGroup]="form">
+                <div class="p-fluid p-formgrid p-grid justify-center">
+                    <div class="p-field p-col-10">
+                        <span class="p-input-icon-left">
+                            <i class="{{f.email.touched && f.email.invalid?'far fa-envelope top-0':'far fa-envelope'}}"
+                                class="far fa-envelope"></i>
+                            <input class="{{f.email.touched && f.email.invalid?'ng-invalid ng-dirty':''}}"
+                                formControlName="email" [(ngModel)]="user.email" type="email" pInputText
+                                placeholder="Email">
+                            <div *ngIf="f.email.touched && f.email.invalid" class="p-error font-bold">
+                                <small class="text-sm float-left font-medium"
+                                    *ngIf="f.email.errors && f.email.errors.required">Vui lòng nhập email!</small>
+                                <small class="text-sm float-left font-medium"
+                                    *ngIf="f.email.errors && f.email.errors.pattern">Email không hợp lệ. Vui lòng thử
+                                    lại!</small>
+                                <small class="text-sm float-left font-medium"
+                                    *ngIf="f.email.errors && f.email.errors.exist">Email không tồn tại trong hệ thống.
+                                    Vui lòng thử lại!</small>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="p-field p-col-10">
+                        <div class="w-full" class="p-input-icon-left p-input-icon-right">
+                            <i class="fas fa-key"></i>
+                            <input [(ngModel)]="user.password" [ngClass]="{
+                                'ng-touched ng-dirty':
+                                f.password.touched && f.password.invalid
+                              }" class="w-full" [type]="isEnabledPassEys ? 'text' : 'password'" pInputText
+                              [placeholder]="'Mật khẩu'" formControlName="password"
+                                [maxlength]="32" />
+                            <i *ngIf="isEnabledPassEys" (click)="isEnabledPassEys = !isEnabledPassEys"
+                                class="fas fa-eye"></i>
+                            <i *ngIf="!isEnabledPassEys" (click)="isEnabledPassEys = !isEnabledPassEys"
+                                class="fas fa-eye-slash"></i>
+                        </div>
+                        <div *ngIf="f.password.touched && f.password.invalid" class="p-error font-bold">
+                            <small *ngIf="f.password.errors && f.password.errors.required"
+                                class="text-sm float-left font-medium">Vui lòng nhập mật khẩu!</small>
+                            <small *ngIf="f.password.errors && f.password.errors.pattern"
+                                class="text-sm float-left font-medium">Mật khẩu phải có ít nhất 8 ký tự, 1 chữ hoa, 1 chữ thường, 1 số, 1 ký tự đặc biệt.</small>
+                        </div>
+                    </div>
+                    <div class="p-field p-col-10">
+                        <div class="w-full" class="p-input-icon-left p-input-icon-right">
+                            <i class="fas fa-key"></i>
+                            <input [(ngModel)]="user.confirmPassword" [ngClass]="{
+                                    'ng-touched ng-dirty':
+                                    f.repassword.touched && f.repassword.invalid
+                                  }" class="w-full" [type]="isEnabledRePassEys ? 'text' : 'password'" pInputText
+                                  [placeholder]="'Nhập lại mật khẩu'"
+                                formControlName="repassword" [maxlength]="32" />
+                            <i *ngIf="isEnabledRePassEys" (click)="isEnabledRePassEys = !isEnabledRePassEys"
+                                class="fas fa-eye"></i>
+                            <i *ngIf="!isEnabledRePassEys" (click)="isEnabledRePassEys = !isEnabledRePassEys"
+                                class="fas fa-eye-slash"></i>
+                        </div>
+                        <div *ngIf="f.repassword.touched && f.repassword.invalid" class="p-error font-bold">
+                            <small *ngIf="f.repassword.errors && f.repassword.errors.required"
+                                class="text-sm float-left font-medium">Vui lòng xác nhận lại mật khẩu của bạn.</small>
+                            <small *ngIf="f.repassword.errors && f.repassword.errors.match"
+                                class="text-sm float-left font-medium">Mật khẩu đã nhập không khớp. Vui lòng thử lại.</small>
+                        </div>
+                    </div>
+                    <div class="p-field p-col-10 mt-5">
+                        <button class="btn w-full" type="submit">Đăng ký</button>
+                        <button class="btn-back w-full mt-2" [routerLink]="'/login'">Đăng nhập</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
