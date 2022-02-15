@@ -38,6 +38,8 @@ import { JwtInterceptor } from './interceptors/jwt.interceptor';
 import { LoginComponent } from './components/login/login.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { RegisterComponent } from './components/register/register.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import { AdminComponent } from './modules/admin/admin.component';
 const PRIMENG_MODULE = [
   PasswordModule,
   InputTextModule,
@@ -63,6 +65,8 @@ const PRIMENG_MODULE = [
     LoginComponent,
     ForgotPasswordComponent,
     RegisterComponent,
+    ProfileComponent,
+    AdminComponent,
   ],
   imports: [
     BrowserModule,

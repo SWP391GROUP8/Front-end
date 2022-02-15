@@ -6,6 +6,7 @@ import { CommonObject } from 'src/app/helper/common-object';
 import { AuthService } from 'src/app/services/auth.service';
 import { StoreValueService } from 'src/app/services/store-value.service';
 import jwt_decode from 'jwt-decode';
+import { WebRequestService } from 'src/app/services/web-request.service';
 interface UserLogin {
   email: string;
   password: string;
@@ -22,7 +23,7 @@ export class RegisterComponent implements OnInit {
   isEnabledPassEys: boolean = false;
   isEnabledRePassEys: boolean = false
   constructor(
-    private authService: AuthService,
+    private request: WebRequestService,
     private storeValue: StoreValueService,
     private route: Router,
     ) { }
@@ -36,28 +37,12 @@ export class RegisterComponent implements OnInit {
     ) {
       this.form.controls['repassword'].setErrors({ match: true });
     }
+    if (this.user.email !== null ) {
+      if (this.user.email.split('@')['1'] !== "fpt.edu.vn") {
+        this.form.controls['email'].setErrors({ isStudent: true });
+      }
+    }
     if (this.form.valid) {
-      this.authService.login(this.user).subscribe(
-        (res) => {
-          if (res.status === 200) {
-            const decode = jwt_decode(String(res.body));
-            // this.getUserInfor(decode['UserID']);
-            // this.route.navigateByUrl('/Companyfirstlogin');
-          }
-        },
-        (err) => {
-          if (err.status === 404)
-            this.form.controls['email'].setErrors({
-              exist: true,
-            });
-          if (err.status === 400) {
-            CommonFunction.createBadRequestErrors(
-              err.error['errors'],
-              this.form.controls
-            );
-          }
-        }
-      );
     } else {
       CommonFunction.validateAllFormFields(this.form);
     }

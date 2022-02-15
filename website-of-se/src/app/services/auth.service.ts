@@ -24,36 +24,6 @@ export class AuthService {
         })
       );
   }
-
-  // checkResetPasswordField(email, verificationCode) {
-  //   return this.request.post(
-  //     { email, verificationCode },
-  //     ResourcePath.USER,
-  //     ResourcePath.CHECK_RESET_PASSWORD_DATA
-  //   );
-  // }
-
-
-  // forgotPassword(email) {
-  //   return this.request.put(
-  //     { email },
-  //     {},
-  //     ResourcePath.USER,
-  //     ResourcePath.FORGOT_PASSWORD
-  //   );
-  // }
-  // resetPassword(email, verificationCode, newPassword) {
-  //   return this.request.put(
-  //     {
-  //       email,
-  //       verificationCode,
-  //       newPassword,
-  //     },
-  //     {},
-  //     ResourcePath.USER,
-  //     ResourcePath.RESET_PASSWORD
-  //   );
-  // }
   logout() {
     this.removeSession();
     this.isLogin = false;
