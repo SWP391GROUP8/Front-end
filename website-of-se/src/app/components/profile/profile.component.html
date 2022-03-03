@@ -1,0 +1,58 @@
+<app-header></app-header>
+<p-toast></p-toast>
+<div class="bg-gray-100 px-48">
+    <div class="px-40 bg-white" style="
+    min-height: calc(100vh - 90px);">
+        <div class=" border-gray-400 ">
+            <div class="border-b-2 w-full flex">
+                <div class="border-r-2 w-1/3 relative cursor-pointer">
+                    <img alt="" class="px-16 py-2" src="../../../assets/img/avatar.jpg" />
+                    <span class="px-16 absolute bottom-2 text-white bg-orange-600 bg-opacity-50" style="right: 69px;">
+                        <i class="fas fa-user-edit mr-2 opacity-100"></i>
+                        <a>Cập nhật ảnh đại diện</a>
+                    </span>
+                </div>
+                <div class="w-2/3 p-10 self-center">
+                    <p class="font-bold text-xl">{{userInfor.name}}</p>
+                    <p>{{userInfor.roleId}}</p>
+                    <p>{{userInfor.email}}</p>
+                </div>
+            </div>
+            <div class="w-full flex">
+                <div class="w-full pt-10 pb-7 px-7">
+                    <div class="flex mb-3">
+                        <p>Email<a class="text-red-500">*</a>:</p>
+                        <input pInputText type="text" [(ngModel)]="userInfor.email" [disabled]="isEdit" required />
+                    </div>
+                    <div class="flex mb-3">
+                        <p>Họ tên<a class="text-red-500">*</a>:</p>
+                        <input pInputText type="text" [(ngModel)]="userInfor.name" [disabled]="isEdit" required />
+                    </div>
+                    <div class="flex mb-3">
+                        <p>Ngày sinh:</p>
+                        <input pInputText type="text" [(ngModel)]="userInfor.birthDay" [disabled]="isEdit" />
+                    </div>
+                    <div class="flex mb-3">
+                        <p>Số điện thoại:</p>
+                        <input pInputText type="text" [(ngModel)]="userInfor.phone" [disabled]="isEdit" />
+                    </div>
+                    <div class="flex  mb-3">
+                        <p>Địa chỉ:</p>
+                        <input pInputText type="text" [(ngModel)]="userInfor.address" [disabled]="isEdit" />
+                    </div>
+                    <div class="flex mb-3">
+                        <p class="text-blue-500 cursor-pointer hover:text-orange-300">Đổi mật khẩu</p>
+                        <button *ngIf="isEdit" type="button" class="btn w-1/3 ml-3" (click)="isEdit=false">Chỉnh sửa hồ
+                            sơ</button>
+                        <div class="grid w-1/3">
+                            <button *ngIf="!isEdit" type="button" class="btn mb-2" (click)="editProfile()">Xác
+                                nhận</button>
+                            <button *ngIf="!isEdit" type="button" class="btn-back"
+                                (click)="isEdit=true">Hủy</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

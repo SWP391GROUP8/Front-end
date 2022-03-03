@@ -1,0 +1,45 @@
+<div class="header">
+    <div>
+        <img class="left-12 top-0 w-full h-full" src="../../../assets/img/logo-daihoc-padding.png" />
+    </div>
+    <div class="ml-16 self-center w-full">
+        <nav class="flex items-center">
+            <ul class="w-4/5">
+                <li class="">
+                    <a href="/home">Trang chủ</a>
+                </li>
+                <li class="">
+                    <a href="/course">Danh sách môn học</a>
+                </li>
+                <li class="">
+                    <a href="#">Blog</a>
+                </li>
+                <li class="">
+                    <a href="#">Chương trình tuyển dụng</a>
+                </li>
+            </ul>
+            <ul class="items-center flex text-white w-1/5 justify-end">
+                <li>
+                    <i class="fa fa-bell"></i>
+                </li>
+                <li style="padding-left: 0px !important;">
+                    <p (click)="menu.toggle($event)" class="flex items-center">
+                        <img width="40px"  src="../../../assets/img/avatar.jpg" alt="" class="rounded-md"/>
+                        <i class="pi pi-angle-down ml-2"></i>
+                    </p>
+                    <p-menu #menu [popup]="true" [model]="items"></p-menu>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+<!-- <p>{{ "name" | translate }}</p> -->
+<!-- <select #selectedLang (change)="switchLang(selectedLang.value)">
+    <option
+      *ngFor="let language of translate.getLangs()"
+      [value]="language"
+      [selected]="language === translate.currentLang"
+    >
+      {{ language }}
+    </option>
+  </select> -->

@@ -29,6 +29,8 @@ import { MessagesModule } from 'primeng/messages';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { FileUploadModule } from 'primeng/fileupload';
 
+import { RippleModule } from 'primeng/ripple';
+import { MenuModule } from 'primeng/menu';
 import { TabViewModule } from 'primeng/tabview';
 
 import { AppComponent } from './app.component';
@@ -40,6 +42,12 @@ import { ForgotPasswordComponent } from './components/forgot-password/forgot-pas
 import { RegisterComponent } from './components/register/register.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { AdminComponent } from './modules/admin/admin.component';
+import { HomeComponent } from './components/home/home.component';
+import { HeaderComponent } from './components/header/header.component';
+import { CourseComponent } from './components/course/course.component';
+import { CourseDetailComponent } from './components/course/course-detail/course-detail.component';
+import { CourseResourceComponent } from './components/course/course-resource/course-resource.component';
+import { CourseQComponent } from './components/course/course-q/course-q.component';
 const PRIMENG_MODULE = [
   PasswordModule,
   InputTextModule,
@@ -58,6 +66,8 @@ const PRIMENG_MODULE = [
   MessagesModule,
   ConfirmDialogModule,
   FileUploadModule,
+  MenuModule,
+  RippleModule
 ];
 @NgModule({
   declarations: [
@@ -67,6 +77,12 @@ const PRIMENG_MODULE = [
     RegisterComponent,
     ProfileComponent,
     AdminComponent,
+    HomeComponent,
+    HeaderComponent,
+    CourseComponent,
+    CourseDetailComponent,
+    CourseResourceComponent,
+    CourseQComponent,
   ],
   imports: [
     BrowserModule,

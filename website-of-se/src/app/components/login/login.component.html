@@ -24,6 +24,9 @@
                                 <small class="text-sm float-left font-medium"
                                     *ngIf="f.email.errors && f.email.errors.exist">Email không tồn tại trong hệ thống.
                                     Vui lòng thử lại!</small>
+                                <small class="text-sm float-left font-medium"
+                                    *ngIf="f.email.errors && f.email.errors.isFPT">Email không thuộc Đại Học FPT.
+                                    Vui lòng thử lại!</small>
                             </div>
                         </span>
                     </div>
@@ -44,6 +47,8 @@
                         <div *ngIf="f.password.touched && f.password.invalid" class="p-error font-bold">
                             <small *ngIf="f.password.errors && f.password.errors.required"
                                 class="text-sm float-left font-medium">Vui lòng nhập mật khẩu</small>
+                            <small *ngIf="f.password.errors && f.password.errors.valid"
+                                class="text-sm float-left font-medium">Mật khẩu không đúng vui lòng nhập lại</small>
                         </div>
                     </div>
                     <div class="w-4/5 text-blue-500 font-bold cursor-pointer text-sm">

@@ -20,7 +20,7 @@ export class AuthService {
         shareReplay(),
         tap((res) => {
           this.isLogin = true;
-          this.setSession(String(res.body));
+          this.setSession(String(res.body['token']));
         })
       );
   }

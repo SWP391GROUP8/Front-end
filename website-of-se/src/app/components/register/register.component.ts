@@ -7,6 +7,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { StoreValueService } from 'src/app/services/store-value.service';
 import jwt_decode from 'jwt-decode';
 import { WebRequestService } from 'src/app/services/web-request.service';
+import { ResourcePath } from 'src/app/helper/resource-path';
 interface UserLogin {
   email: string;
   password: string;
@@ -24,11 +25,14 @@ export class RegisterComponent implements OnInit {
   isEnabledRePassEys: boolean = false
   constructor(
     private request: WebRequestService,
-    private storeValue: StoreValueService,
+    private auth: AuthService,
     private route: Router,
     ) { }
 
   ngOnInit(): void {
+    if (this.auth.isLoggedIn()) {
+      this.route.navigateByUrl('/home')
+    }
   }
   onSubmit() {
     if (
@@ -43,6 +47,16 @@ export class RegisterComponent implements OnInit {
       }
     }
     if (this.form.valid) {
+      const data = {
+        confirmPassword: this.user.confirmPassword,
+        email: this.user.email,
+        password: this.user.password,
+        roleId: 'student'
+      }
+      this.request.post(data, ResourcePath.USER).subscribe(x => {
+        console.log(x);
+        
+      })
     } else {
       CommonFunction.validateAllFormFields(this.form);
     }

@@ -17,8 +17,8 @@ interface UserLogin {
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  user: UserLogin = { email: 'trihtse130578@fpt.edu.vn',
-  password: '123AAA@aaa', };
+  user: UserLogin = { email: null,
+  password: null };
   isEnabledPassEys: boolean = false;
   constructor(
     private authService: AuthService,
@@ -27,44 +27,27 @@ export class LoginComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-    this.authService.login(this.user).subscribe(
-      (res) => {
-        console.log(res);
-        const decode = jwt_decode(String(res.body));
-        console.log('aaaa');
-        console.log(decode);
-        if (res.status === 200) {
-          const decode = jwt_decode(String(res.body));
-          console.log('aaaa');
-          
-          console.log(decode);
-          
-          // this.getUserInfor(decode['UserID']);
-          // this.route.navigateByUrl('/Companyfirstlogin');
-        }
-      },
-      (err) => {
-        if (err.status === 404)
-          this.form.controls['email'].setErrors({
-            exist: true,
-          });
-        if (err.status === 400) {
-          CommonFunction.createBadRequestErrors(
-            err.error['errors'],
-            this.form.controls
-          );
-        }
-      }
-    );
+    if (this.authService.isLoggedIn()) {
+      this.route.navigateByUrl('/home')
+    }
   }
   onSubmit() {
+    if (this.user.email !== null) {
+      if (this.user.email.split('@')[1] === 'fpt.edu.vn' || this.user.email.split('@')[1] === 'fe.edu.vn') {
+      } else {
+        this.form.controls['email'].setErrors({
+          isFPT: true,
+        });
+      }
+    }
     if (this.form.valid) {
       this.authService.login(this.user).subscribe(
         (res) => {
           if (res.status === 200) {
-            const decode = jwt_decode(String(res.body));
-            // this.getUserInfor(decode['UserID']);
-            // this.route.navigateByUrl('/Companyfirstlogin');
+            console.log(res);
+            const decode = jwt_decode(String(res.body['token']));
+            this.storeValue.setLocalStorage('email', decode['sub']);
+            this.route.navigateByUrl('/home');
           }
         },
         (err) => {
@@ -73,10 +56,9 @@ export class LoginComponent implements OnInit {
               exist: true,
             });
           if (err.status === 400) {
-            CommonFunction.createBadRequestErrors(
-              err.error['errors'],
-              this.form.controls
-            );
+            this.form.controls['password'].setErrors({
+              valid: true,
+            });
           }
         }
       );
@@ -99,13 +81,4 @@ export class LoginComponent implements OnInit {
   get f() {
     return this.form.controls;
   }
-  // getUserInfor(id) {
-  //   this.request.get('users', id).subscribe((res) => {
-  //     const data = {
-  //       user: res.body,
-  //       id: id,
-  //     };
-  //     this.storeValue.setLocalStorage('userInfor', data);
-  //   });
-  // }
 }

@@ -41,6 +41,7 @@ export class WebRequestService {
       {
         params: params,
         observe: 'response',
+        responseType: 'text'
       }
     );
   }
