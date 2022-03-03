@@ -1,3 +1,4 @@
+import { StringifyOptions } from "querystring";
 
 export interface Comment {
     userId: string;
@@ -17,4 +18,11 @@ export interface UserInfor {
 export interface Role {
     id?: string;
     name?: string;
+}
+export interface Course {
+    id: string;
+    author: string;
+    name: string;
+    code: string;
+    status: string;
 }
