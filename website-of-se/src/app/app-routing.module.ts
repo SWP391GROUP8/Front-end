@@ -15,12 +15,14 @@ import { ManageJobComponent } from './components/manage-job/manage-job.component
 import { ListCourseComponent } from './components/course/list-course/list-course.component';
 import { CourseDetailComponent } from './components/course/course-detail/course-detail.component';
 const routes: Routes = [
-  { path: '', redirectTo: 'blog', pathMatch: 'full' },
+  { path: '', redirectTo: 'test', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'forgotpassword', component: ForgotPasswordComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'profile', component: ProfileComponent },
   { path: 'home', component: HomeComponent },
+  
+  { path: 'test', component: HomeComponent },
   {
     path: 'course',
     component: CourseComponent,

@@ -10,7 +10,7 @@
                 <p-dropdown [options]="semesters" [(ngModel)]="selectedSemester" placeholder="Vui lòng chọn kỳ" optionLabel="name" [showClear]="true" >
                     <ng-template pTemplate="selectedItem">
                         <div class="country-item country-item-value">
-                            <div>Kỳ {{selectedSemester}}</div>
+                            <div>Kỳ {{selectedSemester.name}}</div>
                         </div>
                     </ng-template>
                     <ng-template let-semester pTemplate="item">
