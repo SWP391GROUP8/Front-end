@@ -18,4 +18,8 @@ export class ResourcePath {
 
   //COMPANY SERVICE
   public static readonly COMPANY_SERVICE = 'compayServices';
+  //Common
+  public static readonly GET_BY_ID = 'get-by-id';
+  public static readonly GET_ALL = 'get-all';
+
 }

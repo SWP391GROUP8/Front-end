@@ -28,7 +28,12 @@ import { SidebarModule } from 'primeng/sidebar';
 import { MessagesModule } from 'primeng/messages';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { FileUploadModule } from 'primeng/fileupload';
+
 import { DialogModule } from 'primeng/dialog';
+
+
+import { RippleModule } from 'primeng/ripple';
+import { MenuModule } from 'primeng/menu';
 import { TabViewModule } from 'primeng/tabview';
 
 import { AppComponent } from './app.component';
@@ -50,6 +55,12 @@ import { ChildboxComponent } from './components/comment/childbox/childbox.compon
 import { CommentboxComponent } from './components/comment/commentbox/commentbox.component';
 import { CommentsComponent, DatacontainerDirective } from './components/comment/comments/comments.component';
 import { JobDetailsComponent } from './components/manage-job/job-details/job-details.component';
+import { HomeComponent } from './components/home/home.component';
+import { HeaderComponent } from './components/header/header.component';
+import { CourseComponent } from './components/course/course.component';
+import { CourseDetailComponent } from './components/course/course-detail/course-detail.component';
+import { CourseResourceComponent } from './components/course/course-resource/course-resource.component';
+import { CourseQComponent } from './components/course/course-q/course-q.component';
 const PRIMENG_MODULE = [
   PasswordModule,
   InputTextModule,
@@ -68,7 +79,9 @@ const PRIMENG_MODULE = [
   MessagesModule,
   ConfirmDialogModule,
   FileUploadModule,
-  DialogModule
+  DialogModule,
+  MenuModule,
+  RippleModule
 ];
 @NgModule({
   declarations: [
@@ -88,7 +101,13 @@ const PRIMENG_MODULE = [
     CommentboxComponent,
     CommentsComponent,
     DatacontainerDirective,
-    JobDetailsComponent
+    JobDetailsComponent,
+    HomeComponent,
+    HeaderComponent,
+    CourseComponent,
+    CourseDetailComponent,
+    CourseResourceComponent,
+    CourseQComponent,
   ],
   imports: [
     BrowserModule,
