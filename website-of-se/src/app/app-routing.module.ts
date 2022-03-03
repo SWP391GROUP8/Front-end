@@ -12,6 +12,8 @@ import { RegisterComponent } from './components/register/register.component';
 import { BlogDetailsComponent } from './components/manage-blog/blog-details/blog-details.component';
 import { ListBlogComponent } from './components/manage-blog/list-blog/list-blog.component';
 import { ManageJobComponent } from './components/manage-job/manage-job.component';
+import { ListCourseComponent } from './components/course/list-course/list-course.component';
+import { CourseDetailComponent } from './components/course/course-detail/course-detail.component';
 const routes: Routes = [
   { path: '', redirectTo: 'blog', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
@@ -19,7 +21,14 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'profile', component: ProfileComponent },
   { path: 'home', component: HomeComponent },
-  { path: 'course', component: CourseComponent },
+  {
+    path: 'course',
+    component: CourseComponent,
+    children: [
+      { path: '', component: ListCourseComponent },
+      { path: ':id', component: CourseDetailComponent },
+    ],
+  },
   {
     path: 'blog',
     component: ManageBlogComponent,
