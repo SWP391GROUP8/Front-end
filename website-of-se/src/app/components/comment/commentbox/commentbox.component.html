@@ -1,0 +1,11 @@
+<form [formGroup]="commentForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+        <textarea class="form-control w-full" pInputTextarea placeholder="Gửi bình luận..." formControlName="comment" [ngClass]="{ 'ng-invalid ng-dirty': submitted && commentForm.controls['comment'].errors }"></textarea>
+        <div class="p-error font-bold text-xs" *ngIf="submitted && commentForm.controls['comment'].errors">
+            <div *ngIf="commentForm.controls['comment'].errors.required">Comment is required</div>
+        </div>
+    </div>
+    <div class="form-group mb-3">
+        <button type="submit" class="btn btn-success">Bình luận</button>
+    </div>
+</form>

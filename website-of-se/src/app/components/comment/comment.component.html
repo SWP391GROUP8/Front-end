@@ -1,0 +1,14 @@
+<div class="container">
+    <div class="card">
+        <div class="commentbox">
+            <div class="col-12 col-sm-12">
+                <div class="comment-container">
+                        <div class="comment-form">
+                                <app-commentbox (usercomment)="receiveComment($event)"></app-commentbox>
+                        </div>
+                </div>
+            </div>
+        </div>
+        <app-comments [postComment]="comments"></app-comments>
+    </div>
+</div>

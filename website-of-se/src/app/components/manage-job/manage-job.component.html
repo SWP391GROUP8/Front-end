@@ -1,0 +1,31 @@
+<div class="py-10 px-36 ">
+    <div class="flex">
+        <p class="text-center w-full font-bold text-2xl mb-10">Danh sách bài viết</p>
+        <!-- <button class="btn float-right w-1/6">Thêm bài viết</button> -->
+    </div>
+    <div class="p-grid place-content-center">
+        <div *ngFor="let job of listJob" class="p-col-12 p-md-6 p-lg-5
+         mx-10 min-h-full my-4 border-2 border-solid border-gray-200 rounded-xl cursor-pointer hover:shadow-xl"
+            (click)="openJobDetail(job.id)" style="padding: 0 !important;">
+            <div class="px-4 py-6">
+                <div class="flex relative">
+                    <p class="font-bold text-lg">{{job.title}}</p>
+                    <div class="text-sm absolute right-0">
+                        <button class="btn">Chi tiết</button>
+                    </div>
+
+                </div>
+                <p>{{job.companyName}}</p>
+                <span>
+                    <i class="fas fa-map-marker-alt"></i>
+                    {{job.location}}
+                </span>
+                <p class="mt-2">{{job.jobDesc}}</p>
+            </div>
+        </div>
+    </div>
+</div>
+<p-dialog header="Chi tiết công việc" [(visible)]="isDisplay" [style]="{width: '50vw'}" [transitionOptions]="'0ms'"
+    [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [modal]="true" [baseZIndex]="10000">
+    <app-job-details></app-job-details>
+</p-dialog>

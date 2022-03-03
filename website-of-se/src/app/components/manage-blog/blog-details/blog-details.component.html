@@ -1,0 +1,51 @@
+<div class="px-20">
+    <div class="py-10 px-8 border-r-2 border-l-2 border-solid border-gray-500 w-full" style="min-height: 700px">
+        <p class="font-bold">{{blog.title}}</p>
+        <p class="font-light mb-2">22/02/2022</p>
+        <div class="flex my-4">
+            <img class="mr-3" width="30" height="30" src="../../../../assets/img/member-avatar-01.png" />
+            <a class="font-bold">{{blog.authorId}}</a>
+        </div>
+        <div>
+            <img class="my-0 mx-auto" width="400" height="200" src="../../../../assets/img/daihocfpt.jpg" />
+        </div>
+        <div class="w-full">
+            {{blog.content}}
+            <div class="text-sm font-bold mt-3 ">
+                <span class="mr-2">
+                    <i class="fas fa-heart text-red-500"></i>
+                    {{blog.reaction}} lượt thích
+                </span>
+                <span>
+                    <i class="fas fa-comment"></i>
+                    ... Comment
+                </span>
+            </div>
+            <div class="border-b-2 border-t-2 border-solid border-gray-500 p-4">
+                <span [ngClass]="{'text-red-500': isLike}" class="cursor-pointer mr-7" (click)="reaction()">
+                    <i class="fas fa-heart"></i>
+                    Thích
+                </span>
+                <span class="cursor-pointer">
+                    <i class="fas fa-comment"></i>
+                    Bình luận
+                </span>
+            </div>
+            <div class="mt-4 w-full">
+                <!-- <div class="flex ">
+                    <img class="mr-3" width="30" height="30" src="../../../../assets/img/member-avatar-01.png" />
+                    <span class="p-input-icon-right w-full">
+                        <i class="pi pi-send"></i>
+                        <input type="text" placeholder="Viết bình luận..." class="w-full" pInputText
+                            [(ngModel)]="comment">
+                    </span>
+                </div>
+                <div class="flex mt-4">
+                    <img class="mr-3" width="30" height="30" src="../../../../assets/img/member-avatar-02.png" />
+                    <p class="font-bold">{{blog.authorId}}</p>
+                </div> -->
+                <app-comment></app-comment>
+            </div>
+        </div>
+    </div>
+</div>

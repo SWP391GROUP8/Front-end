@@ -28,7 +28,7 @@ import { SidebarModule } from 'primeng/sidebar';
 import { MessagesModule } from 'primeng/messages';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { FileUploadModule } from 'primeng/fileupload';
-
+import { DialogModule } from 'primeng/dialog';
 import { TabViewModule } from 'primeng/tabview';
 
 import { AppComponent } from './app.component';
@@ -40,6 +40,16 @@ import { ForgotPasswordComponent } from './components/forgot-password/forgot-pas
 import { RegisterComponent } from './components/register/register.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { AdminComponent } from './modules/admin/admin.component';
+import { ManageBlogComponent } from './components/manage-blog/manage-blog.component';
+import { BlogDetailsComponent } from './components/manage-blog/blog-details/blog-details.component';
+import { ManageJobComponent } from './components/manage-job/manage-job.component';
+import { ManageCvComponent } from './components/manage-job/manage-cv/manage-cv.component';
+import { ListBlogComponent } from './components/manage-blog/list-blog/list-blog.component';
+import { CommentComponent } from './components/comment/comment.component';
+import { ChildboxComponent } from './components/comment/childbox/childbox.component';
+import { CommentboxComponent } from './components/comment/commentbox/commentbox.component';
+import { CommentsComponent, DatacontainerDirective } from './components/comment/comments/comments.component';
+import { JobDetailsComponent } from './components/manage-job/job-details/job-details.component';
 const PRIMENG_MODULE = [
   PasswordModule,
   InputTextModule,
@@ -58,6 +68,7 @@ const PRIMENG_MODULE = [
   MessagesModule,
   ConfirmDialogModule,
   FileUploadModule,
+  DialogModule
 ];
 @NgModule({
   declarations: [
@@ -67,6 +78,17 @@ const PRIMENG_MODULE = [
     RegisterComponent,
     ProfileComponent,
     AdminComponent,
+    ManageBlogComponent,
+    BlogDetailsComponent,
+    ManageJobComponent,
+    ManageCvComponent,
+    ListBlogComponent,
+    CommentComponent,
+    ChildboxComponent,
+    CommentboxComponent,
+    CommentsComponent,
+    DatacontainerDirective,
+    JobDetailsComponent
   ],
   imports: [
     BrowserModule,
