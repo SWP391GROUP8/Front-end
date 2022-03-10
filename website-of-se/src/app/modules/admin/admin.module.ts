@@ -1,3 +1,5 @@
+import { ListBlogComponent } from './home/manage-blog/list-blog/list-blog.component';
+import { ListAccountComponent } from './home/manage-account/list-account/list-account.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HomeComponent } from './home/home.component';
@@ -73,6 +75,8 @@ const PRIMENG_MODULE = [
     ManageBlogComponent,
     ListCourseComponent,
     ListEventComponent,
+    ListBlogComponent,
+    ListAccountComponent,
     
   ],
   imports: [

@@ -22,7 +22,6 @@ const routes: Routes = [
   { path: 'profile', component: ProfileComponent },
   { path: 'home', component: HomeComponent },
 
-  { path: 'test', component: CourseDetailComponent },
   {
     path: 'course',
     component: CourseComponent,

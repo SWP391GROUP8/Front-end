@@ -17,8 +17,13 @@ export class ResourcePath {
 
   //COURSE
   public static readonly COURSE = 'course';
-  public static readonly COURSE_RESOURCE = 'resource';
+
+
   //Common
   public static readonly GET_BY_ID = 'get-by-id';
   public static readonly GET_ALL = 'get-all';
+
+  //Blog
+  public static readonly BLOG = 'blog';
+  public static readonly COURSE_RESOURCE = 'resource';
 }
