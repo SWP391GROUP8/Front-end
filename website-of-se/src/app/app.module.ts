@@ -63,6 +63,7 @@ import { CourseResourceComponent } from './components/course/course-resource/cou
 import { CourseQComponent } from './components/course/course-q/course-q.component';
 import { ListCourseComponent } from './components/course/list-course/list-course.component';
 import { CreateCourseComponent } from './components/course/create-course/create-course.component';
+import { SidebarComponent } from './modules/admin/sidebar/sidebar.component';
 const PRIMENG_MODULE = [
   PasswordModule,
   InputTextModule,
@@ -112,6 +113,7 @@ const PRIMENG_MODULE = [
     CourseQComponent,
     ListCourseComponent,
     CreateCourseComponent,
+    SidebarComponent
   ],
   imports: [
     BrowserModule,

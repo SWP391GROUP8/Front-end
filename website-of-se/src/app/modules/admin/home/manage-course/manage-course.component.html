@@ -1,0 +1,16 @@
+<div class="p-12">
+    <p class="text-center font-bold text-2xl">Quản lý môn học</p>
+    <div>
+        <p-tabMenu #menuItems [model]="items" [activeItem]="activeItem" (click)="activateMenu()">
+            <ng-template pTemplate="item" let-item let-i="index">
+                {{ item.label}}
+            </ng-template>
+        </p-tabMenu>
+    </div>
+    <div *ngIf="activeItem.id === '1'">
+        <app-list-course></app-list-course>
+    </div>
+    <div *ngIf="activeItem.id === '2'">
+        <app-list-event></app-list-event>
+    </div>
+</div>

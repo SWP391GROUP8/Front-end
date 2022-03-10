@@ -10,14 +10,13 @@ export class ResourcePath {
 
   //COMPANY
   public static readonly COMPANY = 'companies';
-  public static readonly CHECK_COMPANY = 'checkData';
 
   //FILE
   public static readonly FILE = 'files';
   public static readonly FILE_STATUS = 'files/status';
 
-  //COMPANY SERVICE
-  public static readonly COMPANY_SERVICE = 'compayServices';
+  //COURSE
+  public static readonly COURSE = 'course';
   //Common
   public static readonly GET_BY_ID = 'get-by-id';
   public static readonly GET_ALL = 'get-all';

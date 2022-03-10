@@ -1,0 +1,59 @@
+<div style="z-index: 999"
+    class="sidebar fixed top-0 left-0 h-screen bg-blue-text transition-all duration-300 ease-in-out"
+    [ngClass]="{ 'w-72': isActive, 'w-20': !isActive }">
+    <div class="overflow-y-auto hidden-scroll" style="height: calc(100% - 96px)">
+        <div
+        class="h-12 text-4xl text-white px-8 mt-4 flex w-full items-center"
+        [ngClass]="{
+          'justify-end mb-0': isActive,
+          'justify-center mb-4': !isActive
+        }"
+      >
+        <i
+          [ngClass]="{ 'fa-angle-left': isActive, 'fa-angle-right': !isActive }"
+          class="fa text-center cursor-pointer"
+          style="min-width: 50px"
+          (click)="isOpen()"
+        ></i>
+      </div>
+        <ul class="h-auto pt-8">
+            <li [pTooltip]="!isActive ? (navLink.name) : ''" tooltipPosition="right"
+                class="relative h-auto w-full leading-10 px-3 mb-4" *ngFor="let navLink of navigateList">
+                <a [routerLink]="navLink.link" style="min-height: 3rem"
+                    class="flex text-xl text-white items-center transition duration-300 rounded-md hover:text-blue-text hover:bg-white"
+                    [ngClass]="{
+          'pr-4': isActive,
+          'pr-0': !isActive,
+          'text-blue-text bg-white': navLink.isHightLight
+        }" (click)="changePage(navLink.id)">
+                    <i [class]="navLink.icon" class="text-center" style="min-width: 50px" [ngClass]="{
+            'w-auto': isActive,
+            'w-full': !isActive
+          }"></i>
+                    <span [ngClass]="{
+            block: isActive,
+            hidden: !isActive
+          }">{{ navLink.name }}</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div [pTooltip]="!isActive ? 'Đăng xuất' : ''" tooltipPosition="right"
+        class="flex items-center bottom-0 left-0 h-24 w-full leading-10 px-3 mb-4">
+        <div (click)="logout()" style="min-height: 3rem"
+            class="flex w-full text-xl text-white hover:text-blue-text items-center transition duration-300 rounded-md cursor-pointer hover:bg-white"
+            [ngClass]="{
+        'pr-4': isActive,
+        'pr-0': !isActive
+      }">
+            <i class="fas fa-sign-out-alt text-center" style="min-width: 50px" [ngClass]="{
+          'w-auto': isActive,
+          'w-full': !isActive
+        }"></i>
+            <span [ngClass]="{
+          block: isActive,
+          hidden: !isActive
+        }">Đăng xuất</span>
+        </div>
+    </div>
+</div>

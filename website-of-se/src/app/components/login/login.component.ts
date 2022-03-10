@@ -51,11 +51,13 @@ export class LoginComponent implements OnInit {
           }
         },
         (err) => {
-          if (err.status === 404)
-            this.form.controls['email'].setErrors({
-              exist: true,
-            });
           if (err.status === 400) {
+            if (err.error === 'Email not exist') {
+              this.form.controls['email'].setErrors({
+                exist: true,
+              });
+            }
+            
             this.form.controls['password'].setErrors({
               valid: true,
             });

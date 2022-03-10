@@ -1,0 +1,11 @@
+.sidebar-content {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    padding-left: 5rem;
+    &__active {
+      padding-left: 288px;
+      transition: all 0.2s ease-out;
+    }
+  }
+  

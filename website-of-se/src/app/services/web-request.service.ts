@@ -16,6 +16,7 @@ export class WebRequestService {
       { observe: 'response' }
     );
   }
+  
   post(payload: object, ...path) {
     return this.http.post(
       this.ROOT_URL + CommonFunction.convertPathArrToString(path),
@@ -32,6 +33,18 @@ export class WebRequestService {
       {
         observe: 'response',
       }
+    );
+  }
+  deleteWithQuery(params,...path) {
+    return this.http.delete(
+      this.ROOT_URL + CommonFunction.convertPathArrToString(path),
+      { observe: 'response', params: params }
+    );
+  }
+  getWithQuery(params, ...path) {
+    return this.http.get(
+      this.ROOT_URL + CommonFunction.convertPathArrToString(path),
+      { observe: 'response', params: params }
     );
   }
   put(payload: object, params, ...path) {
