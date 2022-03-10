@@ -3,11 +3,11 @@ import { Component, OnInit } from '@angular/core';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ResourcePath } from 'src/app/helper/resource-path';
 import { WebRequestService } from 'src/app/services/web-request.service';
-import { Course } from '../../../admin.model';
+import { Blog } from '../../../admin.model';
 
 @Component({
-  selector: 'app-list-course',
-  templateUrl: './list-course.component.html',
+  selector: 'app-list-blog',
+  templateUrl: './list-blog.component.html',
   styles: [
     `
       :host ::ng-deep .p-dialog .product-image {
@@ -17,16 +17,16 @@ import { Course } from '../../../admin.model';
       }
     `,
   ],
-  styleUrls: ['./list-course.component.scss'],
+  styleUrls: ['./list-blog.component.scss']
 })
-export class ListCourseComponent implements OnInit {
+export class ListBlogComponent implements OnInit {
   productDialog: boolean;
 
-  products: Course[] = [];
+  products: Blog[] = [];
 
-  product: Course = { id: '', author: '', code: '', name: '', status: '' };
+  product: Blog = { id: '', title: '', content: '', status: '', reaction: null };
   statuses: any[]
-  selectedProducts: Course[];
+  selectedProducts: Blog[];
 
   submitted: boolean;
   constructor(
@@ -36,59 +36,56 @@ export class ListCourseComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getListCourse();
+    this.getListBlog();
     this.statuses = [{ label: '1', value: 'Actived' }, { label: '2', value: 'Deactived' }]
   }
   openNew() {
-    this.product = { id: '', author: '', code: '', name: '', status: '' };
+    this.product = { id: '', title: '', content: '', status: '', reaction: 0 };
     this.submitted = false;
     this.productDialog = true;
   }
   deleteSelectedProducts() {
     this.cfService.confirm({
-      message: 'Bạn có chắc muốn xóa những môn học này?',
+      message: 'Bạn có chắc muốn xóa bài viết này?',
       header: 'Confirm',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-
         this.request.delete(ResourcePath)
         this.messageService.add({
           severity: 'success',
           summary: 'Successful',
-          detail: 'Products Deleted',
-          life: 3000,
+          detail: 'Xóa bài viết thành công!',
         });
       },
     });
   }
-  async editProduct(product: Course) {
+  async editProduct(product: Blog) {
     let params = new HttpParams()
       .set('id', product.id)
-    const res = await this.request.getWithQuery(params, ResourcePath.COURSE, ResourcePath.GET_BY_ID).toPromise();
-    this.product = res.body as Course;
+    const res = await this.request.getWithQuery(params, ResourcePath.BLOG, ResourcePath.GET_BY_ID).toPromise();
+    this.product = res.body as Blog;
     this.productDialog = true;
   }
   hideDialog() {
     this.productDialog = false;
     this.submitted = false;
   }
-  deleteProduct(product: Course) {
+  deleteProduct(product: Blog) {
     this.cfService.confirm({
-      message: 'Bạn có chắc muốn xóa môn học này?',
+      message: 'Bạn có chắc muốn xóa bài viết này?',
       header: 'Confirm',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
         let params = new HttpParams()
           .set('id', product.id)
-        this.request.deleteWithQuery(params, ResourcePath.COURSE).subscribe(x => {
+        this.request.deleteWithQuery(params, ResourcePath.BLOG).subscribe(x => {
           if (x.status === 200) {
             this.messageService.add({
               severity: 'success',
               summary: 'Successful',
-              detail: 'Xóa môn học thành công!',
-              life: 3000,
+              detail: 'Xóa bài viết thành công!',
             });
-            this.getListCourse();
+            this.getListBlog();
           }
         })
       },
@@ -96,39 +93,38 @@ export class ListCourseComponent implements OnInit {
   }
   saveProduct() {
     this.submitted = true;
-    if (this.product.name.trim()) {
+    if (this.product.title.trim()) {
       if (this.product.id) {
-        this.request.put(this.product, null, ResourcePath.COURSE).subscribe(x => {
+        this.request.put(this.product, null, ResourcePath.BLOG).subscribe(x => {
           if (x.status === 200) {
             this.messageService.add({
               severity: 'success',
               summary: 'Successful',
-              detail: 'Cập nhật môn học thành công!',
-              life: 3000,
+              detail: 'Cập nhật bài viết thành công!',
             });
           }
         })
       } else {
-        this.product.id = this.createId();
-        this.request.post(this.product, ResourcePath.COURSE).subscribe(x => {
+        // this.product.id = this.createId();
+        this.request.post(this.product, ResourcePath.BLOG).subscribe(x => {
           if (x.status === 200) {
             this.messageService.add({
               severity: 'success',
               summary: 'Successful',
-              detail: 'Tạo môn học thành công!',
-              life: 3000,
+              detail: 'Tạo bài viết thành công!',
             });
           }
         })
 
       }
-      this.getListCourse();
+      this.getListBlog();
       this.productDialog = false;
     }
+    this.getListBlog();
   }
-  getListCourse() {
-    this.request.get(ResourcePath.COURSE).subscribe(x => {
-      this.products = x.body as Course[];
+  getListBlog() {
+    this.request.get(ResourcePath.BLOG).subscribe(x => {
+      this.products = x.body as Blog[];
     })
   }
   createId(): string {
@@ -139,4 +135,4 @@ export class ListCourseComponent implements OnInit {
     }
     return id;
   }
-}
+} 

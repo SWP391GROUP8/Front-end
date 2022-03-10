@@ -38,7 +38,7 @@ export class WebRequestService {
   deleteWithQuery(params,...path) {
     return this.http.delete(
       this.ROOT_URL + CommonFunction.convertPathArrToString(path),
-      { observe: 'response', params: params }
+      { observe: 'response', params: params, responseType: 'text'}
     );
   }
   getWithQuery(params, ...path) {
