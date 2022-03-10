@@ -36,7 +36,7 @@ import { DialogModule } from 'primeng/dialog';
 import { RippleModule } from 'primeng/ripple';
 import { MenuModule } from 'primeng/menu';
 import { TabViewModule } from 'primeng/tabview';
-
+import {EditorModule} from 'primeng/editor';
 import {ToolbarModule} from 'primeng/toolbar';
 import { AppComponent } from './app.component';
 import { ConfirmationService, MessageService } from 'primeng/api';
@@ -66,6 +66,7 @@ import { CourseQComponent } from './components/course/course-q/course-q.componen
 import { ListCourseComponent } from './components/course/list-course/list-course.component';
 import { CreateCourseComponent } from './components/course/create-course/create-course.component';
 import { SidebarComponent } from './modules/admin/sidebar/sidebar.component';
+import { CompanyComponent } from './modules/company/company.component';
 const PRIMENG_MODULE = [
   PasswordModule,
   InputTextModule,
@@ -88,7 +89,8 @@ const PRIMENG_MODULE = [
   MenuModule,
   RippleModule,
   TableModule,
-  ToolbarModule
+  ToolbarModule,
+  EditorModule
 ];
 @NgModule({
   declarations: [
@@ -118,6 +120,7 @@ const PRIMENG_MODULE = [
     ListCourseComponent,
     CreateCourseComponent,
     SidebarComponent,
+    CompanyComponent,
     
   ],
   imports: [

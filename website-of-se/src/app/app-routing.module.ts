@@ -15,7 +15,7 @@ import { ManageJobComponent } from './components/manage-job/manage-job.component
 import { ListCourseComponent } from './components/course/list-course/list-course.component';
 import { CourseDetailComponent } from './components/course/course-detail/course-detail.component';
 const routes: Routes = [
-  { path: '', redirectTo: 'admin', pathMatch: 'full' },
+  { path: '', redirectTo: 'company', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'forgotpassword', component: ForgotPasswordComponent },
   { path: 'register', component: RegisterComponent },
@@ -47,6 +47,13 @@ const routes: Routes = [
     path: 'admin',
     loadChildren: () =>
       import('./modules/admin/admin.module').then((m) => m.AdminModule),
+    // data: { role: ['admin'] },
+    // canActivate: [AuthGuard],
+  },
+  {
+    path: 'company',
+    loadChildren: () =>
+      import('./modules/company/company.module').then((m) => m.CompanyModule),
     // data: { role: ['admin'] },
     // canActivate: [AuthGuard],
   },
