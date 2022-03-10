@@ -21,8 +21,7 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'profile', component: ProfileComponent },
   { path: 'home', component: HomeComponent },
-  
-  { path: 'test', component: ListBlogComponent },
+
   {
     path: 'course',
     component: CourseComponent,
@@ -30,6 +29,8 @@ const routes: Routes = [
       { path: '', component: ListCourseComponent },
       { path: ':id', component: CourseDetailComponent },
     ],
+    data: { role: ['student','instructor'] },
+    canActivate: [AuthGuard],
   },
   {
     path: 'blog',
@@ -38,13 +39,16 @@ const routes: Routes = [
       { path: '', component: ListBlogComponent },
       { path: ':id', component: BlogDetailsComponent },
     ],
+    data: { role: ['student','instructor'] },
+    canActivate: [AuthGuard],
   },
   { path: 'job', component: ManageJobComponent },
   {
     path: 'admin',
     loadChildren: () =>
       import('./modules/admin/admin.module').then((m) => m.AdminModule),
-    // canActivate: [AuthGuard],
+    data: { role: ['admin'] },
+    canActivate: [AuthGuard],
   },
 ];
 

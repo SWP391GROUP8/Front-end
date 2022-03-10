@@ -24,8 +24,6 @@ import { FileUploadModule } from 'primeng/fileupload';
 import { DialogModule } from 'primeng/dialog';
 import { MenuModule } from 'primeng/menu';
 import { RippleModule } from 'primeng/ripple';
-import { TableModule } from 'primeng/table';
-
 import {ToolbarModule} from 'primeng/toolbar';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { BadgeModule } from 'primeng/badge';
@@ -38,6 +36,7 @@ import { RouterModule } from '@angular/router';
 import { ListCourseComponent } from './home/manage-course/list-course/list-course.component';
 import { ListEventComponent } from './home/manage-course/list-event/list-event.component';
 import { FormsModule } from '@angular/forms';
+import { TableModule } from 'primeng/table';
 
 const PRIMENG_MODULE = [
   PasswordModule,
@@ -63,8 +62,8 @@ const PRIMENG_MODULE = [
   TabMenuModule,
   OverlayPanelModule,
   BadgeModule,
-  TableModule,
-  ToolbarModule
+  ToolbarModule,
+  TableModule
 ];
 
 @NgModule({

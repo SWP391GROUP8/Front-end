@@ -12,11 +12,12 @@ export class ResourcePath {
   public static readonly COMPANY = 'companies';
 
   //FILE
-  public static readonly FILE = 'files';
+  public static readonly FILE = 'file';
   public static readonly FILE_STATUS = 'files/status';
 
   //COURSE
   public static readonly COURSE = 'course';
+
 
   //Common
   public static readonly GET_BY_ID = 'get-by-id';
@@ -24,4 +25,5 @@ export class ResourcePath {
 
   //Blog
   public static readonly BLOG = 'blog';
+  public static readonly COURSE_RESOURCE = 'resource';
 }
