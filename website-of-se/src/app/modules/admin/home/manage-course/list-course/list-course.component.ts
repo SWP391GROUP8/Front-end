@@ -63,7 +63,7 @@ export class ListCourseComponent implements OnInit {
   }
   async editProduct(product: Course) {
     let params = new HttpParams()
-    .set('id', product.id)
+    .set('id', product.id);
     const res = await this.request.getWithQuery(params,ResourcePath.COURSE,ResourcePath.GET_BY_ID).toPromise();
     this.product = res.body as Course;
     this.productDialog = true;

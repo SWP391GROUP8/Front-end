@@ -4,6 +4,8 @@ import { MessageService } from 'primeng/api';
 import { ResourcePath } from 'src/app/helper/resource-path';
 import { StoreValueService } from 'src/app/services/store-value.service';
 import { WebRequestService } from 'src/app/services/web-request.service';
+import { ActivatedRoute } from '@angular/router';
+import { HttpParams } from '@angular/common/http';
 
 @Component({
   selector: 'app-course-detail',
@@ -11,26 +13,30 @@ import { WebRequestService } from 'src/app/services/web-request.service';
   styleUrls: ['./course-detail.component.scss']
 })
 export class CourseDetailComponent implements OnInit {
-
-  courseDetail: Course;
+  role: string;
+  courseDetail: Course = { id: '', author: '', code: '', name: '', status: '' };
   id: string;
-  // email: string = this.storeValue.getLocalStorage('email') ?? null;
   constructor(
-    private storeValue: StoreValueService,
     private request: WebRequestService,
-    private messageService: MessageService
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
-    this.getCourseById(this.id);
+    this.id = this.route.snapshot.paramMap.get('id');
+    this.getCourseById();
   }
-
-  getCourseById(id: string) {
+  addEvent(){
+    
+  }
+  getCourseById() {
+    let params = new HttpParams()
+    .set('id', this.id);
     this.request
-      .get(ResourcePath.COURSE, ResourcePath.GET_BY_ID, id)
+      .getWithQuery(params,ResourcePath.COURSE, ResourcePath.GET_BY_ID)
       .subscribe((x) => {
         if (x.status === 200) {
-          // this.courseDetail = x.body;
+          console.log(x);
+          this.courseDetail = x.body as Course;
         }
       });
   }

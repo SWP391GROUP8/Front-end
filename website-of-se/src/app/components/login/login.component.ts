@@ -44,8 +44,8 @@ export class LoginComponent implements OnInit {
       this.authService.login(this.user).subscribe(
         (res) => {
           if (res.status === 200) {
-            console.log(res);
             const decode = jwt_decode(String(res.body['token']));
+            this.storeValue.setLocalStorage('role', res.body['role']);
             this.storeValue.setLocalStorage('email', decode['sub']);
             this.route.navigateByUrl('/home');
           }
@@ -82,5 +82,8 @@ export class LoginComponent implements OnInit {
   });
   get f() {
     return this.form.controls;
+  }
+  getUserInfo(){
+
   }
 }

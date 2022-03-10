@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { ResourcePath } from 'src/app/helper/resource-path';
+import { Course } from 'src/app/modules/admin/admin.model';
+import { WebRequestService } from 'src/app/services/web-request.service';
 
 export interface Semester {
   id: string;
@@ -11,8 +15,11 @@ export interface Semester {
 })
 export class ListCourseComponent implements OnInit {
   semesters: Semester[] = [{ id: null, name: null }];
+  courses: Course[] = [];
+
+  course: Course = { id: '', author: '', code: '', name: '', status: '' };
   selectedSemester: Semester;
-  constructor() {}
+  constructor(private request: WebRequestService, private router: Router) {}
 
   ngOnInit(): void {
     this.semesters = [
@@ -26,7 +33,20 @@ export class ListCourseComponent implements OnInit {
       {name: 8, id: '8'},
       {name: 9, id: '9'}
   ];
-
+  this.getListCourse();
+  }
+  getListCourse(){
+    this.request.get(ResourcePath.COURSE).subscribe(x => {
+      this.courses = x.body as Course[];
+    })
+  }
+  navigateToCourseDetail(id) {
+    this.router.navigate(['/course', id]);
+  }
+  test() {
+    const data = {
+      
+    }
   }
 }
 

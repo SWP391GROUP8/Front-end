@@ -9,6 +9,7 @@ import { WebRequestService } from './web-request.service';
 })
 export class AuthService {
   isLogin: boolean = localStorage.getItem('Authorization') ? true : false;
+  role: string = '';
   constructor(private router: Router, private request: WebRequestService) {}
   isLoggedIn() {
     return this.isLogin;
@@ -21,6 +22,7 @@ export class AuthService {
         tap((res) => {
           this.isLogin = true;
           this.setSession(String(res.body['token']));
+          this.role = String(res.body['role']);
         })
       );
   }
@@ -29,7 +31,9 @@ export class AuthService {
     this.isLogin = false;
     this.router.navigateByUrl('/login');
   }
-
+  getRole() {
+    return this.role;
+  }
   getAccessToken() {
     return localStorage.getItem('Authorization');
   }

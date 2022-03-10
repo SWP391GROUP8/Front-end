@@ -29,6 +29,7 @@ import { MessagesModule } from 'primeng/messages';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { FileUploadModule } from 'primeng/fileupload';
 
+import { TableModule } from 'primeng/table';
 import { DialogModule } from 'primeng/dialog';
 
 
@@ -36,6 +37,7 @@ import { RippleModule } from 'primeng/ripple';
 import { MenuModule } from 'primeng/menu';
 import { TabViewModule } from 'primeng/tabview';
 
+import {ToolbarModule} from 'primeng/toolbar';
 import { AppComponent } from './app.component';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { CommonModule } from '@angular/common';
@@ -84,7 +86,9 @@ const PRIMENG_MODULE = [
   FileUploadModule,
   DialogModule,
   MenuModule,
-  RippleModule
+  RippleModule,
+  TableModule,
+  ToolbarModule
 ];
 @NgModule({
   declarations: [
@@ -113,7 +117,8 @@ const PRIMENG_MODULE = [
     CourseQComponent,
     ListCourseComponent,
     CreateCourseComponent,
-    SidebarComponent
+    SidebarComponent,
+    
   ],
   imports: [
     BrowserModule,
