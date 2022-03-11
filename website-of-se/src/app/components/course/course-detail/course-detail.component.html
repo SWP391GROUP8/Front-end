@@ -21,8 +21,7 @@
                         <app-course-q></app-course-q>
                     </p-tabPanel>
                     <p-tabPanel header="Sự kiện môn học">
-                        <button pButton pRipple label="{{role==='student'?'Tham gia sự kiện':'Tạo sự kiện cho môn học'}}" icon="pi pi-plus"
-                            class="p-button-success p-mr-2" (click)="addEvent()"></button>
+                        <app-course-event></app-course-event>
                     </p-tabPanel>
                 </p-tabView>
             </div>

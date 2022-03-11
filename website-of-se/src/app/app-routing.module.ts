@@ -29,8 +29,8 @@ const routes: Routes = [
       { path: '', component: ListCourseComponent },
       { path: ':id', component: CourseDetailComponent },
     ],
-    data: { role: ['student','instructor'] },
-    canActivate: [AuthGuard],
+    // data: { role: ['student','instructor'] },
+    // canActivate: [AuthGuard],
   },
   {
     path: 'blog',
@@ -39,8 +39,8 @@ const routes: Routes = [
       { path: '', component: ListBlogComponent },
       { path: ':id', component: BlogDetailsComponent },
     ],
-    data: { role: ['student','instructor'] },
-    canActivate: [AuthGuard],
+    // data: { role: ['student','instructor'] },
+    // canActivate: [AuthGuard],
   },
   { path: 'job', component: ManageJobComponent },
   {
