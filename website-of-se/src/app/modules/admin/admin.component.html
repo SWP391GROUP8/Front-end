@@ -1,4 +1,4 @@
-<app-sidebar (activeEvent)="isActive = !isActive" [isActive]="isActive">
+<app-sidebar [navigateList]="navigateList" (activeEvent)="isActive = !isActive" [isActive]="isActive">
 </app-sidebar>
 <div class="sidebar-content" [ngClass]="{
     'sidebar-content__active': isActive

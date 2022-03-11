@@ -36,7 +36,6 @@ import { DialogModule } from 'primeng/dialog';
 import { RippleModule } from 'primeng/ripple';
 import { MenuModule } from 'primeng/menu';
 import { TabViewModule } from 'primeng/tabview';
-import {EditorModule} from 'primeng/editor';
 import {ToolbarModule} from 'primeng/toolbar';
 import { AppComponent } from './app.component';
 import { ConfirmationService, MessageService } from 'primeng/api';
@@ -89,8 +88,7 @@ const PRIMENG_MODULE = [
   MenuModule,
   RippleModule,
   TableModule,
-  ToolbarModule,
-  EditorModule
+  ToolbarModule
 ];
 @NgModule({
   declarations: [
@@ -121,7 +119,6 @@ const PRIMENG_MODULE = [
     CreateCourseComponent,
     SidebarComponent,
     CompanyComponent,
-    
   ],
   imports: [
     BrowserModule,

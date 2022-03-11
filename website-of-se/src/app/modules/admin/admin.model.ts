@@ -24,3 +24,10 @@ export class Role {
     id: string;
     name: string;
 }
+export class NavigationLink {
+    id: number;
+    icon: string;
+    name: string;
+    link: string;
+    isHightLight: boolean;
+  }
