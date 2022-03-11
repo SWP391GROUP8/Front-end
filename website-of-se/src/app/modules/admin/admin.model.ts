@@ -6,11 +6,12 @@ export class Course {
   status: string;
 }
 export class Blog {
-  id: string;
-  title: string;
-  content: string;
-  status: string;
-  reaction: number;
+    id: string;
+    title: string;
+    content: string;
+    status: string;
+    reaction: number;
+    author: string;
 }
 export class Account {
   email: string;

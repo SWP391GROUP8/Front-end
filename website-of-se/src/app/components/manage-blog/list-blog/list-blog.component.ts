@@ -11,8 +11,10 @@ import { BlogManagement } from '../blog.model';
 })
 export class ListBlogComponent implements OnInit {
   listBlog: BlogManagement[] = [];
-  constructor(private route: Router,
-    private request: WebRequestService) {}
+  constructor(
+    private route: Router,
+    private request: WebRequestService
+  ) {}
 
   ngOnInit(): void {
     this.getListBlog();
@@ -22,7 +24,12 @@ export class ListBlogComponent implements OnInit {
       this.listBlog = x.body as BlogManagement[];
     })
   }
-  navigateToCustomerDetail(id: string) {
+  navigateToBlogDetail(id: string) {
     this.route.navigate(['/blog', id]);
+  }
+
+  navigateToCreateBlog() {
+    console.log('clicked');
+    this.route.navigate(['/blog/createBlog']);
   }
 }
