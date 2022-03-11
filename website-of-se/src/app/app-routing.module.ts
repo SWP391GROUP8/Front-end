@@ -1,3 +1,4 @@
+import { CreateBlogComponent } from './components/manage-blog/create-blog/create-blog.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './auth/auth.guard';
@@ -21,6 +22,7 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'profile', component: ProfileComponent },
   { path: 'home', component: HomeComponent },
+  { path: 'test', component: CreateBlogComponent },
 
   {
     path: 'course',
@@ -28,6 +30,7 @@ const routes: Routes = [
     children: [
       { path: '', component: ListCourseComponent },
       { path: ':id', component: CourseDetailComponent },
+      { path: 'createBlog', component: CreateBlogComponent },
     ],
     data: { role: ['student','instructor'] },
     canActivate: [AuthGuard],

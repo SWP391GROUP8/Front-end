@@ -1,3 +1,4 @@
+import { CreateBlogComponent } from './components/manage-blog/create-blog/create-blog.component';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -66,6 +67,7 @@ import { CourseQComponent } from './components/course/course-q/course-q.componen
 import { ListCourseComponent } from './components/course/list-course/list-course.component';
 import { CreateCourseComponent } from './components/course/create-course/create-course.component';
 import { SidebarComponent } from './modules/admin/sidebar/sidebar.component';
+
 const PRIMENG_MODULE = [
   PasswordModule,
   InputTextModule,
@@ -118,7 +120,7 @@ const PRIMENG_MODULE = [
     ListCourseComponent,
     CreateCourseComponent,
     SidebarComponent,
-    
+    CreateBlogComponent,
   ],
   imports: [
     BrowserModule,

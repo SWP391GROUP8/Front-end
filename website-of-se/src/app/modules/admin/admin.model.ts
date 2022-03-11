@@ -11,6 +11,7 @@ export class Blog {
     content: string;
     status: string;
     reaction: number;
+    author: string;
 }
 export class Account {
     email: string;

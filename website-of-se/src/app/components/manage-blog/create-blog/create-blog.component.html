@@ -1,0 +1,27 @@
+
+<p-toast></p-toast>
+<app-header></app-header>
+<div class="w-full max-h-full min-h-screen bg-gray-100">
+  <div class="w-4/5 h-full m-auto bg-white py-10 px-36 ">
+    <div class="w-full flex">
+      <p class="w-full text-center font-bold text-2xl mb-10">Đăng bài viết</p>
+    </div>
+    <div class="w-full">
+      <div class="py-4">
+        <p class="font-bold">Tiêu đề:</p>
+        <input class="w-full" type="text" pInputText [(ngModel)]="title" autofocus />
+        <small class="p-invalid text-red-500" *ngIf="submitted && !title">Vui lòng nhập tiêu đề.</small>
+      </div>
+      <div class="py-4">
+        <p class="font-bold">Nội dung:</p>
+        <textarea pInputTextarea class="w-full" [(ngModel)]="content" autofocus></textarea>
+        <small class="p-invalid text-red-500" *ngIf="submitted && !content">Vui lòng nhập tiêu đề.</small>
+      </div>
+      <div class="py-4">
+        <button type="button" class="btn float-right w-2/12 p-1 h-10" (click)="submit()">
+          Đăng
+        </button>
+    </div>
+    </div>
+  </div>
+</div>

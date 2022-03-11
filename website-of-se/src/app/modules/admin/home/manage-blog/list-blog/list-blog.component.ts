@@ -24,7 +24,7 @@ export class ListBlogComponent implements OnInit {
 
   products: Blog[] = [];
 
-  product: Blog = { id: '', title: '', content: '', status: '', reaction: null };
+  product: Blog = { id: '', title: '', content: '', status: '', reaction: null, author: '' };
   statuses: any[]
   selectedProducts: Blog[];
 
@@ -40,7 +40,7 @@ export class ListBlogComponent implements OnInit {
     this.statuses = [{ label: '1', value: 'Actived' }, { label: '2', value: 'Deactived' }]
   }
   openNew() {
-    this.product = { id: '', title: '', content: '', status: '', reaction: 0 };
+    this.product = { id: '', title: '', content: '', status: '', reaction: 0, author: 'admin' };
     this.submitted = false;
     this.productDialog = true;
   }
@@ -125,6 +125,7 @@ export class ListBlogComponent implements OnInit {
   getListBlog() {
     this.request.get(ResourcePath.BLOG).subscribe(x => {
       this.products = x.body as Blog[];
+      console.log(this.products);
     })
   }
   createId(): string {
