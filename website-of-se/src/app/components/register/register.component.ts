@@ -51,7 +51,7 @@ export class RegisterComponent implements OnInit {
         confirmPassword: this.user.confirmPassword,
         email: this.user.email,
         password: this.user.password,
-        roleId: 'student'
+        roleId: '3'
       }
       this.request.post(data, ResourcePath.USER).subscribe(x => {
         console.log(x);

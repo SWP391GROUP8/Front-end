@@ -37,11 +37,10 @@ import { DialogModule } from 'primeng/dialog';
 import { RippleModule } from 'primeng/ripple';
 import { MenuModule } from 'primeng/menu';
 import { TabViewModule } from 'primeng/tabview';
-
 import {ToolbarModule} from 'primeng/toolbar';
 import { AppComponent } from './app.component';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
 import { LoginComponent } from './components/login/login.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
@@ -67,6 +66,9 @@ import { CourseQComponent } from './components/course/course-q/course-q.componen
 import { ListCourseComponent } from './components/course/list-course/list-course.component';
 import { CreateCourseComponent } from './components/course/create-course/create-course.component';
 import { SidebarComponent } from './modules/admin/sidebar/sidebar.component';
+
+import { CompanyComponent } from './modules/company/company.component';
+import { CourseEventComponent } from './components/course/course-event/course-event.component';
 
 const PRIMENG_MODULE = [
   PasswordModule,
@@ -121,6 +123,9 @@ const PRIMENG_MODULE = [
     CreateCourseComponent,
     SidebarComponent,
     CreateBlogComponent,
+    CompanyComponent,
+    CourseEventComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -143,6 +148,7 @@ const PRIMENG_MODULE = [
   providers: [
     MessageService,
     ConfirmationService,
+    DatePipe,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
   ],
 

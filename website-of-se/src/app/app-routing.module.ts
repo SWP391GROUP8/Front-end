@@ -16,7 +16,7 @@ import { ManageJobComponent } from './components/manage-job/manage-job.component
 import { ListCourseComponent } from './components/course/list-course/list-course.component';
 import { CourseDetailComponent } from './components/course/course-detail/course-detail.component';
 const routes: Routes = [
-  { path: '', redirectTo: 'admin', pathMatch: 'full' },
+  { path: '', redirectTo: 'company', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'forgotpassword', component: ForgotPasswordComponent },
   { path: 'register', component: RegisterComponent },
@@ -32,8 +32,8 @@ const routes: Routes = [
       { path: ':id', component: CourseDetailComponent },
       { path: 'createBlog', component: CreateBlogComponent },
     ],
-    data: { role: ['student','instructor'] },
-    canActivate: [AuthGuard],
+    // data: { role: ['student','instructor'] },
+    // canActivate: [AuthGuard],
   },
   {
     path: 'blog',
@@ -42,14 +42,21 @@ const routes: Routes = [
       { path: '', component: ListBlogComponent },
       { path: ':id', component: BlogDetailsComponent },
     ],
-    data: { role: ['student','instructor'] },
-    canActivate: [AuthGuard],
+    // data: { role: ['student','instructor'] },
+    // canActivate: [AuthGuard],
   },
   { path: 'job', component: ManageJobComponent },
   {
     path: 'admin',
     loadChildren: () =>
       import('./modules/admin/admin.module').then((m) => m.AdminModule),
+    // data: { role: ['admin'] },
+    // canActivate: [AuthGuard],
+  },
+  {
+    path: 'company',
+    loadChildren: () =>
+      import('./modules/company/company.module').then((m) => m.CompanyModule),
     // data: { role: ['admin'] },
     // canActivate: [AuthGuard],
   },

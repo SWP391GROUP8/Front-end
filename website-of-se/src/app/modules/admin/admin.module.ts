@@ -1,5 +1,3 @@
-import { ListBlogComponent } from './home/manage-blog/list-blog/list-blog.component';
-import { ListAccountComponent } from './home/manage-account/list-account/list-account.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HomeComponent } from './home/home.component';
@@ -37,6 +35,8 @@ import { ListCourseComponent } from './home/manage-course/list-course/list-cours
 import { ListEventComponent } from './home/manage-course/list-event/list-event.component';
 import { FormsModule } from '@angular/forms';
 import { TableModule } from 'primeng/table';
+import { ListAccountComponent } from './home/manage-account/list-account/list-account.component';
+import { ListBlogComponent } from './home/manage-blog/list-blog/list-blog.component';
 
 const PRIMENG_MODULE = [
   PasswordModule,
@@ -75,9 +75,8 @@ const PRIMENG_MODULE = [
     ManageBlogComponent,
     ListCourseComponent,
     ListEventComponent,
-    ListBlogComponent,
     ListAccountComponent,
-    
+    ListBlogComponent
   ],
   imports: [
     CommonModule,

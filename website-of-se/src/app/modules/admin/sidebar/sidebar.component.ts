@@ -1,13 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
+import { NavigationLink } from '../admin.model';
 
-class NavigationLink {
-  id: number;
-  icon: string;
-  name: string;
-  link: string;
-  isHightLight: boolean;
-}
+
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
@@ -15,34 +10,12 @@ class NavigationLink {
 })
 export class SidebarComponent implements OnInit {
   @Input() isActive: boolean = true;
-  navigateList: NavigationLink[] = [];
+  @Input() navigateList: NavigationLink[] = [];
   @Output() activeEvent = new EventEmitter<void>();
   constructor(private authService : AuthService) { }
 
   ngOnInit(): void {
-    this.navigateList = [
-      {
-        id: 1,
-        icon: 'fa fa-users',
-        name: 'Quản lý tài khoản',
-        link: '/admin/manage-account',
-        isHightLight: false,
-      },
-      {
-        id: 2,
-        icon: 'fab fa-blogger',
-        name: 'Quản lý blog',
-        link: '/admin/manage-blog',
-        isHightLight: false,
-      },
-      {
-        id: 3,
-        icon: 'fas fa-book',
-        name: 'Quản lý môn học',
-        link: '/admin/manage-course',
-        isHightLight: false,
-      },
-    ];
+    
   }
   changePage(id: number) {
     this.navigateList.forEach((link) => {
