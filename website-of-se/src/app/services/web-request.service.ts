@@ -27,6 +27,18 @@ export class WebRequestService {
       }
     );
   }
+
+  postWithTextResponse(payload: object, ...path) {
+    return this.http.post(
+      this.ROOT_URL + CommonFunction.convertPathArrToString(path),
+      payload
+      ,
+      {
+        observe: 'response',
+        responseType: 'text'
+      }
+    );
+  }
   delete(...path) {
     return this.http.delete(
       this.ROOT_URL + CommonFunction.convertPathArrToString(path),

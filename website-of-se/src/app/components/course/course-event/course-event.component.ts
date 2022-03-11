@@ -54,7 +54,7 @@ export class CourseEventComponent implements OnInit {
         this.event.createdBy
       ]
     }
-    this.request.post(data,ResourcePath.SCHEDULE,ResourcePath.SCHEDULE_ADD_USER).subscribe(x => {
+    this.request.postWithTextResponse(data,ResourcePath.SCHEDULE,ResourcePath.SCHEDULE_ADD_USER).subscribe(x => {
       console.log(x);
     })
   }
@@ -75,6 +75,7 @@ export class CourseEventComponent implements OnInit {
         this.event.status = 'OPEN';
         this.request.post(this.event, ResourcePath.SCHEDULE).subscribe((x) => {
           console.log(x);
+          this.isDisplay = false;
           this.getListSchedule();
         });
         console.log(this.event);
