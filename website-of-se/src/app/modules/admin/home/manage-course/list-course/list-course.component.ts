@@ -37,8 +37,8 @@ export class ListCourseComponent implements OnInit {
 
   ngOnInit(): void {
     this.getListCourse();
-    this.email = localStorage.getItem('email') ?? null
-    this.statuses = [{ label: '1', value: 'Actived' }, { label: '2', value: 'Deactived' }]
+    this.email = localStorage.getItem('email').replace(/\"/g,"") ?? null;
+    this.statuses = [{ label: '1', value: 'Actived' }, { label: '2', value: 'Deactived' }];
   }
   openNew() {
     this.product = { id: '', author: '', code: '', name: '', status: '' };
