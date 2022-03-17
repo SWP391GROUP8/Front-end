@@ -15,7 +15,6 @@ export class ManageJobComponent implements OnInit {
   jobId: string = null;
   
   constructor(
-    private route: Router,
     private request: WebRequestService
     ) {}
 
@@ -39,9 +38,5 @@ export class ManageJobComponent implements OnInit {
   onHide(){
     this.jobId = null;
     this.isDisplay = false;
-  }
-
-  navigateToCreateBlog() {
-    this.route.navigate(['/createJob']);
   }
 }

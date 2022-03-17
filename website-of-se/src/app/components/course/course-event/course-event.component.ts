@@ -14,10 +14,11 @@ import { HttpParams } from '@angular/common/http';
 })
 export class CourseEventComponent implements OnInit {
   isDisplay: boolean = false;
-  role: string = 'INSTRUCTOR';
+  role: string = localStorage.getItem('role') ?? null;
   listSchedule: Schedule[];
   selectedProducts: any[];
   startTime: Date = null;
+  email: string;
   endTime: Date = null;
   event: Schedule = {
     content: null,
@@ -32,13 +33,13 @@ export class CourseEventComponent implements OnInit {
   constructor(
     private request: WebRequestService,
     private route: ActivatedRoute,
-    private storeValue: StoreValueService,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private sValue: StoreValueService
   ) {}
 
   ngOnInit(): void {
     this.event.courseId = this.route.snapshot.paramMap.get('id');
-    this.event.createdBy = this.storeValue.getLocalStorage('email') ?? null;
+    this.email = this.sValue.getLocalStorage('email') ?? null;
     this.getListSchedule();
   }
   showDialog() {
@@ -46,19 +47,21 @@ export class CourseEventComponent implements OnInit {
       this.isDisplay = true;
     }
   }
-  joinEvent(event){
+  joinEvent(event) {
     console.log(event);
     const data = {
       scheduleId: event,
-      userIdList: [
-        this.event.createdBy
-      ]
-    }
-    this.request.postWithTextResponse(data,ResourcePath.SCHEDULE,ResourcePath.SCHEDULE_ADD_USER).subscribe(x => {
-      console.log(x);
-    })
+      userIdList: [this.email],
+    };
+    this.request
+      .postWithTextResponse(
+        data,
+        ResourcePath.SCHEDULE,
+        ResourcePath.SCHEDULE_ADD_USER
+      )
   }
   addEvent() {
+    this.event.createdBy = this.email;
     this.event.startTime = this.datePipe.transform(
       this.startTime,
       'dd/MM/yyyy'
@@ -74,7 +77,6 @@ export class CourseEventComponent implements OnInit {
         this.event.id = this.createId();
         this.event.status = 'OPEN';
         this.request.post(this.event, ResourcePath.SCHEDULE).subscribe((x) => {
-          console.log(x);
           this.isDisplay = false;
           this.getListSchedule();
         });
@@ -93,6 +95,8 @@ export class CourseEventComponent implements OnInit {
       )
       .subscribe((x) => {
         this.listSchedule = x.body as Schedule[];
+        console.log(this.listSchedule);
+        
       });
   }
 

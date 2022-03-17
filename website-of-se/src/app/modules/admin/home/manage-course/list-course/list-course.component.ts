@@ -27,7 +27,7 @@ export class ListCourseComponent implements OnInit {
   product: Course = { id: '', author: '', code: '', name: '', status: '' };
   statuses: any[]
   selectedProducts: Course[];
-
+  email: string;
   submitted: boolean;
   constructor(
     private messageService: MessageService,
@@ -37,6 +37,7 @@ export class ListCourseComponent implements OnInit {
 
   ngOnInit(): void {
     this.getListCourse();
+    this.email = localStorage.getItem('email') ?? null
     this.statuses = [{ label: '1', value: 'Actived' }, { label: '2', value: 'Deactived' }]
   }
   openNew() {
@@ -46,7 +47,7 @@ export class ListCourseComponent implements OnInit {
   }
   deleteSelectedProducts() {
     this.cfService.confirm({
-      message: 'Bạn có chắc muốn xóa những môn học này?',
+      message: 'Bạn có chắc muốn xóa môn học này?',
       header: 'Confirm',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
@@ -97,6 +98,7 @@ export class ListCourseComponent implements OnInit {
   saveProduct() {
     this.submitted = true;
     if (this.product.name.trim()) {
+      this.product.author = this.email;
       if (this.product.id) {
         this.request.put(this.product, null, ResourcePath.COURSE).subscribe(x => {
           if (x.status === 200) {
@@ -110,6 +112,7 @@ export class ListCourseComponent implements OnInit {
           }
         })
       } else {
+        this.product.status = 'ACTIVE';
         this.product.id = this.createId();
         this.request.post(this.product, ResourcePath.COURSE).subscribe(x => {
           if (x.status === 200) {
@@ -130,6 +133,8 @@ export class ListCourseComponent implements OnInit {
   getListCourse() {
     this.request.get(ResourcePath.COURSE, ResourcePath.GET_ALL).subscribe(x => {
       this.products = x.body as Course[];
+      console.log(this.products);
+      
     })
   }
   createId(): string {

@@ -83,7 +83,7 @@ export class CourseResourceComponent implements OnInit {
           courseId: this.courseId,
           fileId: x.body['id'],
         };
-        this.request.post(data, ResourcePath.COURSE_RESOURCE).subscribe((y) => {
+        this.request.post(data, ResourcePath.COURSE_RESOURCE, ResourcePath.COURSE_RESOURCE_CREATE).subscribe((y) => {
           if (y.status === 200) {
             this.messageService.add({
               severity: 'success',

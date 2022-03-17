@@ -59,8 +59,9 @@ const routes: Routes = [
     component: ManageBlogComponent,
     children: [
       { path: '', component: ListBlogComponent },
+      { path: 'create', component: CreateBlogComponent },
       { path: ':id', component: BlogDetailsComponent },
-      { path: 'createBlog', component: CreateBlogComponent },
+      
     ],
     data: { role: ['STUDENT', 'INSTRUCTOR'] },
     canActivate: [AuthGuard],
@@ -70,7 +71,6 @@ const routes: Routes = [
     component: ManageJobComponent,
     children: [
       { path: '', component: ManageJobComponent },
-      { path: ':id', component: BlogDetailsComponent },
       { path: 'createJob', component: CreateJobComponent },
     ],
   },

@@ -19,7 +19,9 @@ export class ResourcePath {
 
   //COURSE
   public static readonly COURSE = 'course';
-
+  public static readonly COURSE_QA = 'course-q&a';
+  public static readonly COURSE_QA_CREATE = 'create-course-q&a';
+  
   //Common
   public static readonly GET_BY_ID = 'get-by-id';
   public static readonly GET_ALL = 'get-all';
@@ -28,6 +30,7 @@ export class ResourcePath {
   //Blog
   public static readonly BLOG = 'blog';
   public static readonly COURSE_RESOURCE = 'resource';
+  public static readonly COURSE_RESOURCE_CREATE = 'create-resourse';
 
   //Shcedules
   public static readonly SCHEDULE = 'schedule';
