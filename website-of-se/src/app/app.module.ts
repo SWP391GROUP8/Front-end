@@ -1,3 +1,4 @@
+import { CreateJobComponent } from './components/manage-job/create-job/create-job.component';
 import { CreateBlogComponent } from './components/manage-blog/create-blog/create-blog.component';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -125,7 +126,7 @@ const PRIMENG_MODULE = [
     CreateBlogComponent,
     CompanyComponent,
     CourseEventComponent,
-
+    CreateJobComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,3 +1,6 @@
+import { HttpParams } from '@angular/common/http';
+import { ResourcePath } from './../../../helper/resource-path';
+import { WebRequestService } from './../../../services/web-request.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { is } from 'date-fns/locale';
@@ -20,26 +23,41 @@ export class BlogDetailsComponent implements OnInit {
     status: null,
     title: null,
   };
-  constructor(private route: ActivatedRoute) {}
+  constructor(private route: ActivatedRoute,
+    private request: WebRequestService
+    ) {}
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
     console.log(id);
-    this.blog = {
-      authorId: 'Tri Huynh',
-      commentId: 'null',
-      content:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi gravida rutrum odio vitae maximus. Nulla facilisi. Proin lorem ipsum, rutrum et auctor id, mattis vitae ante. Nulla dapibus, elit in rhoncus sollicitudin, metus tellus vestibulum arcu, vitae sollicitudin odio nisi eu ante. Pellentesque pellentesque, erat eu euismod posuere, lorem tortor mollis turpis, nec accumsan magna tortor fermentum tellus. Sed facilisis, est non consectetur posuere, ex augue tempus orci, eu consectetur nisi dolor eget neque. Ut sed cursus risus. Aenean non tincidunt nulla. Morbi pharetra turpis maximus tempor volutpat. Aliquam congue scelerisque pharetra. Sed fringilla massa non eros imperdiet, et convallis velit vehicula. Duis volutpat ligula quam, id commodo ante commodo commodo. In a risus at libero euismod imperdiet. Mauris non tincidunt justo. Sed bibendum, nibh ac malesuada dapibus, libero metus scelerisque elit, non luctus arcu diam cursus urna.',
-      id: '1',
-      reaction: 5,
-      status: 'Open',
-      title: 'Test Title',
-    };
+    this.getBlogDetails(id);
   }
+
+  getBlogDetails(id: string){
+    let params = new HttpParams()
+    .set('id', id);
+    this.request.getWithQuery(params, ResourcePath.BLOG, ResourcePath.GET_BY_ID).subscribe(x => {
+      this.blog = x.body as BlogManagement;
+      console.log('Before: ' + this.blog.reaction);
+    })
+  }
+
+  updateBlog(){
+    console.log('Update: ' + this.blog.reaction);
+    this.request.put(this.blog, {}, ResourcePath.BLOG).subscribe(x => {
+      if (x.status === 200) {
+        console.log('Success!');
+      } else {
+        console.log('Failed!');
+      }
+    });
+  }
+
   reaction() {
     if (this.isLike === false) {
       this.isLike = true;
       this.blog.reaction += 1;
+      // this.updateBlog();
     } else {
       this.isLike = false;
       this.blog.reaction-= 1;

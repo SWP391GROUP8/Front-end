@@ -17,17 +17,21 @@ export class ResourcePath {
 
   //COURSE
   public static readonly COURSE = 'course';
-  //SCHEDULE
-  public static readonly SCHEDULE = 'schedule';
-  public static readonly SCHEDULE_ADD_USER = 'add-user';
-  
+
   //Common
   public static readonly GET_BY_ID = 'get-by-id';
   public static readonly GET_ALL = 'get-all';
-  
   public static readonly GET_BY_COURSE_ID = 'get-by-course-id';
 
   //Blog
   public static readonly BLOG = 'blog';
   public static readonly COURSE_RESOURCE = 'resource';
+
+  //Shcedules
+  public static readonly SCHEDULE = 'schedule';
+  public static readonly SCHEDULE_ADD_USER = 'add-user';
+
+  //Job
+  public static readonly JOB = 'job-posting';
+
 }

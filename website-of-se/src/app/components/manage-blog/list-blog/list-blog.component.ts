@@ -22,6 +22,7 @@ export class ListBlogComponent implements OnInit {
   getListBlog() {
     this.request.get(ResourcePath.BLOG).subscribe(x => {
       this.listBlog = x.body as BlogManagement[];
+      this.listBlog.reverse();
     })
   }
   navigateToBlogDetail(id: string) {
@@ -29,7 +30,6 @@ export class ListBlogComponent implements OnInit {
   }
 
   navigateToCreateBlog() {
-    console.log('clicked');
-    this.route.navigate(['/blog/createBlog']);
+    this.route.navigate(['/createBlog']);
   }
 }

@@ -1,0 +1,89 @@
+
+<p-toast></p-toast>
+<app-header></app-header>
+<div class="w-full max-h-full min-h-screen bg-gray-100">
+  <div class="w-4/5 h-full m-auto bg-white py-10 px-36 ">
+    <div class="w-full flex">
+      <p class="w-full text-center font-bold text-2xl mb-10">Tạo công việc</p>
+    </div>
+    <div class="w-full">
+      <div class="py-4">
+        <p class="font-bold">Tiêu đề<span class="text-red-500">*</span>:</p>
+        <input 
+          class="w-full" 
+          type="text" 
+          pInputText 
+          [(ngModel)]="title" 
+          autofocus
+          placeholder="Ex: Sr. Python Dev – Signing Bonus Up to 50M"
+        />
+        <small class="p-invalid text-red-500" *ngIf="submitted && !title">Vui lòng nhập tiêu đề.</small>
+      </div>
+      <div class="py-4">
+        <p class="font-bold">Nội dung<span class="text-red-500">*</span>:</p>
+        <textarea pInputTextarea class="w-full" [(ngModel)]="content"></textarea>
+        <small class="p-invalid text-red-500" *ngIf="submitted && !content">Vui lòng nhập nội dung.</small>
+      </div>
+      <div class="py-4">
+        <p class="font-bold">Địa điểm làm việc<span class="text-red-500">*</span>:</p>
+        <input 
+          class="w-full" 
+          type="text" 
+          pInputText 
+          [(ngModel)]="city"
+          placeholder="Ex: Ho Chi Minh city"
+        />
+        <small class="p-invalid text-red-500" *ngIf="submitted && !city">Vui lòng nhập địa điểm làm việc.</small>
+      </div>
+      <div class="py-4">
+        <p class="font-bold">Địa chỉ cụ thể<span class="text-red-500">*</span>:</p>
+        <input 
+          class="w-full" 
+          type="text" 
+          pInputText 
+          [(ngModel)]="address"
+          placeholder="Ex: FPT Software Đường D1 Phường Tân Phú , District 9, Ho Chi Minh City"
+        />
+        <small class="p-invalid text-red-500" *ngIf="submitted && !address">Vui lòng nhập địa chỉ cụ thể.</small>
+      </div>
+      <div class="py-4">
+        <p class="font-bold">E-mail liên hệ:</p>
+        <input 
+          class="w-full" 
+          type="text" 
+          pInputText 
+          [(ngModel)]="mail"
+          placeholder="Ex: abc@gmail.com"
+        />
+        <small class="p-invalid text-red-500" *ngIf="submitted && !mail">Vui lòng nhập e-mail liên hệ.</small>
+      </div>
+      <div class="py-4">
+        <p class="font-bold">Số điện thoại liên hệ:</p>
+        <input 
+          class="w-full" 
+          type="text" 
+          pInputText 
+          [(ngModel)]="phoneNumber"
+          placeholder="Ex: 0987654321"
+        />
+        <small class="p-invalid text-red-500" *ngIf="submitted && !phoneNumber">Vui lòng nhập số điện thoại liên hệ.</small>
+      </div>
+      <div class="py-4">
+        <p class="font-bold">Trạng thái tuyển dụng<span class="text-red-500">*</span>:</p>
+        <p-dropdown 
+          [options]="listStatus" 
+          [(ngModel)]="status" 
+          placeholder="Vui lòng chọn trạng thái tuyển dụng" 
+          optionLabel="name" 
+          [showClear]="true"
+        ></p-dropdown>
+        <small class="p-invalid text-red-500" *ngIf="submitted && !status">Vui lòng chọn trạng thái.</small>
+      </div>
+      <div class="py-4">
+        <button type="button" class="btn float-right w-2/12 p-1 h-10" (click)="submit()">
+          Đăng
+        </button>
+    </div>
+    </div>
+  </div>
+</div>

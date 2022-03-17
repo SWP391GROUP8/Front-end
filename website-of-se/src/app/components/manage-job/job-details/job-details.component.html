@@ -1,7 +1,11 @@
-<div>
+<div *ngIf="isLoading===false">
     <p class="font-bold text-lg">{{job.title}}</p>
-    <p class="mb-8">{{job.companyName}}</p>
-    <p>{{job.jobDesc}}</p>
+    <p>Ngày đăng: {{job.createDate}}</p>
+    <p class="mb-8">
+        Trạng thái: 
+        <span class="font-bold" [style]="job.status==='Hiring' ? 'color:green' : 'color:red'">{{job.status==='Hiring' ? 'Đang tuyển dụng' : 'Đã đóng đơn'}}</span>
+    </p>
+    <p>{{job.content}}</p>
     <div class="mt-8 inline-grid">
         <span>
             <i class="fas fa-map-marker-alt mr-2"></i>
@@ -9,7 +13,11 @@
         </span>
         <span>
             <i class="fas fa-phone mr-1"></i>
-            {{job.phone}}
+            {{job.phoneNumber}}
+        </span>
+        <span>
+            <i class="fas fa-envelope"></i>
+            {{job.mail}}
         </span>
     </div>
 </div>
