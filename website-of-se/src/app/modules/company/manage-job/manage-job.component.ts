@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { MenuItem } from 'primeng/api';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-manage-job',
@@ -7,9 +8,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ManageJobComponent implements OnInit {
 
-  constructor() { }
+  @ViewChild('menuItems') menu: MenuItem[];
+  items: MenuItem[];
+  activeItem: MenuItem;
+  constructor() {}
 
   ngOnInit(): void {
+    this.items = [
+      { id: '1', label: 'Bài viết' },
+      { id: '2', label: '...' },
+    ];
+    this.activeItem = this.items[0];
+  }
+  activateMenu() {
+    this.activeItem = this.menu['activeItem'];
   }
 
 }
