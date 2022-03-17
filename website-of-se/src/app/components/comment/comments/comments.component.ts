@@ -50,39 +50,9 @@ export class CommentsComponent implements OnInit, OnChanges{
     this.countComments.emit(this.postComment);
   }
 
-  replyComment(index) {
-    this.loadComponent = true;
-    const myFactory = this.resolver.resolveComponentFactory(ChildboxComponent);
-    if (this.entry.toArray()[index].viewContainerRef.length <= 0 ) {
-      const myRef = this.entry.toArray()[index].viewContainerRef.createComponent(myFactory);
-      myRef.instance['commentNo'] = index;
-      myRef.changeDetectorRef.detectChanges();
-      myRef.instance.userReplycomment.subscribe(
-        data => {
-          console.log('Piyali=>', data);
-          this.receiveReplyComment(data, index);
-        }
-      );
-      myRef.instance.deletNo.subscribe(
-        no => {
-          myRef.destroy();
-        }
-      );
-    }
-  }
+  
 
-  receiveReplyComment($event, i) {
-    this.reply = $event;
-    console.log($event);
-    this.postComment.forEach((element) => {
-      if (element['commentId'] === i) {
-        element['replyComment'].push(...$event);
-        console.log('Main array after reply comment=>', this.postComment);
-      }
-    });
-    console.log(this.reply);
-    this.loadComponent = false;
-  }
+ 
 
 
 }

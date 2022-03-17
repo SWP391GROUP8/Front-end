@@ -14,32 +14,9 @@
                 <div class="actions my-2">
                     <span>{{post.currentDate | date: 'dd/MM/yyyy'}}</span>
                     <span class="divider"></span>
-                    <button class="btn btn-sm btn-info" (click)="replyComment(i)">
-                        Phản hồi
-                    </button>
-                    <span class="divider"></span>
                     <button class="btn btn-sm btn-danger" (click)="removeComment(i)">
                         <i class="fa fa-trash"></i>
                     </button>
-                </div>
-                <div class="childCommentBox">
-                    <div datacontainer></div>
-                    <ul *ngIf="post?.replyComment?.length>0">
-                        <li *ngFor="let rl of post.replyComment">
-                            <div class="col-12 col-sm-12 comment-container">
-                                <div class="flex">
-                                    <img class="mr-3" width="30" height="30" src="../../../../assets/img/member-avatar-01.png" />
-                                    <div>
-                                        <p class="font-bold">Tri Huynh</p>
-                                        <p>{{rl.commentTxt}}</p>  
-                                    </div>
-                                </div>
-                                <div class="actions">
-                                    <span>{{rl.currentDate | date: 'dd/MM/yyyy'}}</span>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
                 </div>
             </div>
         </li>

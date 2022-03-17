@@ -13,6 +13,8 @@ export class ResourcePath {
   //COMPANY
   public static readonly COMPANY = 'companies';
 
+  //COMPANY
+  public static readonly COMMENT = 'comment';
   //FILE
   public static readonly FILE = 'file';
   public static readonly FILE_STATUS = 'files/status';

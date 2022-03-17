@@ -17,6 +17,7 @@ import { ManageJobComponent } from './components/manage-job/manage-job.component
 import { ListCourseComponent } from './components/course/list-course/list-course.component';
 import { CourseDetailComponent } from './components/course/course-detail/course-detail.component';
 import { NotAllowedComponent } from './components/not-allowed/not-allowed.component';
+import { CourseQaDetailComponent } from './components/course/course-q/course-qa-detail/course-qa-detail.component';
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
@@ -50,6 +51,10 @@ const routes: Routes = [
     children: [
       { path: '', component: ListCourseComponent },
       { path: ':id', component: CourseDetailComponent },
+      {
+        path: ':id/course-q&a/:qaID',
+        component: CourseQaDetailComponent,
+      },
     ],
     data: { role: ['STUDENT', 'INSTRUCTOR'] },
     canActivate: [AuthGuard],
@@ -61,6 +66,7 @@ const routes: Routes = [
       { path: '', component: ListBlogComponent },
       { path: 'create', component: CreateBlogComponent },
       { path: ':id', component: BlogDetailsComponent },
+      
       
     ],
     data: { role: ['STUDENT', 'INSTRUCTOR'] },

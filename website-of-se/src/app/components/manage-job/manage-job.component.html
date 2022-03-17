@@ -1,58 +1,66 @@
 <app-header></app-header>
-<div class="w-full bg-gray-100">
-    <div class="w-4/5 m-auto bg-white py-10 px-36">
-        <div class="w-full relative">
-            <p class="w-full text-center font-bold text-2xl mb-10">Danh sách công việc</p>
-            <!-- <button 
-                type="button" 
-                class="btn w-2/12 p-1 h-10 truncate right-0 top-0 absolute z-10" 
-                (click)="navigateToCreateBlog()"
-            >
-                <i class="fas fa-plus text-white pr-1"></i>
-                Thêm công việc
-            </button> -->
-        </div>
-        <div class="p-grid">
-            <div 
-                *ngFor="let job of listJob" 
-                class="p-col-12 p-md-6 p-lg-5 mx-10 min-h-full 
-                my-4 border-2 border-solid border-gray-200 
-                rounded-xl cursor-pointer hover:shadow-xl transition-all
-                hover:scale-105"
-                (click)="openJobDetail(job.id)" style="padding: 0 !important;"
-            >
-                <div class="px-4 py-6">
-                    <div class="flex relative">
-                        <p class="font-bold text-lg">{{job.title}}</p>
-                        <div class="text-sm absolute right-0">
-                            <button class="btn">Chi tiết</button>
+
+<div class="p-12">
+    <div class="w-full bg-gray-100">
+        <div class="w-4/5 m-auto bg-white py-10 px-36">
+            <div>
+                <p-tabMenu #menuItems [model]="items" [activeItem]="activeItem" (click)="activateMenu()">
+                    <ng-template pTemplate="item" let-item let-i="index">
+                        {{ item.label}}
+                    </ng-template>
+                </p-tabMenu>
+            </div>
+            <div *ngIf="activeItem.id === '1'">
+
+                <div class="w-full relative">
+                    <p class="w-full text-center font-bold text-2xl mb-10">Danh sách công việc</p>
+                    <!-- <button 
+                        type="button" 
+                        class="btn w-2/12 p-1 h-10 truncate right-0 top-0 absolute z-10" 
+                        (click)="navigateToCreateBlog()"
+                    >
+                        <i class="fas fa-plus text-white pr-1"></i>
+                        Thêm công việc
+                    </button> -->
+                </div>
+                <div class="p-grid">
+                    <div *ngFor="let job of listJob" class="p-col-12 p-md-6 p-lg-5 mx-10 min-h-full 
+                        my-4 border-2 border-solid border-gray-200 
+                        rounded-xl cursor-pointer hover:shadow-xl transition-all
+                        hover:scale-105" (click)="openJobDetail(job.id)" style="padding: 0 !important;">
+                        <div class="px-4 py-6">
+                            <div class="flex relative">
+                                <p class="font-bold text-lg">{{job.title}}</p>
+                                <div class="text-sm absolute right-0">
+                                    <button class="btn">Chi tiết</button>
+                                </div>
+                            </div>
+                            <p class="mb-8">
+                                Trạng thái:
+                                <span class="font-bold"
+                                    [style]="job.status==='Hiring' ? 'color:green' : 'color:red'">{{job.status==='Hiring'
+                                    ? 'Đang tuyển dụng' : 'Đã đóng đơn'}}</span>
+                            </p>
+                            <span>
+                                <i class="fas fa-map-marker-alt"></i>
+                                {{job.city}}
+                            </span>
+                            <p class="mt-2">{{job.content}}</p>
                         </div>
                     </div>
-                    <p class="mb-8">
-                        Trạng thái: 
-                        <span class="font-bold" [style]="job.status==='Hiring' ? 'color:green' : 'color:red'">{{job.status==='Hiring' ? 'Đang tuyển dụng' : 'Đã đóng đơn'}}</span>
-                    </p>
-                    <span>
-                        <i class="fas fa-map-marker-alt"></i>
-                        {{job.city}}
-                    </span>
-                    <p class="mt-2">{{job.content}}</p>
                 </div>
+
+                <div *ngIf="jobId!==null">
+                    <p-dialog header="Chi tiết công việc" [(visible)]="isDisplay" [style]="{width: '50vw'}"
+                        [transitionOptions]="'0ms'" [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [modal]="true"
+                        [baseZIndex]="10000" (onHide)="onHide()">
+                        <app-job-details [id]="jobId"></app-job-details>
+                    </p-dialog>
+                </div>
+            </div>
+            <div *ngIf="activeItem.id === '2'">
+                <app-manage-cv></app-manage-cv>
             </div>
         </div>
     </div>
-</div>
-<div *ngIf="jobId!==null">
-    <p-dialog 
-        header="Chi tiết công việc" 
-        [(visible)]="isDisplay" 
-        [style]="{width: '50vw'}" 
-        [transitionOptions]="'0ms'"
-        [breakpoints]="{'960px': '75vw', '640px': '100vw'}" 
-        [modal]="true" 
-        [baseZIndex]="10000"
-        (onHide)="onHide()"
-    >
-        <app-job-details [id]="jobId"></app-job-details>
-    </p-dialog>
 </div>

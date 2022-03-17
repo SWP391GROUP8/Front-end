@@ -15,12 +15,8 @@
         </ng-template>
         <ng-template pTemplate="header">
             <tr>
-                <th pSortableColumn="name">Tên sự kiện<p-sortIcon field="code"></p-sortIcon></th>
+                <th pSortableColumn="name">Câu hỏi<p-sortIcon field="code"></p-sortIcon></th>
                 <th pSortableColumn="price">Nội dung<p-sortIcon field="name"></p-sortIcon></th>
-                <th pSortableColumn="category">Người tạo<p-sortIcon field="author"></p-sortIcon></th>
-                <th class="w-1/6" pSortableColumn="rating">Thời gian bắt đầu<p-sortIcon field="rating"></p-sortIcon></th>
-                <th class="w-1/6" pSortableColumn="inventoryStatus">Thời gian kết thúc<p-sortIcon field="event"></p-sortIcon></th>
-                <th pSortableColumn="inventoryStatus">Trạng thái<p-sortIcon field="event"></p-sortIcon></th>
                 <th></th>
             </tr>
         </ng-template>
@@ -28,46 +24,30 @@
             <tr>
                 <td>{{product.title}}</td>
                 <td>{{product.content}}</td>
-                <td class="truncate">{{product.createdBy}}</td>
-                <td>{{product.startTime}}</td>
-                <td>{{product.endTime}}</td>
-                <td>{{product.status}}</td>
-                <td >
-                    <button *ngIf="product.createdBy!==email" class="btn" (click)="joinEvent(product.id)">Tham gia sự kiện</button>
+                <td>
+                    <button class="btn items-center" (click)="viewDetailQA(product.id)">Xem chi tiết</button>
                 </td>
             </tr>
         </ng-template>
         <ng-template pTemplate="summary">
             <div class="p-d-flex p-ai-center p-jc-between">
-                Có tổng cộng {{products ? products.length : 0 }} môn học.
+                Có tổng cộng {{products ? products.length : 0 }} câu hỏi.
             </div>
         </ng-template>
     </p-table>
 </div>
-<p-dialog [header]="'Tạo sự kiện cho môn học'" [(visible)]="isDisplay" [modal]="true" [dismissableMask]="true"
-        [style]="{ 'min-width': '30vw'}" [contentStyle]="{minHeight: '550px'}">
-        <div class="w-full max-h-full min-h-screen bg-gray-100">
-            <div class="w-4/5 h-full m-auto bg-white py-10 px-36 ">
-              <div class="w-full flex">
-                <p class="w-full text-center font-bold text-2xl mb-10">Đăng câu hỏi</p>
-              </div>
-              <div class="w-full">
-                <div class="py-4">
-                  <p class="font-bold">Tiêu đề:</p>
-                  <input class="w-full" type="text" pInputText [(ngModel)]="title" autofocus />
-                  <small class="p-invalid text-red-500" *ngIf="submitted && !title">Vui lòng nhập tiêu đề.</small>
-                </div>
-                <div class="py-4">
-                  <p class="font-bold">Nội dung:</p>
-                  <textarea pInputTextarea class="w-full" [(ngModel)]="content" autofocus></textarea>
-                  <small class="p-invalid text-red-500" *ngIf="submitted && !content">Vui lòng nhập nội dung</small>
-                </div>
-                <div class="py-4">
-                  <button type="button" class="btn float-right w-2/12 p-1 h-10" (click)="submit()">
-                    Đăng
-                  </button>
-              </div>
-              </div>
+<p-dialog [header]="'Tạo câu hỏi cho môn học'" [(visible)]="isDisplay" [modal]="true" [dismissableMask]="true"
+        [style]="{ 'min-width': '30vw'}">
+        <div class="p-fluid p-grid p-formgrid mt-2">
+            <div class="p-field p-col-12">
+                <input pInputText [(ngModel)]="title" [placeholder]="'Tiêu đề câu hỏi'" />
             </div>
-          </div>
+            <div class="p-field p-col-12">
+                <input pInputText [(ngModel)]="content" [placeholder]="'Nội dung câu hỏi'" />
+            </div>
+
+            <div class="p-field p-col-12 p-md-12">
+                <button class="btn items-center" (click)="addQA()">Tạo câu hỏi</button>
+            </div>
+        </div>
     </p-dialog>

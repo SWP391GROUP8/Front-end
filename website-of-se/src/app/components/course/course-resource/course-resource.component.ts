@@ -28,7 +28,6 @@ export class CourseResourceComponent implements OnInit {
     this.getCourseResourse();
   }
   deleteSelectedProducts() {
-    console.log(this.selectedProducts);
     if (this.selectedProducts.length === 0) {
       this.messageService.add({
         severity: 'error',
@@ -62,7 +61,6 @@ export class CourseResourceComponent implements OnInit {
         ResourcePath.GET_BY_COURSE_ID
       )
       .subscribe((x) => {
-        console.log(x);
         this.courseResources = x.body as any[];
       });
   }

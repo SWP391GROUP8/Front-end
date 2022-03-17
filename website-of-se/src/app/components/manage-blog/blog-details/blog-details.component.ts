@@ -23,19 +23,19 @@ export class BlogDetailsComponent implements OnInit {
     status: null,
     title: null,
   };
+  id: string;
   constructor(private route: ActivatedRoute,
     private request: WebRequestService
     ) {}
 
   ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id');
-    console.log(id);
-    this.getBlogDetails(id);
+    this.id = this.route.snapshot.paramMap.get('id');
+    this.getBlogDetails();
   }
 
-  getBlogDetails(id: string){
+  getBlogDetails(){
     let params = new HttpParams()
-    .set('id', id);
+    .set('id', this.id);
     this.request.getWithQuery(params, ResourcePath.BLOG, ResourcePath.GET_BY_ID).subscribe(x => {
       this.blog = x.body as BlogManagement;
       console.log('Before: ' + this.blog.reaction);

@@ -15,7 +15,6 @@ export class CourseQComponent implements OnInit {
   content: string;
   courseId: string;
   isDisplay: boolean = false;
-  submitted: boolean = false;
   listQA: any[];
   selectedProducts: any[];
   constructor(
@@ -26,27 +25,26 @@ export class CourseQComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.getListQA();
     this.courseId = this.active.snapshot.paramMap.get('id') ?? null;
   }
   showDialog() {
     this.isDisplay = true;
   }
-  submit() {
-    this.submitted = true;
+  addQA() {
     if (this.title != null && this.content != null) {
       const data = { 
         content: this.content,
         courseId: this.courseId,
         title: this.title
       };
-      this.request.post(data, ResourcePath.COURSE).subscribe(x => {
+      this.request.post(data, ResourcePath.COURSE_QA, ResourcePath.COURSE_QA_CREATE).subscribe(x => {
         if (x.status === 200) {
           this.messageService.add({
             severity: 'success',
             summary: 'Successful',
             detail: 'Tạo bài viết thành công!',
           });
-          this.submitted = false;
           this.refresh();
           this.route.navigate(['/course']);
         }
@@ -60,7 +58,21 @@ export class CourseQComponent implements OnInit {
       })
     }
   }
-
+  getListQA() {
+    this.request.get(ResourcePath.COURSE_QA).subscribe(x => {
+      if (x.status === 200) {
+        this.listQA = x.body as any[];
+        console.log(this.listQA);
+        
+      }
+    })
+  }
+  viewDetailQA(id) {
+    this.route.navigate([
+      `/course/${this.courseId}/course-q&a`,
+      id,
+    ]);
+  }
   refresh() {
     this.title = null;
     this.content = null;
