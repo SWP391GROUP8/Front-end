@@ -1,6 +1,8 @@
 export class ResourcePath {
   // USER
   public static readonly USER = 'user';
+  public static readonly CHANGE_PASSWORD = 'change-password';
+  public static readonly USER_UPDATE = 'update-user';
   public static readonly AUTH = 'auth';
   public static readonly LOGIN = 'login';
   public static readonly AUTHENTICATE = 'authenticate';

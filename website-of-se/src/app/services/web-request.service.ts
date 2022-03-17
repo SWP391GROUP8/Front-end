@@ -27,6 +27,18 @@ export class WebRequestService {
       }
     );
   }
+  postWithQuery(params ,payload: object, ...path) {
+    return this.http.post(
+      this.ROOT_URL + CommonFunction.convertPathArrToString(path),
+      payload
+      ,
+      {
+        params: params,
+        observe: 'response',
+        responseType: 'text'
+      }
+    );
+  }
 
   postWithTextResponse(payload: object, ...path) {
     return this.http.post(

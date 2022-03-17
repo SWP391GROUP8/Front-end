@@ -88,7 +88,7 @@ export class ListAccountComponent implements OnInit {
   }
   deleteProduct(product: Account) {
     this.cfService.confirm({
-      message: 'Bạn có chắc muốn xóa môn học này?',
+      message: 'Bạn có chắc muốn xóa tài khoản này?',
       header: 'Confirm',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {

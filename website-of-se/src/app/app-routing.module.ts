@@ -16,16 +16,33 @@ import { ListBlogComponent } from './components/manage-blog/list-blog/list-blog.
 import { ManageJobComponent } from './components/manage-job/manage-job.component';
 import { ListCourseComponent } from './components/course/list-course/list-course.component';
 import { CourseDetailComponent } from './components/course/course-detail/course-detail.component';
+import { NotAllowedComponent } from './components/not-allowed/not-allowed.component';
 const routes: Routes = [
-  { path: '', redirectTo: 'company', pathMatch: 'full' },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
-  { path: 'forgotpassword', component: ForgotPasswordComponent },
+  {
+    path: 'forgotpassword',
+    component: ForgotPasswordComponent,
+    data: { role: ['STUDENT', 'INSTRUCTOR'] },
+    canActivate: [AuthGuard],
+  },
   { path: 'register', component: RegisterComponent },
-  { path: 'profile', component: ProfileComponent },
-  { path: 'home', component: HomeComponent },
+  {
+    path: 'profile',
+    component: ProfileComponent,
+    data: { role: ['STUDENT', 'INSTRUCTOR'] },
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'home',
+    component: HomeComponent,
+    data: { role: ['STUDENT', 'INSTRUCTOR'] },
+    canActivate: [AuthGuard],
+  },
   { path: 'createBlog', component: CreateBlogComponent },
   { path: 'createJob', component: CreateJobComponent },
   { path: 'test', component: CreateJobComponent },
+  { path: 'not-allowed', component: NotAllowedComponent },
 
   {
     path: 'course',
@@ -34,8 +51,8 @@ const routes: Routes = [
       { path: '', component: ListCourseComponent },
       { path: ':id', component: CourseDetailComponent },
     ],
-    // data: { role: ['student','instructor'] },
-    // canActivate: [AuthGuard],
+    data: { role: ['STUDENT', 'INSTRUCTOR'] },
+    canActivate: [AuthGuard],
   },
   {
     path: 'blog',
@@ -45,11 +62,11 @@ const routes: Routes = [
       { path: ':id', component: BlogDetailsComponent },
       { path: 'createBlog', component: CreateBlogComponent },
     ],
-    // data: { role: ['student','instructor'] },
-    // canActivate: [AuthGuard],
+    data: { role: ['STUDENT', 'INSTRUCTOR'] },
+    canActivate: [AuthGuard],
   },
-  { 
-    path: 'job', 
+  {
+    path: 'job',
     component: ManageJobComponent,
     children: [
       { path: '', component: ManageJobComponent },
@@ -61,15 +78,15 @@ const routes: Routes = [
     path: 'admin',
     loadChildren: () =>
       import('./modules/admin/admin.module').then((m) => m.AdminModule),
-    // data: { role: ['admin'] },
-    // canActivate: [AuthGuard],
+    data: { role: ['ADMIN'] },
+    canActivate: [AuthGuard],
   },
   {
     path: 'company',
     loadChildren: () =>
       import('./modules/company/company.module').then((m) => m.CompanyModule),
-    // data: { role: ['admin'] },
-    // canActivate: [AuthGuard],
+    data: { role: ['COMPANY'] },
+    canActivate: [AuthGuard],
   },
 ];
 

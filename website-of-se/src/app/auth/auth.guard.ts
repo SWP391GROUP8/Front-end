@@ -6,10 +6,12 @@ import { AuthService } from '../services/auth.service';
   providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
+  role: string = localStorage.getItem('role') ?? null;
   constructor(private authService: AuthService, private router: Router) {}
   canActivate(route: ActivatedRouteSnapshot): boolean {
     if (this.authService.isLoggedIn()) {
-      if (route.data.role && !route.data.role.includes(this.authService.getRole())) {
+      
+      if (route.data.role && !route.data.role.includes(this.authService.getRole().replace(/['"]+/g, ''))) {
         this.router.navigate(['/not-allowed']);
         return false;
       }
