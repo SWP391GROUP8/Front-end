@@ -106,6 +106,7 @@ export class ListCourseComponent implements OnInit {
               detail: 'Cập nhật môn học thành công!',
               life: 3000,
             });
+            this.getListCourse();
           }
         })
       } else {
@@ -118,16 +119,16 @@ export class ListCourseComponent implements OnInit {
               detail: 'Tạo môn học thành công!',
               life: 3000,
             });
+            this.getListCourse();
           }
         })
 
       }
-      this.getListCourse();
       this.productDialog = false;
     }
   }
   getListCourse() {
-    this.request.get(ResourcePath.COURSE).subscribe(x => {
+    this.request.get(ResourcePath.COURSE, ResourcePath.GET_ALL).subscribe(x => {
       this.products = x.body as Course[];
     })
   }
