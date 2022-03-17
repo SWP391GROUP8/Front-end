@@ -1,3 +1,4 @@
+import { CreateJobComponent } from './components/manage-job/create-job/create-job.component';
 import { CreateBlogComponent } from './components/manage-blog/create-blog/create-blog.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -22,7 +23,9 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'profile', component: ProfileComponent },
   { path: 'home', component: HomeComponent },
-  { path: 'test', component: CreateBlogComponent },
+  { path: 'createBlog', component: CreateBlogComponent },
+  { path: 'createJob', component: CreateJobComponent },
+  { path: 'test', component: CreateJobComponent },
 
   {
     path: 'course',
@@ -30,7 +33,6 @@ const routes: Routes = [
     children: [
       { path: '', component: ListCourseComponent },
       { path: ':id', component: CourseDetailComponent },
-      { path: 'createBlog', component: CreateBlogComponent },
     ],
     // data: { role: ['student','instructor'] },
     // canActivate: [AuthGuard],
@@ -41,11 +43,20 @@ const routes: Routes = [
     children: [
       { path: '', component: ListBlogComponent },
       { path: ':id', component: BlogDetailsComponent },
+      { path: 'createBlog', component: CreateBlogComponent },
     ],
     // data: { role: ['student','instructor'] },
     // canActivate: [AuthGuard],
   },
-  { path: 'job', component: ManageJobComponent },
+  { 
+    path: 'job', 
+    component: ManageJobComponent,
+    children: [
+      { path: '', component: ManageJobComponent },
+      { path: ':id', component: BlogDetailsComponent },
+      { path: 'createJob', component: CreateJobComponent },
+    ],
+  },
   {
     path: 'admin',
     loadChildren: () =>

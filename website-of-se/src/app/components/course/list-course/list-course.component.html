@@ -26,7 +26,12 @@
             </div>
         </div>
         <div  class="w-4/5 m-auto border-gray-200 grid grid-cols-3 gap-8 py-4">
-            <div *ngFor="let course of courses" (click)="navigateToCourseDetail(course.id)" class="rounded-2xl border-2 hover:shadow-2xl transition-shadow">
+            <div 
+                *ngFor="let course of courses" 
+                (click)="navigateToCourseDetail(course.id)" 
+                class="rounded-2xl border-2 cursor-pointer
+                hover:shadow-xl hover:scale-105 transition-all"
+            >
                 <div class="width-full max-h-64 overflow-hidden rounded-t-xl bg-orange-500">
                     <img class="w-full" src="../../../assets/img/member-avatar-02.png" />
                 </div>

@@ -1,3 +1,7 @@
+import { ResourcePath } from './../../../helper/resource-path';
+import { WebRequestService } from './../../../services/web-request.service';
+import { HttpParams } from '@angular/common/http';
+import { ActivatedRoute } from '@angular/router';
 import { Component, Input, OnInit } from '@angular/core';
 import { JobManagement } from '../job.model';
 
@@ -8,27 +12,31 @@ import { JobManagement } from '../job.model';
 })
 export class JobDetailsComponent implements OnInit {
   @Input() id: any;
-  job: JobManagement = {
-    address: null,
-    companyName: null,
-    jobDesc: null,
-    id: null,
-    location: null,
-    phone: null,
-    title: null,
-  }
-  constructor() { }
+  job: JobManagement;
+  isLoading: boolean = true;
+  constructor(
+    private route: ActivatedRoute,
+    private request: WebRequestService
+    ) { }
 
   ngOnInit(): void {
-    this.job = {
-      address: "Quận 9, Hồ chí Minh",
-      companyName: "FPT Software",
-      jobDesc: "IT Project Managers are responsible for overseeing all aspects of any project in a company’s IT department, which includes managing a team of employees to ensure projects are completed on time and within their specified budgets. Some of an IT Project Managers day-to-day duties include.",
-      id: "1",
-      location: "Hồ Chí Minh",
-      phone: "0964526377",
-      title: "Senior ReactJS",
-    }
+    console.log('Details: ' + this.id);
+    this.getJobDetails();
+  }
+
+  getJobDetails(){
+    let params = new HttpParams()
+    .set('id', this.id);
+    this.request
+      .getWithQuery(params,ResourcePath.JOB, ResourcePath.GET_BY_ID)
+      .subscribe((x) => {
+        if (x.status === 200) {
+          console.log(x);
+          this.job = x.body as JobManagement;
+          console.log(this.job);
+          this.isLoading = false;
+        }
+      });
   }
 
 }

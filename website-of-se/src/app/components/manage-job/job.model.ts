@@ -1,9 +1,12 @@
 export interface JobManagement {
-    title: string;
     id: string;
-    companyName: string;
-    location: string;
-    jobDesc: string;
+    title: string;
+    content: string;
+    createDate: string;
+    status: string;
+    city: string;
     address: string;
-    phone: string;
+    mail: string;
+    phoneNumber: string;
+    userId: string;
 }
