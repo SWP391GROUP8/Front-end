@@ -15,12 +15,16 @@ import { MessageService } from 'primeng/api';
 })
 export class CourseEventComponent implements OnInit {
   isDisplay: boolean = false;
+  isDisplayDetail: boolean = false;
+  listUser: any[];
   role: string = this.sValue.getLocalStorage('role') ?? null;
   listSchedule: Schedule[];
+  schedule: Schedule;
   selectedProducts: any[];
   startTime: Date = null;
   email: string;
   endTime: Date = null;
+  scheduleId: string;
   event: Schedule = {
     content: null,
     courseId: null,
@@ -49,6 +53,12 @@ export class CourseEventComponent implements OnInit {
       this.isDisplay = true;
     }
   }
+  getListUserByScheduleId() {
+    this.listUser = [
+      { id: 1, email: 'triht@fpt.edu.vn' },
+      { id: 2, email: 'quanbt@fpt.edu.vn' },
+    ];
+  }
   joinEvent(event) {
     const data = {
       scheduleId: event,
@@ -59,25 +69,29 @@ export class CourseEventComponent implements OnInit {
         data,
         ResourcePath.SCHEDULE,
         ResourcePath.SCHEDULE_ADD_USER
-      ).subscribe(x => {
-        if (x.status === 200) {
-          this.message.add({
-            severity: 'success',
-            summary: 'Thành công',
-            detail: 'Bạn đã đăng ký tham sự kiện này!',
-            life: 3000,
-          });
+      )
+      .subscribe(
+        (x) => {
+          if (x.status === 200) {
+            this.message.add({
+              severity: 'success',
+              summary: 'Thành công',
+              detail: 'Bạn đã đăng ký tham sự kiện này!',
+              life: 3000,
+            });
+          }
+        },
+        (err) => {
+          if (err.status === 400) {
+            this.message.add({
+              severity: 'error',
+              summary: 'Thất bại',
+              detail: 'Bạn đã đăng ký sự kiện này trước đó!',
+              life: 3000,
+            });
+          }
         }
-      }, err => {
-        if (err.status === 400) {
-          this.message.add({
-            severity: 'error',
-            summary: 'Thất bại',
-            detail: 'Bạn đã đăng ký sự kiện này trước đó!',
-            life: 3000,
-          });
-        }
-      })
+      );
   }
   addEvent() {
     this.event.createdBy = this.email;
@@ -104,6 +118,21 @@ export class CourseEventComponent implements OnInit {
     } else {
     }
   }
+  viewDetail(id) {
+    this.scheduleId = id;
+    this.isDisplayDetail = true;
+    this.getScheduleById();
+    this.getListUserByScheduleId();
+  }
+  getScheduleById() {
+    let params = new HttpParams().set('id', this.scheduleId);
+    this.request
+      .getWithQuery(params, ResourcePath.SCHEDULE, ResourcePath.GET_BY_ID)
+      .subscribe((x) => {
+        console.log(x);
+        this.schedule = x.body as Schedule;
+      });
+  }
   getListSchedule() {
     let params = new HttpParams().set('id', this.event.courseId);
     this.request
@@ -115,7 +144,6 @@ export class CourseEventComponent implements OnInit {
       .subscribe((x) => {
         this.listSchedule = x.body as Schedule[];
         console.log(this.listSchedule);
-        
       });
   }
 

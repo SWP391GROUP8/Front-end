@@ -4,6 +4,8 @@ import { MessageService } from 'primeng/api';
 import { ResourcePath } from 'src/app/helper/resource-path';
 import { WebRequestService } from 'src/app/services/web-request.service';
 
+import { StoreValueService } from 'src/app/services/store-value.service';
+
 @Component({
   selector: 'app-manage-cv',
   templateUrl: './manage-cv.component.html',
@@ -11,28 +13,36 @@ import { WebRequestService } from 'src/app/services/web-request.service';
 })
 export class ManageCvComponent implements OnInit {
   listCV: any[] = [];
+  email: string;
   @ViewChild('fileUpload') fileUpload: any;
   fileToUpload: File | null = null;
   constructor(
     private request: WebRequestService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private sValue: StoreValueService
   ) {}
   file: any;
-  ngOnInit(): void {}
-  deleteSelectedProducts() {}
-  async getFile(id) {
-    let params = new HttpParams().set('id', id);
-    const data = await this.request
-      .getWithQuery(params, ResourcePath.FILE, ResourcePath.GET_BY_ID, id)
-      .toPromise();
+  ngOnInit(): void {
+    this.email = this.sValue.getLocalStorage('email') ?? null;
+    this.getFile();
+  }
+  getFile() {
+    let params = new HttpParams().set('email', this.email);
+    this.request
+      .getWithQuery(params, ResourcePath.FILE, ResourcePath.GET_BY_USER_ID)
+      .subscribe(x => {
+        this.listCV = x.body as any[];
 
-    this.file = data.body;
-    this.listCV.push(data.body);
+      });
+
+    console.log(this.listCV);
   }
   onDownloadFile() {
-    this.request.downloadFile(this.file.path, this.file.name).subscribe((progress)=>{
-      console.log(progress);
-   });
+    this.request
+      .downloadFile(this.file.path, this.file.name)
+      .subscribe((progress) => {
+        console.log(progress);
+      });
   }
   onUpload(event) {
     this.fileToUpload = event.currentFiles[0];
@@ -43,6 +53,7 @@ export class ManageCvComponent implements OnInit {
   postFile(postedFile) {
     const formData = new FormData();
     formData.append('file', postedFile);
+    formData.append('email', this.email);
     this.request.post(formData, ResourcePath.FILE, 'upload').subscribe((x) => {
       this.messageService.add({
         severity: 'success',
@@ -50,7 +61,7 @@ export class ManageCvComponent implements OnInit {
         detail: 'Thêm tài liệu môn học thành công!',
         life: 3000,
       });
-      this.getFile(x.body['id']);
+      this.getFile();
       // if (x.status === 200) {
       //   const data = {
       //     content: 'testtttt',

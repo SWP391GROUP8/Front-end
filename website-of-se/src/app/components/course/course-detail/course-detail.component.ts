@@ -2,7 +2,6 @@ import { Course } from './../../../models/common.model';
 import { Component, OnInit } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { ResourcePath } from 'src/app/helper/resource-path';
-import { StoreValueService } from 'src/app/services/store-value.service';
 import { WebRequestService } from 'src/app/services/web-request.service';
 import { ActivatedRoute } from '@angular/router';
 import { HttpParams } from '@angular/common/http';

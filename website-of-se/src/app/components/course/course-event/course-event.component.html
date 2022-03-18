@@ -1,8 +1,8 @@
 <div class="card">
 
     <p-toast></p-toast>
-    <button *ngIf="role==='INSTRUCTOR'" pButton pRipple label="{{'Tạo sự kiện cho môn học'}}" icon="pi pi-plus" class="p-button-success p-mr-2"
-        (click)="showDialog()"></button>
+    <button *ngIf="role==='INSTRUCTOR'" pButton pRipple label="{{'Tạo sự kiện cho môn học'}}" icon="pi pi-plus"
+        class="p-button-success p-mr-2" (click)="showDialog()"></button>
     <p-table #dt [value]="listSchedule" [rows]="10" [paginator]="true" [globalFilterFields]="['name','author','status']"
         [(selection)]="selectedProducts" [rowHover]="true" dataKey="id"
         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
@@ -44,6 +44,8 @@
                 <td>
                     <button *ngIf="product.createdBy!==email" class="btn" (click)="joinEvent(product.id)">Tham gia sự
                         kiện</button>
+                    <button *ngIf="product.createdBy===email" class="btn" (click)="viewDetail(product.id)">Xem chi
+                        tiết</button>
                 </td>
             </tr>
         </ng-template>
@@ -76,4 +78,41 @@
             <button class="btn items-center" (click)="addEvent()">Tạo sự kiện</button>
         </div>
     </div>
+</p-dialog>
+<p-dialog [header]="'Chi tiết sự kiện'" [(visible)]="isDisplayDetail" [modal]="true" [dismissableMask]="true"
+    [style]="{ 'min-width': '30vw'}" [contentStyle]="{minHeight: '550px'}">
+    <p-tabView>
+        <p-tabPanel header="Chi tiết">
+            <div *ngIf="scheduleId">
+                <div class="flex mb-3">
+                    <p class="font-bold">Tiêu đề:</p>
+                    <p>{{schedule.title}}</p>
+                </div>
+                <div class="flex mb-3">
+                    <p class="font-bold">Nội dung:</p>
+                    <p>{{schedule.content}}</p>
+                </div>
+                <div class="flex mb-3">
+                    <p class="font-bold">Thời gian bắt đầu:</p>
+                    <p>{{schedule.startTime}}</p>
+                </div>
+                <div class="flex mb-3">
+                    <p class="font-bold">Thời gian kết thúc:</p>
+                    <p>{{schedule.endTime}}</p>
+                </div>
+                <div class="flex mb-3">
+                    <p class="font-bold">Người tạo:</p>
+                    <p>{{schedule.createdBy}}</p>
+                </div>
+            </div>
+        </p-tabPanel>
+        <p-tabPanel header="Danh sách sinh viên tham gia">
+            <div *ngFor="let user of listUser" class="font-bold mb-2">
+                {{user.email}}
+            </div>
+        </p-tabPanel>
+    </p-tabView>
+        
+        <div>
+        </div>
 </p-dialog>

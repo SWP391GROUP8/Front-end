@@ -2,7 +2,7 @@
 
     <p-fileUpload #fileUpload mode="basic" accept="application/*" (onSelect)="onUpload($event)" [chooseLabel]="'Tải lên CV'">
     </p-fileUpload>
-    <p-table [value]="listCV">
+    <p-table [value]="listCV"  >
         <ng-template pTemplate="header">
             <tr>
                 <th>Tên File
@@ -13,7 +13,7 @@
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-product>
-            <tr>
+            <tr *ngIf="product">
                 <td>{{product.name}}</td>
                 <td>{{product.createDAte}}</td>
                 <td>
