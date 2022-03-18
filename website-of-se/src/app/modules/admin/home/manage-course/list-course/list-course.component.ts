@@ -133,7 +133,6 @@ export class ListCourseComponent implements OnInit {
   getListCourse() {
     this.request.get(ResourcePath.COURSE, ResourcePath.GET_ALL).subscribe(x => {
       this.products = x.body as Course[];
-      console.log(this.products);
       
     })
   }

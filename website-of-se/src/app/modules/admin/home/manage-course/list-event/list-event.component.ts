@@ -50,7 +50,6 @@ export class ListEventComponent implements OnInit {
       .get(ResourcePath.SCHEDULE)
       .subscribe((x) => {
         this.products = x.body as Schedule[];
-        console.log(this.products);
       });
   }
 }

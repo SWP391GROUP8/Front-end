@@ -20,7 +20,6 @@ export class JobDetailsComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-    console.log('Details: ' + this.id);
     this.getJobDetails();
   }
 
@@ -31,9 +30,7 @@ export class JobDetailsComponent implements OnInit {
       .getWithQuery(params,ResourcePath.JOB, ResourcePath.GET_BY_ID)
       .subscribe((x) => {
         if (x.status === 200) {
-          console.log(x);
           this.job = x.body as JobManagement;
-          console.log(this.job);
           this.isLoading = false;
         }
       });

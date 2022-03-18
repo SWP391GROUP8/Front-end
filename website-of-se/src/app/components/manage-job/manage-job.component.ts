@@ -32,7 +32,6 @@ export class ManageJobComponent implements OnInit {
   getListJob() {
     this.request.get(ResourcePath.JOB).subscribe(x => {
       this.listJob = x.body as JobManagement[];
-      console.log(this.listJob);
       this.listJob.reverse();
     })
   }
@@ -40,7 +39,6 @@ export class ManageJobComponent implements OnInit {
     this.activeItem = this.menu['activeItem'];
   }
   openJobDetail(id) {
-    // console.log(id);
     this.jobId = id;
     this.isDisplay = true;
   }
