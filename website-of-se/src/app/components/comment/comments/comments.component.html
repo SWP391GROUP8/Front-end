@@ -7,14 +7,14 @@
                     <img class="mr-3" width="30" height="30" src="../../../../assets/img/member-avatar-01.png" />
                     <div>
                         <p class="font-bold">Tri Huynh</p>
-                        <p>{{post.commentTxt}}</p>  
+                        <p>{{post.content}}</p>  
                     </div>
                 </div>
                 
                 <div class="actions my-2">
-                    <span>{{post.currentDate | date: 'dd/MM/yyyy'}}</span>
+                    <span>{{post.createDate}}</span>
                     <span class="divider"></span>
-                    <button class="btn btn-sm btn-danger" (click)="removeComment(i)">
+                    <button class="btn btn-sm btn-danger" (click)="removeComment(post.id,i)">
                         <i class="fa fa-trash"></i>
                     </button>
                 </div>

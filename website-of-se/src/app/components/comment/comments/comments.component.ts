@@ -1,5 +1,8 @@
+import { HttpParams } from '@angular/common/http';
 import { Component, OnInit, Input, Output, OnChanges, EventEmitter,
   Directive, ViewContainerRef, ViewChildren, QueryList, ComponentFactoryResolver, AfterContentInit} from '@angular/core';
+import { ResourcePath } from 'src/app/helper/resource-path';
+import { WebRequestService } from 'src/app/services/web-request.service';
 import { ChildboxComponent } from '../childbox/childbox.component';
 
 @Directive({
@@ -32,7 +35,7 @@ export class CommentsComponent implements OnInit, OnChanges{
   automatically update the object items for you. */
   @ViewChildren (DatacontainerDirective) entry: QueryList<DatacontainerDirective>;
 
-  constructor(private resolver: ComponentFactoryResolver) { }
+  constructor(private resolver: ComponentFactoryResolver, private request: WebRequestService) { }
 
   ngOnInit() {
   }
@@ -44,10 +47,14 @@ export class CommentsComponent implements OnInit, OnChanges{
     }
   }
 
-  removeComment(no) {
+  removeComment(id,no) {
     this.postComment.splice(no, 1);
-    console.log('After remove array====>', this.postComment);
     this.countComments.emit(this.postComment);
+    let params = new HttpParams().set('id',id);
+    this.request.deleteWithQuery(params,ResourcePath.COMMENT).subscribe(x => {
+      console.log(x);
+      
+    })
   }
 
   

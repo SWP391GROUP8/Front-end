@@ -9,12 +9,15 @@ export class ResourcePath {
   public static readonly FORGOT_PASSWORD = 'forgotPassword';
   public static readonly RESET_PASSWORD = 'resetPassword';
   public static readonly CHECK_RESET_PASSWORD_DATA = 'checkResetPassword';
-
+  public static readonly IS_REACTION = 'is-reaction';
+  public static readonly REACTION = 'reaction';
   //COMPANY
   public static readonly COMPANY = 'companies';
 
   //COMPANY
   public static readonly COMMENT = 'comment';
+  public static readonly COMMENT_BLOG = 'get-by-blogId';
+  public static readonly COMMENT_COURSE = 'get-by-course-qaId';
   //FILE
   public static readonly FILE = 'file';
   public static readonly FILE_STATUS = 'files/status';

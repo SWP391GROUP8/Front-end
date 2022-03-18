@@ -1,3 +1,4 @@
+import { HttpParams } from '@angular/common/http';
 import {
   Component,
   AfterViewInit,
@@ -35,6 +36,7 @@ export class CommentboxComponent implements OnInit {
 
   ngOnInit() {
     this.userId = JSON.parse(localStorage.getItem('email')) ?? null;
+    this.getComment()
     this.createForm();
   }
 
@@ -43,19 +45,34 @@ export class CommentboxComponent implements OnInit {
       comment: ['', [Validators.required]],
     });
   }
-
+  getComment() {
+    if (this.isBlog) {
+      let params = new HttpParams().set('blogId', this.receiveId);
+      this.request.getWithQuery(params,ResourcePath.COMMENT,ResourcePath.COMMENT_BLOG).subscribe(x => {
+        this.commentInfo = x.body as Array<object>;
+        this.usercomment.emit(this.commentInfo);
+      })
+    } else {
+      let params = new HttpParams().set('qaId', this.receiveId);
+      this.request.getWithQuery(params,ResourcePath.COMMENT,ResourcePath.COMMENT_COURSE).subscribe(x => {
+        this.commentInfo = x.body as Array<object>;
+        this.usercomment.emit(this.commentInfo);
+      })
+    }
+    
+  }
   onSubmit() {
     this.submitted = true;
     if (this.commentForm.invalid) {
       return false;
     } else {
-      this.commentInfo.push({
-        commentId: this.id++,
-        currentDate: new Date(),
-        commentTxt: this.commentForm.controls['comment'].value,
-        replyComment: [],
-      });
-      this.usercomment.emit(this.commentInfo);
+      // this.commentInfo.push({
+      //   commentId: this.id++,
+      //   currentDate: new Date(),
+      //   commentTxt: this.commentForm.controls['comment'].value,
+      //   replyComment: [],
+      // });
+      // this.usercomment.emit(this.commentInfo);
       console.log(this.receiveId);
       console.log(this.isBlog);
       let data = {
@@ -69,6 +86,7 @@ export class CommentboxComponent implements OnInit {
       }
       this.request.post(data,ResourcePath.COMMENT).subscribe(x=>{
         console.log(x);
+        this.getComment();
       });
     }
   }

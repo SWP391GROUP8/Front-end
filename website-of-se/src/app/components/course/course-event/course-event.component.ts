@@ -6,6 +6,7 @@ import { WebRequestService } from 'src/app/services/web-request.service';
 import { DatePipe } from '@angular/common';
 import { ResourcePath } from 'src/app/helper/resource-path';
 import { HttpParams } from '@angular/common/http';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-course-event',
@@ -14,7 +15,7 @@ import { HttpParams } from '@angular/common/http';
 })
 export class CourseEventComponent implements OnInit {
   isDisplay: boolean = false;
-  role: string = localStorage.getItem('role') ?? null;
+  role: string = this.sValue.getLocalStorage('role') ?? null;
   listSchedule: Schedule[];
   selectedProducts: any[];
   startTime: Date = null;
@@ -34,7 +35,8 @@ export class CourseEventComponent implements OnInit {
     private request: WebRequestService,
     private route: ActivatedRoute,
     private datePipe: DatePipe,
-    private sValue: StoreValueService
+    private sValue: StoreValueService,
+    private message: MessageService
   ) {}
 
   ngOnInit(): void {
@@ -48,7 +50,6 @@ export class CourseEventComponent implements OnInit {
     }
   }
   joinEvent(event) {
-    console.log(event);
     const data = {
       scheduleId: event,
       userIdList: [this.email],
@@ -58,7 +59,25 @@ export class CourseEventComponent implements OnInit {
         data,
         ResourcePath.SCHEDULE,
         ResourcePath.SCHEDULE_ADD_USER
-      )
+      ).subscribe(x => {
+        if (x.status === 200) {
+          this.message.add({
+            severity: 'success',
+            summary: 'Thành công',
+            detail: 'Bạn đã đăng ký tham sự kiện này!',
+            life: 3000,
+          });
+        }
+      }, err => {
+        if (err.status === 400) {
+          this.message.add({
+            severity: 'error',
+            summary: 'Thất bại',
+            detail: 'Bạn đã đăng ký sự kiện này trước đó!',
+            life: 3000,
+          });
+        }
+      })
   }
   addEvent() {
     this.event.createdBy = this.email;

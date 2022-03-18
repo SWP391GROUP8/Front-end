@@ -5,6 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { is } from 'date-fns/locale';
 import { BlogManagement } from '../blog.model';
+import { StoreValueService } from 'src/app/services/store-value.service';
 
 @Component({
   selector: 'app-blog-details',
@@ -14,6 +15,7 @@ import { BlogManagement } from '../blog.model';
 export class BlogDetailsComponent implements OnInit {
   isLike: boolean = false;
   comment: string = '';
+  email: string;
   blog: BlogManagement = {
     authorId: null,
     commentId: null,
@@ -25,12 +27,15 @@ export class BlogDetailsComponent implements OnInit {
   };
   id: string;
   constructor(private route: ActivatedRoute,
-    private request: WebRequestService
+    private request: WebRequestService,
+    private storeValue: StoreValueService
     ) {}
 
   ngOnInit(): void {
-    this.id = this.route.snapshot.paramMap.get('id');
+    this.id = this.route.snapshot.paramMap.get('id') ?? null;
+    this.email = this.storeValue.getLocalStorage('email') ?? null;
     this.getBlogDetails();
+    this.getISReaction()
   }
 
   getBlogDetails(){
@@ -53,14 +58,27 @@ export class BlogDetailsComponent implements OnInit {
     });
   }
 
+  getISReaction() {
+    let params = new HttpParams().set('blogId',this.id).set('email',this.email);
+    this.request.getWithQuery(params,ResourcePath.USER,ResourcePath.IS_REACTION).subscribe(x => {
+      if (x.body === null) {
+        this.isLike = false
+      } else {
+        this.isLike = x.body as boolean;
+      }
+    })
+  }
   reaction() {
-    if (this.isLike === false) {
-      this.isLike = true;
-      this.blog.reaction += 1;
-      // this.updateBlog();
-    } else {
-      this.isLike = false;
-      this.blog.reaction-= 1;
-    }
+    let params = new HttpParams().set('blogId',this.id).set('email',this.email).set('isReaction',!this.isLike);
+    this.request.put(null,params,ResourcePath.USER,ResourcePath.REACTION).subscribe(x =>{
+      if (x.status === 200) {
+        this.getISReaction();
+        if (this.isLike === false) {
+          this.blog.reaction += 1;
+        } else {
+          this.blog.reaction-= 1;
+        }
+      }
+    })
   }
 }
