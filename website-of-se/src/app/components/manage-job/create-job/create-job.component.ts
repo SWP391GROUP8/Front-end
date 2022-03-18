@@ -54,7 +54,6 @@ export class CreateJobComponent implements OnInit {
 
   submit() {
     this.submitted = true;
-    console.log(this.isInvalid);
     this.newJobID = this.createId();
     this.newJob = {
       id: this.newJobID,
@@ -68,7 +67,6 @@ export class CreateJobComponent implements OnInit {
       userId: 'quanbt@fpt.edu.vn',
       createDate: null,
     };
-    console.log(this.newJob);
 
     if (this.newJob != null) {
       this.request.post(this.newJob, ResourcePath.JOB).subscribe(x => {

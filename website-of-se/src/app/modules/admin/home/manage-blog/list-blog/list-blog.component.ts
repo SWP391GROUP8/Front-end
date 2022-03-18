@@ -130,7 +130,6 @@ export class ListBlogComponent implements OnInit {
   getListBlog() {
     this.request.get(ResourcePath.BLOG).subscribe(x => {
       this.products = x.body as Blog[];
-      console.log(this.products);
     })
   }
   createId(): string {

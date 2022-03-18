@@ -25,7 +25,6 @@ export class ListJobComponent implements OnInit {
   productDialog: boolean;
   currentUserId: string;
   products: Job[] = [];
-  editingUserId: string;
   editingProduct: any;
 
   product: Job = { 
@@ -53,7 +52,6 @@ export class ListJobComponent implements OnInit {
     private cfService: ConfirmationService,
     private request: WebRequestService,
     private storeValue: StoreValueService,
-    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
@@ -135,10 +133,8 @@ export class ListJobComponent implements OnInit {
     this.submitted = true;
     if (this.product.title.trim()) {
       this.product.status = this.status.id;
-      console.log(this.product);
       if (this.product.id) {
         this.product.userId = this.editingProduct.user.email;
-        console.log(this.product);
         this.request.put(this.product, null, ResourcePath.JOB).subscribe(x => {
           if (x.status === 200) {
             this.messageService.add({
