@@ -79,8 +79,6 @@ export class ListAccountComponent implements OnInit {
     this.product = res.body as Account;
     this.selectedRole = this.product.role;
     this.productDialog = true;
-
-    console.log(this.selectedRole);
   }
   hideDialog() {
     this.productDialog = false;
@@ -126,7 +124,7 @@ export class ListAccountComponent implements OnInit {
     } else {
       let createAccount = { email: this.email, password: this.password, confirmPassword: this.confirmPassword, roleId: this.selectedRole.id };
       this.request.post(createAccount, ResourcePath.USER).subscribe(x => {
-        console.log(createAccount);
+        
         if (x.status === 200) {
           this.messageService.add({
             severity: 'success',

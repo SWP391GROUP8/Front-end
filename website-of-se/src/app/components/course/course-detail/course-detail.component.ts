@@ -34,7 +34,6 @@ export class CourseDetailComponent implements OnInit {
       .getWithQuery(params,ResourcePath.COURSE, ResourcePath.GET_BY_ID)
       .subscribe((x) => {
         if (x.status === 200) {
-          console.log(x);
           this.courseDetail = x.body as Course;
         }
       });
