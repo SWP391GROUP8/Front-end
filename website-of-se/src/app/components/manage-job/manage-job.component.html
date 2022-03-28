@@ -1,8 +1,11 @@
 <app-header></app-header>
+<div *ngIf="isLoading">
+    <app-loading-screen></app-loading-screen>
+</div>
 
-<div class="p-12">
-    <div class="w-full bg-gray-100">
-        <div class="w-4/5 m-auto bg-white py-10 px-36">
+<!-- <div class="p-12"> -->
+    <div class="w-full min-h-screen bg-gray-100">
+        <div class="w-4/5 m-auto min-h-screen bg-white py-10 px-36">
             <div>
                 <p-tabMenu #menuItems [model]="items" [activeItem]="activeItem" (click)="activateMenu()">
                     <ng-template pTemplate="item" let-item let-i="index">
@@ -12,7 +15,7 @@
             </div>
             <div *ngIf="activeItem.id === '1'">
 
-                <div class="w-full relative">
+                <div class="w-full relative pt-10">
                     <p class="w-full text-center font-bold text-2xl mb-10">Danh sách công việc</p>
                     <!-- <button 
                         type="button" 
@@ -51,8 +54,10 @@
                 </div>
 
                 <div *ngIf="jobId!==null">
-                    <p-dialog header="Chi tiết công việc" [(visible)]="isDisplay" [style]="{width: '50vw'}"
-                        [transitionOptions]="'0ms'" [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [modal]="true"
+                    <p-dialog 
+                        header="Chi tiết công việc" [(visible)]="isDisplay" 
+                        [style]="{width: '50vw'}" [transitionOptions]="'0ms'" 
+                        [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [modal]="true"
                         [baseZIndex]="10000" (onHide)="onHide()">
                         <app-job-details [id]="jobId"></app-job-details>
                     </p-dialog>
@@ -63,4 +68,4 @@
             </div>
         </div>
     </div>
-</div>
+<!-- </div> -->

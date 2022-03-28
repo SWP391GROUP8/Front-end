@@ -1,9 +1,12 @@
 <app-header></app-header>
+<div *ngIf="isLoading">
+    <app-loading-screen></app-loading-screen>
+</div>
 
-<div class="bg-gray-100 w-full">
-    <div class="w-4/5 m-auto bg-white" style="min-height: calc(100vh - 90px);">
+<div class="bg-gray-100 w-full min-h-screen">
+    <div class="w-4/5 m-auto min-h-screen bg-white">
         <p class="text-center font-bold text-2xl py-10">Danh sách môn học</p>
-        <div class="w-4/5 m-auto bg-orange-500 rounded-xl h-auto text-white text-xl">
+        <!-- <div class="w-4/5 m-auto bg-orange-500 rounded-xl h-auto text-white text-xl">
             <div class="inline-flex w-full place-content-center p-2">
                 <p-dropdown
                     [options]="semesters" 
@@ -24,7 +27,7 @@
                     </ng-template>
                 </p-dropdown>
             </div>
-        </div>
+        </div> -->
         <div  class="w-4/5 m-auto border-gray-200 grid grid-cols-3 gap-8 py-4">
             <div 
                 *ngFor="let course of courses" 

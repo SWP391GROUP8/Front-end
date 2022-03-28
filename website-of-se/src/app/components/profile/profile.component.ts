@@ -13,6 +13,7 @@ import { WebRequestService } from 'src/app/services/web-request.service';
 })
 export class ProfileComponent implements OnInit {
   isChangePassword: boolean = false;
+  isLoading: boolean = false;
   userInfor: UserInfor = {
     address: null,
     birthDay: null,
@@ -30,6 +31,7 @@ export class ProfileComponent implements OnInit {
     private messageService: MessageService
   ) {}
   ngOnInit(): void {
+    this.isLoading = true;
     if (this.email !== null) {
       this.getUserByEmail();
     }
@@ -60,6 +62,7 @@ export class ProfileComponent implements OnInit {
           this.userInfor = x.body;
           this.userInfor.roleId = x.body['role']['id'];
         }
+        this.isLoading = false;
       });
   }
   Cancel() {

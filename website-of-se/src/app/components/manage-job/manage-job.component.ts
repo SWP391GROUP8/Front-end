@@ -12,6 +12,7 @@ import { MenuItem } from 'primeng/api';
 })
 export class ManageJobComponent implements OnInit {
   isDisplay: boolean = false;
+  isLoading: boolean = false;
   listJob: JobManagement[] = [];
   jobId: string = null;
   @ViewChild('menuItems') menu: MenuItem[];
@@ -22,6 +23,7 @@ export class ManageJobComponent implements OnInit {
     ) {}
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.getListJob();
     this.items = [
       { id: '1', label: 'Công việc' },
@@ -33,6 +35,7 @@ export class ManageJobComponent implements OnInit {
     this.request.get(ResourcePath.JOB).subscribe(x => {
       this.listJob = x.body as JobManagement[];
       this.listJob.reverse();
+      this.isLoading = false;
     })
   }
   activateMenu() {

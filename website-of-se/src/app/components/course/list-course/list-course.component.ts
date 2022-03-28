@@ -16,12 +16,14 @@ export interface Semester {
 export class ListCourseComponent implements OnInit {
   semesters: Semester[] = [{ id: null, name: null }];
   courses: Course[] = [];
+  isLoading: boolean = false;
 
   course: Course = { id: '', author: '', code: '', name: '', status: '' };
   selectedSemester: Semester;
   constructor(private request: WebRequestService, private router: Router) {}
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.semesters = [
       {name: 1, id: '1'},
       {name: 2, id: '2'},
@@ -38,6 +40,7 @@ export class ListCourseComponent implements OnInit {
   getListCourse(){
     this.request.get(ResourcePath.COURSE, ResourcePath.GET_ALL).subscribe(x => {
       this.courses = x.body as Course[];
+      this.isLoading = false;
     })
   }
   navigateToCourseDetail(id) {

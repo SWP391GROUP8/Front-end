@@ -15,6 +15,7 @@ import { StoreValueService } from 'src/app/services/store-value.service';
 })
 export class BlogDetailsComponent implements OnInit {
   isLike: boolean = false;
+  isLoading: boolean = false;
   comment: string = '';
   email: string;
   blog: BlogManagement = {
@@ -37,7 +38,7 @@ export class BlogDetailsComponent implements OnInit {
     private cfService: ConfirmationService,
     private request: WebRequestService,
     private storeValue: StoreValueService
-    ) {}
+  ) { }
 
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id') ?? null;
@@ -45,31 +46,33 @@ export class BlogDetailsComponent implements OnInit {
     this.getBlogDetails();
     this.getISReaction();
     this.items = [{
-        label: 'Update',
-        icon: 'pi pi-refresh',
-        command: () => {
-            this.editProduct();
-        }
+      label: 'Update',
+      icon: 'pi pi-refresh',
+      command: () => {
+        this.editProduct();
+      }
     },
     {
-        label: 'Delete',
-        icon: 'pi pi-times',
-        command: () => {
-            this.deleteBlog();
-        }
+      label: 'Delete',
+      icon: 'pi pi-times',
+      command: () => {
+        this.deleteBlog();
+      }
     }
-  ];
+    ];
+    this.isLoading = true;
   }
 
-  getBlogDetails(){
+  getBlogDetails() {
     let params = new HttpParams()
-    .set('id', this.id);
+      .set('id', this.id);
     this.request.getWithQuery(params, ResourcePath.BLOG, ResourcePath.GET_BY_ID).subscribe(x => {
       this.blog = x.body as BlogManagement;
+      this.isLoading = false;
     })
   }
 
-  updateBlog(){
+  updateBlog() {
     this.submitted = true;
     this.request.put(this.blog, {}, ResourcePath.BLOG).subscribe(x => {
       if (x.status === 200) {
@@ -90,7 +93,7 @@ export class BlogDetailsComponent implements OnInit {
     });
   }
 
-  deleteBlog(){
+  deleteBlog() {
     this.cfService.confirm({
       message: 'Bạn có chắc muốn xóa bài viết này?',
       header: 'Xóa bài viết',
@@ -108,8 +111,8 @@ export class BlogDetailsComponent implements OnInit {
   }
 
   getISReaction() {
-    let params = new HttpParams().set('blogId',this.id).set('email',this.email);
-    this.request.getWithQuery(params,ResourcePath.USER,ResourcePath.IS_REACTION).subscribe(x => {
+    let params = new HttpParams().set('blogId', this.id).set('email', this.email);
+    this.request.getWithQuery(params, ResourcePath.USER, ResourcePath.IS_REACTION).subscribe(x => {
       if (x.body === null) {
         this.isLike = false
       } else {
@@ -119,14 +122,14 @@ export class BlogDetailsComponent implements OnInit {
   }
 
   reaction() {
-    let params = new HttpParams().set('blogId',this.id).set('email',this.email).set('isReaction',!this.isLike);
-    this.request.put(null,params,ResourcePath.USER,ResourcePath.REACTION).subscribe(x =>{
+    let params = new HttpParams().set('blogId', this.id).set('email', this.email).set('isReaction', !this.isLike);
+    this.request.put(null, params, ResourcePath.USER, ResourcePath.REACTION).subscribe(x => {
       if (x.status === 200) {
         this.getISReaction();
         if (this.isLike === false) {
           this.blog.reaction += 1;
         } else {
-          this.blog.reaction-= 1;
+          this.blog.reaction -= 1;
         }
       }
     })
@@ -137,7 +140,7 @@ export class BlogDetailsComponent implements OnInit {
     this.submitted = false;
   }
 
-  editProduct(){
+  editProduct() {
     this.productDialog = true;
   }
 }

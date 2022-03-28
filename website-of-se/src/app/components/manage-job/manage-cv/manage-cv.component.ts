@@ -13,6 +13,7 @@ import { StoreValueService } from 'src/app/services/store-value.service';
 })
 export class ManageCvComponent implements OnInit {
   listCV: any[] = [];
+  isLoading:boolean = false;
   email: string;
   @ViewChild('fileUpload') fileUpload: any;
   fileToUpload: File | null = null;
@@ -23,6 +24,7 @@ export class ManageCvComponent implements OnInit {
   ) {}
   file: any;
   ngOnInit(): void {
+    this.isLoading = true;
     this.email = this.sValue.getLocalStorage('email') ?? null;
     this.getFile();
   }
@@ -32,7 +34,7 @@ export class ManageCvComponent implements OnInit {
       .getWithQuery(params, ResourcePath.FILE, ResourcePath.GET_BY_USER_ID)
       .subscribe(x => {
         this.listCV = x.body as any[];
-
+        this.isLoading = false;
       });
 
     console.log(this.listCV);

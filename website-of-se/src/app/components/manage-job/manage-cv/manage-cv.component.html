@@ -1,8 +1,9 @@
-<div class="card">
-
-    <p-fileUpload #fileUpload mode="basic" accept="application/*" (onSelect)="onUpload($event)" [chooseLabel]="'Tải lên CV'">
+<div *ngIf="!isLoading" class="card">
+    <p class="w-full text-center font-bold text-2xl mb-10">Quản lý CV</p>
+    <p-fileUpload #fileUpload mode="basic" accept="application/*" (onSelect)="onUpload($event)"
+        [chooseLabel]="'Tải lên CV'">
     </p-fileUpload>
-    <p-table [value]="listCV"  >
+    <p-table [value]="listCV">
         <ng-template pTemplate="header">
             <tr>
                 <th>Tên File
@@ -17,8 +18,7 @@
                 <td>{{product.name}}</td>
                 <td>{{product.createDAte}}</td>
                 <td>
-                    <a [href]="product.path" class="text-blue-200 cursor-pointer mr-4"
-                    >View CV</a>
+                    <a [href]="product.path" class="text-blue-200 cursor-pointer mr-4">View CV</a>
                     <button pButton pRipple icon="pi pi-trash" class="p-button-danger"
                         (click)="deleteSelectedProducts(product.id)"></button>
                 </td>

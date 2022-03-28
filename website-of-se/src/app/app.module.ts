@@ -1,3 +1,4 @@
+import { LoadingScreenComponent } from './components/loading-screen/loading-screen.component';
 import { CreateJobComponent } from './components/manage-job/create-job/create-job.component';
 import { CreateBlogComponent } from './components/manage-blog/create-blog/create-blog.component';
 import { NgModule } from '@angular/core';
@@ -135,6 +136,7 @@ const PRIMENG_MODULE = [
     NotAllowedComponent,
     ChangePasswordComponent,
     CourseQaDetailComponent,
+    LoadingScreenComponent
   ],
   imports: [
     BrowserModule,

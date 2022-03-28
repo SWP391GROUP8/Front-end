@@ -13,6 +13,7 @@ import { HttpParams } from '@angular/common/http';
 })
 export class CourseDetailComponent implements OnInit {
   role: string;
+  isLoading: boolean = false;
   courseDetail: Course = { id: '', author: '', code: '', name: '', status: '' };
   id: string;
   constructor(
@@ -21,6 +22,7 @@ export class CourseDetailComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.id = this.route.snapshot.paramMap.get('id');
     this.getCourseById();
   }
@@ -36,6 +38,7 @@ export class CourseDetailComponent implements OnInit {
         if (x.status === 200) {
           this.courseDetail = x.body as Course;
         }
+        this.isLoading = false;
       });
   }
 
