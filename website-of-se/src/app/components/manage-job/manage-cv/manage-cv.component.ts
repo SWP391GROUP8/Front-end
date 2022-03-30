@@ -60,7 +60,7 @@ export class ManageCvComponent implements OnInit {
       this.messageService.add({
         severity: 'success',
         summary: 'Successful',
-        detail: 'Thêm tài liệu môn học thành công!',
+        detail: 'Tải lên CV thành công!',
         life: 3000,
       });
       this.getFile();

@@ -59,7 +59,12 @@
 
 
                     <div class="p-field p-col-10 mt-5">
-                        <button class="btn w-full" type="submit">Đăng nhập</button>
+                        <button class="btn w-full" type="submit">
+                            <div *ngIf="isLoading" class="w-full m-auto">
+                                <img class="h-5 m-auto" src="..\..\..\assets\img\loading2.gif"/>
+                            </div>
+                            <span *ngIf="!isLoading">Đăng nhập</span>
+                        </button>
                         <button class="btn-back w-full mt-2" [routerLink]="'/register'">Đăng ký</button>
                     </div>
                 </div>

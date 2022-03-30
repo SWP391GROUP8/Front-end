@@ -6,22 +6,22 @@
     <p-table [value]="listCV">
         <ng-template pTemplate="header">
             <tr>
-                <th>Tên File
-                </th>
-                <th>Ngày Tải
-                </th>
+                <th colspan="6">Tên File</th>
+                <th colspan="2">Ngày Tải</th>
                 <th></th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-product>
             <tr *ngIf="product">
-                <td>{{product.name}}</td>
-                <td>{{product.createDAte}}</td>
+                <td colspan="6">
+                    <a [href]="product.path" class="text-blue-500 cursor-pointer mr-4">{{product.name}}</a></td>
+                <td class="text-left" colspan="2">{{product.createDAte}}</td>
                 <td>
-                    <a [href]="product.path" class="text-blue-200 cursor-pointer mr-4">View CV</a>
+                    <div class="w-full text-right">
                     <button pButton pRipple icon="pi pi-trash" class="p-button-danger"
                         (click)="deleteSelectedProducts(product.id)"></button>
-                </td>
+                    </div>
+                    </td>
             </tr>
         </ng-template>
     </p-table>

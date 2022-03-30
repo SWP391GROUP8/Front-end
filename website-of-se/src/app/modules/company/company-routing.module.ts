@@ -1,3 +1,4 @@
+import { ListJobComponent } from './list-job/list-job.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CompanyComponent } from './company.component';
@@ -20,6 +21,10 @@ const routes: Routes = [{
     {
       path: 'manage-job',
       component: ManageJobComponent,
+    },
+    {
+      path: 'list-job',
+      component: ListJobComponent,
     },
     {
       path: 'list-cv',

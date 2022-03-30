@@ -13,6 +13,7 @@ import { Schedule } from '../../../admin.model';
 export class ListEventComponent implements OnInit {
   products: Schedule[];
   selectedProducts: Schedule[];
+  isLoading: boolean = false;
   constructor(
     private request: WebRequestService,
     private cfService: ConfirmationService,
@@ -20,6 +21,7 @@ export class ListEventComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.getListSchedule();
   }
   deleteProduct(product: Schedule) {
@@ -50,6 +52,7 @@ export class ListEventComponent implements OnInit {
       .get(ResourcePath.SCHEDULE)
       .subscribe((x) => {
         this.products = x.body as Schedule[];
+        this.isLoading = false;
       });
   }
 }

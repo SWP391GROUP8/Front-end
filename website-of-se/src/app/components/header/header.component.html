@@ -19,6 +19,9 @@
                 <li class="">
                     <a href="/job">Chương trình tuyển dụng</a>
                 </li>
+                <li *ngIf="currentRole !== 'STUDENT' && currentRole !== 'INSTRUCTOR'" class="">
+                    <a href="/{{managementLink}}">Quản lý</a>
+                </li>
             </ul>
             <ul class="items-center flex text-white w-1/5 justify-end">
                 <li>

@@ -15,13 +15,20 @@ export class CompanyComponent implements OnInit {
     this.navigateList = [
       {
         id: 1,
-        icon: 'fas fa-search-location',
-        name: 'Quản lý tuyển dụng',
-        link: '/company/manage-job',
+        icon: 'fas fa-home',
+        name: 'Trang chủ',
+        link: '/home',
         isHightLight: false,
       },
       {
         id: 2,
+        icon: 'fas fa-search-location',
+        name: 'Quản lý tuyển dụng',
+        link: '/company/list-job',
+        isHightLight: false,
+      },
+      {
+        id: 3,
         icon: 'fas fa-file-alt',
         name: 'Xem danh sách CV',
         link: '/company/list-cv',

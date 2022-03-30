@@ -1,3 +1,4 @@
+import { LoadingScreenComponent } from './loading-screen/loading-screen.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HomeComponent } from './home/home.component';
@@ -76,7 +77,8 @@ const PRIMENG_MODULE = [
     ListCourseComponent,
     ListEventComponent,
     ListAccountComponent,
-    ListBlogComponent
+    ListBlogComponent,
+    LoadingScreenComponent
   ],
   imports: [
     CommonModule,

@@ -13,7 +13,7 @@
     <div class="w-4/5 h-full m-auto bg-white py-10 px-8 border-l-2 border-r-2 border-solid border-gray-200"
         style="min-height: 700px">
         <div class="w-4/5 m-auto relative">
-            <div class="absolute right-0">
+            <div *ngIf="isEditable" class="absolute right-0">
                 <p-menu class="left-0 top-0" #menu [popup]="true" [model]="items"></p-menu>
                 <button 
                     class="pButton rounded-full px-1 text-2xl
@@ -28,7 +28,7 @@
             <p class="font-light mb-2">22/02/2022</p>
             <div class="flex my-4">
                 <img class="mr-3" width="30" height="30" src="../../../../assets/img/member-avatar-01.png" />
-                <a class="font-bold">{{blog.authorId}}</a>
+                <a class="font-bold">{{blog.author}}</a>
             </div>
             <div>
                 <!-- <img class="my-0 mx-auto" width="400" height="200" src="../../../../assets/img/daihocfpt.jpg" /> -->

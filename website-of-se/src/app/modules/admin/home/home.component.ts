@@ -1,3 +1,4 @@
+import { StoreValueService } from './../../../services/store-value.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 
@@ -8,10 +9,13 @@ import { MenuItem } from 'primeng/api';
 })
 export class HomeComponent implements OnInit {
  
-  constructor() {}
+  email: string;
+  constructor(
+    private storeValue: StoreValueService,
+    ) {}
 
   ngOnInit(): void {
-  
+    this.email = this.storeValue.getLocalStorage('email') ?? '';
   }
  
 }

@@ -1,3 +1,6 @@
+<div *ngIf="isLoading">
+    <app-loading-screen></app-loading-screen>
+</div>
 <div *ngIf="!isLoading">
     <p class="font-bold text-lg">{{job.title}}</p>
     <p>Ngày đăng: {{job.createDate}}</p>

@@ -26,6 +26,7 @@ export class ListJobComponent implements OnInit {
   currentUserId: string;
   products: Job[] = [];
   editingProduct: any;
+  isLoading: boolean = false;
 
   product: Job = { 
     id: '',
@@ -55,6 +56,7 @@ export class ListJobComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.getListJob();
     this.currentUserId = this.storeValue.getLocalStorage('email');
   }
@@ -71,6 +73,7 @@ export class ListJobComponent implements OnInit {
       phoneNumber: '',
       userId: this.currentUserId, 
     };
+    this.status = null;
     this.submitted = false;
     this.productDialog = true;
   }
@@ -95,7 +98,11 @@ export class ListJobComponent implements OnInit {
     const res = await this.request.getWithQuery(params, ResourcePath.JOB, ResourcePath.GET_BY_ID).toPromise();
     this.editingProduct = res.body as Job;
     this.product = res.body as Job;
-    this.status = product.status;
+    if(product.status == this.listStatus[0].id){
+      this.status = this.listStatus[0];
+    } else {
+      this.status = this.listStatus[1];
+    }
     this.productDialog = true;
   }
   hideDialog() {
@@ -180,6 +187,7 @@ export class ListJobComponent implements OnInit {
     this.request.get(ResourcePath.JOB).subscribe(x => {
       this.products = x.body as Job[];
       this.products.reverse();
+      this.isLoading = false;
     })
   }
   createId(): string {

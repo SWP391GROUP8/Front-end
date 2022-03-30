@@ -18,8 +18,9 @@ export class BlogDetailsComponent implements OnInit {
   isLoading: boolean = false;
   comment: string = '';
   email: string;
+  isEditable: boolean = false;
   blog: BlogManagement = {
-    authorId: null,
+    author: null,
     commentId: null,
     content: null,
     id: null,
@@ -68,6 +69,7 @@ export class BlogDetailsComponent implements OnInit {
       .set('id', this.id);
     this.request.getWithQuery(params, ResourcePath.BLOG, ResourcePath.GET_BY_ID).subscribe(x => {
       this.blog = x.body as BlogManagement;
+      this.isEditable = this.email === this.blog.author;
       this.isLoading = false;
     })
   }

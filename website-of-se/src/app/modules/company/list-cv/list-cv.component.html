@@ -1,1 +1,52 @@
-<p>list-cv works!</p>
+<div *ngIf="isLoading">
+    <app-loading-screen></app-loading-screen>
+</div>
+<div *ngIf="!isLoading" class="card w-full m-auto">
+    <p class="w-full text-center font-bold text-2xl mb-10">Quản lý CV</p>
+    <!-- <p-fileUpload #fileUpload mode="basic" accept="application/*" (onSelect)="onUpload($event)"
+        [chooseLabel]="'Tải lên CV'">
+    </p-fileUpload> -->
+    <p-table #dt [value]="listCV" [rows]="10" [paginator]="true" [rowHover]="true" dataKey="id"
+        currentPageReportTemplate="Hiển thị {last}/{totalRecords} CV" [showCurrentPageReport]="true">
+        <ng-template pTemplate="caption">
+            <div class="p-d-flex p-ai-center p-jc-between">
+                <h5 class="p-m-0">Quản lý CV</h5>
+                <span class="p-input-icon-left">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
+                        placeholder="Search..." />
+                </span>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th colspan="6">Tên File</th>
+                <th colspan="1">Ngày Tải</th>
+                <th colspan="2">Người tải</th>
+                <!-- <th></th> -->
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-product>
+            <tr *ngIf="product">
+                <td colspan="6">
+                    <a [href]="product.path" class="text-blue-500 cursor-pointer mr-4">{{product.name}}</a>
+                </td>
+                <td class="text-left" colspan="1">{{product.createDAte}}</td>
+                <td class="text-left" colspan="2">
+                    <span *ngIf="product.user != null">{{product.user.email}}</span>
+                </td>
+                <!-- <td>
+                    <div class="w-full text-right">
+                        <button pButton pRipple icon="pi pi-trash" class="p-button-danger"
+                            (click)="deleteSelectedProducts(product.id)"></button>
+                    </div>
+                </td> -->
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+            <div class="p-d-flex p-ai-center p-jc-between">
+                Có tổng cộng {{listCV ? listCV.length : 0 }} CV.
+            </div>
+        </ng-template>
+    </p-table>
+</div>

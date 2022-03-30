@@ -1,3 +1,4 @@
+import { Role } from './../../modules/admin/admin.model';
 import { HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { MessageService } from 'primeng/api';
@@ -23,6 +24,13 @@ export class ProfileComponent implements OnInit {
     status: null,
     roleId: null,
   };
+  currentRole: string;
+  roles: Role[] = [
+    { id: '1', name: 'admin' },
+    { id: '2', name: 'instructor' },
+    { id: '3', name: 'student' },
+    { id: '4', name: 'company' }
+  ];
   isEdit: boolean = true;
   email: string = this.storeValue.getLocalStorage('email') ?? null;
   constructor(
@@ -61,6 +69,20 @@ export class ProfileComponent implements OnInit {
         if (x.status === 200) {
           this.userInfor = x.body;
           this.userInfor.roleId = x.body['role']['id'];
+        }
+        switch (this.userInfor.roleId) {
+          case '1':
+            this.currentRole = this.roles[0].name;
+            break;
+          case '2':
+            this.currentRole = this.roles[1].name;
+            break;
+          case '3':
+            this.currentRole = this.roles[2].name;
+            break;
+          case '4':
+            this.currentRole = this.roles[3].name;
+            break;
         }
         this.isLoading = false;
       });
