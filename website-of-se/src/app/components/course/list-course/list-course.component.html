@@ -35,8 +35,13 @@
                 class="rounded-2xl border-2 cursor-pointer
                 hover:shadow-xl hover:scale-105 transition-all"
             >
-                <div class="width-full max-h-64 overflow-hidden rounded-t-xl bg-orange-500">
-                    <img class="w-full" src="../../../assets/img/member-avatar-02.png" />
+                <div class="width-full max-h-64 overflow-hidden rounded-t-xl"
+                    style="background: #006E5E"
+                >
+                    <!-- <img class="w-full" src="../../../assets/img/member-avatar-02.png" /> -->
+                    <p class="text-center text-5xl font-bold py-24 text-white">
+                        {{course.name.charAt(0).toUpperCase()}}
+                    </p>
                 </div>
                 <div class="width-full h-20 overflow-hidden p-3">
                     <p class="truncate font-bold">{{course.code}}</p>

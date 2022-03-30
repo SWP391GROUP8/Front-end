@@ -19,8 +19,11 @@ export class HeaderComponent implements OnInit {
   items: MenuItem[];
   managementLink: string;
   currentRole: any;
+  avatarText: string;
 
   ngOnInit(): void {
+    this.avatarText = this.storeValue.getLocalStorage('email').charAt(0).toUpperCase();
+    console.log(this.avatarText);
     this.currentRole = this.storeValue.getLocalStorage('role');
     switch (this.currentRole) {
       case 'ADMIN':

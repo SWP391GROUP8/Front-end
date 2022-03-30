@@ -15,6 +15,7 @@ import { WebRequestService } from 'src/app/services/web-request.service';
 export class ProfileComponent implements OnInit {
   isChangePassword: boolean = false;
   isLoading: boolean = false;
+  avatarText: string;
   userInfor: UserInfor = {
     address: null,
     birthDay: null,
@@ -84,6 +85,7 @@ export class ProfileComponent implements OnInit {
             this.currentRole = this.roles[3].name;
             break;
         }
+        this.avatarText = this.userInfor.email.charAt(0).toUpperCase();
         this.isLoading = false;
       });
   }
@@ -93,5 +95,6 @@ export class ProfileComponent implements OnInit {
   }
   changePassword(event) {
     this.isChangePassword = event;
+    console.log(this.isChangePassword);
   }
 }

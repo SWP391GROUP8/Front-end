@@ -20,8 +20,13 @@
                 class="w-full h-full max-h-96 rounded-xl 
                 cursor-pointer hover:shadow-xl hover:scale-105 transition-all"
                 (click)="navigateToBlogDetail(blog.id)" style="padding: 0 !important;">
-                <div class="w-full h-3/4 overflow-hidden bg-orange-500 rounded-t-xl">
-                    <img class="w-full block m-auto" src="../../../assets/img/daihocfpt.jpg" />
+                <div class="w-full h-3/4 overflow-hidden bg-orange-500 rounded-t-xl"
+                    style="background: #43547D"
+                >
+                    <!-- <img class="w-full block m-auto" src="../../../assets/img/daihocfpt.jpg" /> -->
+                    <p class="text-center text-5xl font-bold py-24 text-white">
+                        {{blog.title.charAt(0).toUpperCase()}}
+                    </p>
                 </div>
                 <div class="h-1/4 border-2 border-solid border-gray-200 rounded-b-xl p-4">
                     <div class="h-1/2 flex relative">
