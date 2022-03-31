@@ -9,7 +9,7 @@
         (click)="deleteSelectedProducts()" [disabled]="!selectedProducts || !selectedProducts.length"></button>
     </ng-template>
   </p-toolbar>
-  <p-table #dt [value]="products" [rows]="10" [paginator]="true" [globalFilterFields]="['name','author','status']"
+  <p-table #dt [value]="products" [rows]="10" [paginator]="true" [globalFilterFields]="['name','email','status']"
     [(selection)]="selectedProducts" [rowHover]="true" dataKey="id"
     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
 
@@ -28,13 +28,13 @@
         <th style="width: 3rem">
           <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
         </th>
-        <th pSortableColumn="name">Email<p-sortIcon field="code"></p-sortIcon>
+        <th pSortableColumn="email">Email<p-sortIcon field="email"></p-sortIcon>
         </th>
-        <th pSortableColumn="price">Tên<p-sortIcon field="name"></p-sortIcon>
+        <th pSortableColumn="name">Tên<p-sortIcon field="name"></p-sortIcon>
         </th>
         <th pSortableColumn="category">Số điện thoại<p-sortIcon field="author"></p-sortIcon>
         </th>
-        <th pSortableColumn="rating">Trạng thái<p-sortIcon field="rating"></p-sortIcon>
+        <th pSortableColumn="status">Trạng thái<p-sortIcon field="status"></p-sortIcon>
         </th>
         <th pSortableColumn="inventoryStatus">Vai trò<p-sortIcon field="event"></p-sortIcon>
         </th>
