@@ -27,7 +27,7 @@ export class ListCourseComponent implements OnInit {
   product: Course = { id: '', author: '', code: '', name: '', status: '' };
   statuses: any[]
   selectedProducts: Course[];
-
+  email: string;
   submitted: boolean;
   constructor(
     private messageService: MessageService,
@@ -37,7 +37,8 @@ export class ListCourseComponent implements OnInit {
 
   ngOnInit(): void {
     this.getListCourse();
-    this.statuses = [{ label: '1', value: 'Actived' }, { label: '2', value: 'Deactived' }]
+    this.email = localStorage.getItem('email').replace(/\"/g,"") ?? null;
+    this.statuses = [{ label: '1', value: 'Actived' }, { label: '2', value: 'Deactived' }];
   }
   openNew() {
     this.product = { id: '', author: '', code: '', name: '', status: '' };
@@ -46,7 +47,7 @@ export class ListCourseComponent implements OnInit {
   }
   deleteSelectedProducts() {
     this.cfService.confirm({
-      message: 'Bạn có chắc muốn xóa những môn học này?',
+      message: 'Bạn có chắc muốn xóa môn học này?',
       header: 'Confirm',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
@@ -97,6 +98,7 @@ export class ListCourseComponent implements OnInit {
   saveProduct() {
     this.submitted = true;
     if (this.product.name.trim()) {
+      this.product.author = this.email;
       if (this.product.id) {
         this.request.put(this.product, null, ResourcePath.COURSE).subscribe(x => {
           if (x.status === 200) {
@@ -106,9 +108,11 @@ export class ListCourseComponent implements OnInit {
               detail: 'Cập nhật môn học thành công!',
               life: 3000,
             });
+            this.getListCourse();
           }
         })
       } else {
+        this.product.status = 'ACTIVE';
         this.product.id = this.createId();
         this.request.post(this.product, ResourcePath.COURSE).subscribe(x => {
           if (x.status === 200) {
@@ -118,17 +122,18 @@ export class ListCourseComponent implements OnInit {
               detail: 'Tạo môn học thành công!',
               life: 3000,
             });
+            this.getListCourse();
           }
         })
 
       }
-      this.getListCourse();
       this.productDialog = false;
     }
   }
   getListCourse() {
-    this.request.get(ResourcePath.COURSE).subscribe(x => {
+    this.request.get(ResourcePath.COURSE, ResourcePath.GET_ALL).subscribe(x => {
       this.products = x.body as Course[];
+      
     })
   }
   createId(): string {

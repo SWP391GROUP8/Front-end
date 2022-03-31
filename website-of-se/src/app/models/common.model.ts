@@ -1,4 +1,3 @@
-import { StringifyOptions } from "querystring";
 
 export interface Comment {
     userId: string;

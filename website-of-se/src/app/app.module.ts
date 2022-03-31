@@ -70,6 +70,10 @@ import { SidebarComponent } from './modules/admin/sidebar/sidebar.component';
 
 import { CompanyComponent } from './modules/company/company.component';
 import { CourseEventComponent } from './components/course/course-event/course-event.component';
+import { NotAllowedComponent } from './components/not-allowed/not-allowed.component';
+import { ChangePasswordComponent } from './components/change-password/change-password.component';
+import { CourseQaDetailComponent } from './components/course/course-q/course-qa-detail/course-qa-detail.component';
+import { TabMenuModule } from 'primeng/tabmenu';
 
 const PRIMENG_MODULE = [
   PasswordModule,
@@ -93,7 +97,8 @@ const PRIMENG_MODULE = [
   MenuModule,
   RippleModule,
   TableModule,
-  ToolbarModule
+  ToolbarModule,
+  TabMenuModule
 ];
 @NgModule({
   declarations: [
@@ -127,6 +132,9 @@ const PRIMENG_MODULE = [
     CompanyComponent,
     CourseEventComponent,
     CreateJobComponent,
+    NotAllowedComponent,
+    ChangePasswordComponent,
+    CourseQaDetailComponent,
   ],
   imports: [
     BrowserModule,

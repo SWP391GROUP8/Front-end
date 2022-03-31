@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-comment',
@@ -6,10 +6,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./comment.component.scss']
 })
 export class CommentComponent implements OnInit {
+  @Input() id: string;
+  @Input() isBlog: boolean;
   comments: string;
   count: number;
   constructor() { }
-
   ngOnInit() {
     this.count = 0;
   }
@@ -17,7 +18,6 @@ export class CommentComponent implements OnInit {
   receiveComment($event) {
     this.comments = $event;
     this.count = this.comments.length;
-    console.log(this.comments.length);
   }
 
   recieveCount($event) {

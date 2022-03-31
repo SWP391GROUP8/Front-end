@@ -28,7 +28,6 @@ export class CourseResourceComponent implements OnInit {
     this.getCourseResourse();
   }
   deleteSelectedProducts() {
-    console.log(this.selectedProducts);
     if (this.selectedProducts.length === 0) {
       this.messageService.add({
         severity: 'error',
@@ -62,7 +61,6 @@ export class CourseResourceComponent implements OnInit {
         ResourcePath.GET_BY_COURSE_ID
       )
       .subscribe((x) => {
-        console.log(x);
         this.courseResources = x.body as any[];
       });
   }
@@ -83,7 +81,7 @@ export class CourseResourceComponent implements OnInit {
           courseId: this.courseId,
           fileId: x.body['id'],
         };
-        this.request.post(data, ResourcePath.COURSE_RESOURCE).subscribe((y) => {
+        this.request.post(data, ResourcePath.COURSE_RESOURCE, ResourcePath.COURSE_RESOURCE_CREATE).subscribe((y) => {
           if (y.status === 200) {
             this.messageService.add({
               severity: 'success',

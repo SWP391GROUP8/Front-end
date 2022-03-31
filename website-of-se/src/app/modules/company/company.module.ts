@@ -1,3 +1,4 @@
+import { ListJobComponent } from './list-job/list-job.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -57,12 +58,13 @@ const PRIMENG_MODULE = [
   OverlayPanelModule,
   BadgeModule,
   ToolbarModule,
-  TableModule
+  TableModule,
 ];
 @NgModule({
   declarations: [
     ManageJobComponent,
-    ListCvComponent
+    ListCvComponent,
+    ListJobComponent,
   ],
   imports: [
     CommonModule,

@@ -1,5 +1,5 @@
+import { HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { is } from 'date-fns/locale';
 import { MessageService } from 'primeng/api';
 import { ResourcePath } from 'src/app/helper/resource-path';
 import { UserInfor } from 'src/app/models/common.model';
@@ -12,6 +12,7 @@ import { WebRequestService } from 'src/app/services/web-request.service';
   styleUrls: ['./profile.component.scss'],
 })
 export class ProfileComponent implements OnInit {
+  isChangePassword: boolean = false;
   userInfor: UserInfor = {
     address: null,
     birthDay: null,
@@ -20,7 +21,6 @@ export class ProfileComponent implements OnInit {
     phone: null,
     status: null,
     roleId: null,
-    password: '123AAA@aaa',
   };
   isEdit: boolean = true;
   email: string = this.storeValue.getLocalStorage('email') ?? null;
@@ -38,17 +38,18 @@ export class ProfileComponent implements OnInit {
     this.userInfor['role'] = undefined;
     const data = {
       ...this.userInfor,
-      password: '123AAA@aaa',
     };
-    this.request.put(data, null, ResourcePath.USER).subscribe((x) => {
-      if (x.status === 200) {
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Thành Công',
-          detail: 'Cập nhật thành công',
-        });
-      }
-    });
+    this.request
+      .put(data, null, ResourcePath.USER, ResourcePath.USER_UPDATE)
+      .subscribe((x) => {
+        if (x.status === 200) {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Thành Công',
+            detail: 'Cập nhật thành công',
+          });
+        }
+      });
     this.isEdit = true;
   }
   getUserByEmail() {
@@ -60,5 +61,12 @@ export class ProfileComponent implements OnInit {
           this.userInfor.roleId = x.body['role']['id'];
         }
       });
+  }
+  Cancel() {
+    this.isEdit = true;
+    this.getUserByEmail();
+  }
+  changePassword(event) {
+    this.isChangePassword = event;
   }
 }

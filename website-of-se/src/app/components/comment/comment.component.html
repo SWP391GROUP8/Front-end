@@ -4,7 +4,7 @@
             <div class="col-12 col-sm-12">
                 <div class="comment-container">
                         <div class="comment-form w-full">
-                                <app-commentbox (usercomment)="receiveComment($event)"></app-commentbox>
+                                <app-commentbox [receiveId]="id" [isBlog]="isBlog" (usercomment)="receiveComment($event)"></app-commentbox>
                         </div>
                 </div>
             </div>

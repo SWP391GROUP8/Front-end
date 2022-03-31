@@ -47,7 +47,15 @@ export class LoginComponent implements OnInit {
             const decode = jwt_decode(String(res.body['token']));
             this.storeValue.setLocalStorage('role', res.body['role']);
             this.storeValue.setLocalStorage('email', decode['sub']);
-            this.route.navigateByUrl('/home');
+            if (res.body['role'] === 'COMPANY') {
+              this.route.navigateByUrl('/company');
+            }
+            if (res.body['role'] === 'ADMIN') {
+              this.route.navigateByUrl('/admin');
+            }
+            if (res.body['role'] === 'STUDENT' || res.body['role'] === 'INSTRUCTOR') {
+              this.route.navigateByUrl('/home');
+            }
           }
         },
         (err) => {

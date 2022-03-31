@@ -30,6 +30,6 @@ export class ListBlogComponent implements OnInit {
   }
 
   navigateToCreateBlog() {
-    this.route.navigate(['/createBlog']);
+    this.route.navigateByUrl('/blog/create');
   }
 }

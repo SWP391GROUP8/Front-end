@@ -36,7 +36,7 @@ export class ListCourseComponent implements OnInit {
   this.getListCourse();
   }
   getListCourse(){
-    this.request.get(ResourcePath.COURSE).subscribe(x => {
+    this.request.get(ResourcePath.COURSE, ResourcePath.GET_ALL).subscribe(x => {
       this.courses = x.body as Course[];
     })
   }

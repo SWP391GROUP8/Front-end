@@ -15,7 +15,7 @@
 
         <ng-template pTemplate="caption">
             <div class="p-d-flex p-ai-center p-jc-between">
-                <h5 class="p-m-0">Manage Courses</h5>
+                <h5 class="p-m-0">Quản lý môn học</h5>
                 <span class="p-input-icon-left">
                     <i class="pi pi-search"></i>
                     <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
@@ -36,8 +36,6 @@
                 </th>
                 <th pSortableColumn="rating">Trạng thái<p-sortIcon field="rating"></p-sortIcon>
                 </th>
-                <th pSortableColumn="inventoryStatus">Số sự kiện<p-sortIcon field="event"></p-sortIcon>
-                </th>
                 <th></th>
             </tr>
         </ng-template>
@@ -51,7 +49,6 @@
                 <td>{{product.author}}</td>
                 <td><span [class]="'product-badge status-' + product.status.toLowerCase()">{{product.status}}</span>
                 </td>
-                <td>Processing...</td>
                 <td>
                     <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2"
                         (click)="editProduct(product)"></button>

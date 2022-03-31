@@ -9,7 +9,7 @@ import { WebRequestService } from './web-request.service';
 })
 export class AuthService {
   isLogin: boolean = localStorage.getItem('Authorization') ? true : false;
-  role: string = '';
+  role: string = localStorage.getItem('role') ?? null;
   constructor(private router: Router, private request: WebRequestService) {}
   isLoggedIn() {
     return this.isLogin;
@@ -21,8 +21,8 @@ export class AuthService {
         shareReplay(),
         tap((res) => {
           this.isLogin = true;
-          this.setSession(String(res.body['token']));
           this.role = String(res.body['role']);
+          this.setSession(String(res.body['token']));
         })
       );
   }

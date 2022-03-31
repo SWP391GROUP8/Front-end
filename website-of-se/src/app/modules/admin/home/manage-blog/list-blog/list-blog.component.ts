@@ -1,3 +1,4 @@
+import { StoreValueService } from './../../../../../services/store-value.service';
 import { HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ConfirmationService, MessageService } from 'primeng/api';
@@ -21,6 +22,7 @@ import { Blog } from '../../../admin.model';
 })
 export class ListBlogComponent implements OnInit {
   productDialog: boolean;
+  currentUserId: string;
 
   products: Blog[] = [];
 
@@ -32,15 +34,17 @@ export class ListBlogComponent implements OnInit {
   constructor(
     private messageService: MessageService,
     private cfService: ConfirmationService,
+    private storeValue: StoreValueService,
     private request: WebRequestService
   ) { }
 
   ngOnInit(): void {
     this.getListBlog();
+    this.currentUserId = this.storeValue.getLocalStorage('email');
     this.statuses = [{ label: '1', value: 'Actived' }, { label: '2', value: 'Deactived' }]
   }
   openNew() {
-    this.product = { id: '', title: '', content: '', status: '', reaction: 0, author: 'admin' };
+    this.product = { id: '', title: '', content: '', status: '', reaction: 0, author: '' };
     this.submitted = false;
     this.productDialog = true;
   }
@@ -106,6 +110,7 @@ export class ListBlogComponent implements OnInit {
         })
       } else {
         // this.product.id = this.createId();
+        this.product.author = this.currentUserId;
         this.request.post(this.product, ResourcePath.BLOG).subscribe(x => {
           if (x.status === 200) {
             this.messageService.add({
@@ -125,7 +130,6 @@ export class ListBlogComponent implements OnInit {
   getListBlog() {
     this.request.get(ResourcePath.BLOG).subscribe(x => {
       this.products = x.body as Blog[];
-      console.log(this.products);
     })
   }
   createId(): string {

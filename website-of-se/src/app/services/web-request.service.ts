@@ -1,6 +1,7 @@
 import { CommonFunction } from './../helper/common-function';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpEventType } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -27,7 +28,41 @@ export class WebRequestService {
       }
     );
   }
+  postWithQuery(params ,payload: object, ...path) {
+    return this.http.post(
+      this.ROOT_URL + CommonFunction.convertPathArrToString(path),
+      payload
+      ,
+      {
+        params: params,
+        observe: 'response',
+        responseType: 'text'
+      }
+    );
+  }
+  downloadFile(url: string, fileName: string): Observable<number> {
+    return new Observable(observer => {
+        this.requestDownload(url).subscribe((event: HttpEvent<Blob>) => {
+            if (event.type === HttpEventType.DownloadProgress) {
+                const percentDone = Math.round(100 * event.loaded / event.total);
+                observer.next(percentDone);
+            }
+            if (event.type === HttpEventType.Response) {
+                observer.complete();
+            }
+        });
+    }
+    );
+}
 
+
+private requestDownload(url: string): Observable<HttpEvent<Blob>> {
+    return this.http.get(url, {
+        responseType: 'blob',
+        reportProgress: true,
+        observe: 'events',
+    })
+}
   postWithTextResponse(payload: object, ...path) {
     return this.http.post(
       this.ROOT_URL + CommonFunction.convertPathArrToString(path),
