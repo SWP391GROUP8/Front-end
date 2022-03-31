@@ -1,6 +1,9 @@
 <app-header></app-header>
-<div class="w-full bg-gray-100">
-    <div class="w-4/5 m-auto bg-white py-10 px-8 border-l-2 border-r-2 border-solid border-gray-200"
+<div *ngIf="isLoading">
+    <app-loading-screen></app-loading-screen>
+</div>
+<div class="w-full h-screen m-auto bg-gray-100">
+    <div class="w-4/5 h-full m-auto bg-white py-10 px-8 border-l-2 border-r-2 border-solid border-gray-200"
         style="min-height: 700px">
         <div class="w-4/5 m-auto">
             <p class="font-bold">{{qa.title}}</p>

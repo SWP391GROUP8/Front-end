@@ -1,3 +1,4 @@
+import { StoreValueService } from './../../services/store-value.service';
 import { WebRequestService } from './../../services/web-request.service';
 import { ResourcePath } from './../../helper/resource-path';
 import { Component, OnInit, ViewChild } from '@angular/core';
@@ -12,16 +13,22 @@ import { MenuItem } from 'primeng/api';
 })
 export class ManageJobComponent implements OnInit {
   isDisplay: boolean = false;
+  isLoading: boolean = false;
   listJob: JobManagement[] = [];
   jobId: string = null;
+  currentRole: any;
   @ViewChild('menuItems') menu: MenuItem[];
   items: MenuItem[];
   activeItem: MenuItem;
   constructor(
-    private request: WebRequestService
+    private request: WebRequestService,
+    private storeValue: StoreValueService,
     ) {}
 
   ngOnInit(): void {
+    
+    this.currentRole = this.storeValue.getLocalStorage('role');
+    this.isLoading = true;
     this.getListJob();
     this.items = [
       { id: '1', label: 'Công việc' },
@@ -33,6 +40,7 @@ export class ManageJobComponent implements OnInit {
     this.request.get(ResourcePath.JOB).subscribe(x => {
       this.listJob = x.body as JobManagement[];
       this.listJob.reverse();
+      this.isLoading = false;
     })
   }
   activateMenu() {

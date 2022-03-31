@@ -1,3 +1,4 @@
+import { Role } from './../../modules/admin/admin.model';
 import { HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { MessageService } from 'primeng/api';
@@ -13,6 +14,8 @@ import { WebRequestService } from 'src/app/services/web-request.service';
 })
 export class ProfileComponent implements OnInit {
   isChangePassword: boolean = false;
+  isLoading: boolean = false;
+  avatarText: string;
   userInfor: UserInfor = {
     address: null,
     birthDay: null,
@@ -22,6 +25,13 @@ export class ProfileComponent implements OnInit {
     status: null,
     roleId: null,
   };
+  currentRole: string;
+  roles: Role[] = [
+    { id: '1', name: 'admin' },
+    { id: '2', name: 'instructor' },
+    { id: '3', name: 'student' },
+    { id: '4', name: 'company' }
+  ];
   isEdit: boolean = true;
   email: string = this.storeValue.getLocalStorage('email') ?? null;
   constructor(
@@ -30,6 +40,7 @@ export class ProfileComponent implements OnInit {
     private messageService: MessageService
   ) {}
   ngOnInit(): void {
+    this.isLoading = true;
     if (this.email !== null) {
       this.getUserByEmail();
     }
@@ -60,6 +71,22 @@ export class ProfileComponent implements OnInit {
           this.userInfor = x.body;
           this.userInfor.roleId = x.body['role']['id'];
         }
+        switch (this.userInfor.roleId) {
+          case '1':
+            this.currentRole = this.roles[0].name;
+            break;
+          case '2':
+            this.currentRole = this.roles[1].name;
+            break;
+          case '3':
+            this.currentRole = this.roles[2].name;
+            break;
+          case '4':
+            this.currentRole = this.roles[3].name;
+            break;
+        }
+        this.avatarText = this.userInfor.email.charAt(0).toUpperCase();
+        this.isLoading = false;
       });
   }
   Cancel() {
@@ -68,5 +95,6 @@ export class ProfileComponent implements OnInit {
   }
   changePassword(event) {
     this.isChangePassword = event;
+    console.log(this.isChangePassword);
   }
 }

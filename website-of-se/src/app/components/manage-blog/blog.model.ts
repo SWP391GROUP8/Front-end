@@ -4,6 +4,6 @@ export interface BlogManagement {
     content: string;
     status: string;
     reaction: number;
-    authorId: string;
+    author: string;
     commentId: string;
 }

@@ -13,7 +13,7 @@ const routes: Routes = [
       children: [
         {
           path: '',
-          redirectTo: 'manage-course',
+          redirectTo: 'home',
           pathMatch: 'full',
         },
         {
@@ -32,8 +32,6 @@ const routes: Routes = [
           path: 'manage-account',
           component: ManageAccountComponent,
         },
-
-
       ],
     },
   ];

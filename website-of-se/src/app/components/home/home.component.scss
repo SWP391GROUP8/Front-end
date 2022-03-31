@@ -1,0 +1,14 @@
+.mainBackground {
+    background: url(../../../assets/img/backgroundCover.jpg) center no-repeat;
+    background-size: cover;
+    position: relative;
+    .backgroundFilter{
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image: linear-gradient(to bottom, #f27024, #bf7f00, #898500, #548412, #007e38);
+        opacity: 0.8;
+    }
+}

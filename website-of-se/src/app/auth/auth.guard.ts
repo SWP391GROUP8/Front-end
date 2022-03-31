@@ -7,12 +7,26 @@ import { AuthService } from '../services/auth.service';
 })
 export class AuthGuard implements CanActivate {
   role: string = localStorage.getItem('role') ?? null;
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router) { }
   canActivate(route: ActivatedRouteSnapshot): boolean {
     if (this.authService.isLoggedIn()) {
-      
+
       if (route.data.role && !route.data.role.includes(this.authService.getRole().replace(/['"]+/g, ''))) {
-        this.router.navigate(['/not-allowed']);
+        console.log(this.authService.getRole());
+        switch (this.authService.getRole()) {
+          case 'ADMIN':
+            this.router.navigate(['/admin']);
+            break;
+          case 'COMPANY':
+            this.router.navigate(['/company']);
+            break;
+          case 'INSTRUCTOR' || 'STUDENT':
+            this.router.navigate(['/home']);
+            break;
+          default:
+            this.router.navigate(['/not-allowed']);
+            break;
+        }
         return false;
       }
       return true;

@@ -1,3 +1,4 @@
+import { StoreValueService } from './../../../services/store-value.service';
 import { MenuItem } from 'primeng/api';
 import { Component, OnInit, ViewChild } from '@angular/core';
 
@@ -7,21 +8,14 @@ import { Component, OnInit, ViewChild } from '@angular/core';
   styleUrls: ['./manage-job.component.scss']
 })
 export class ManageJobComponent implements OnInit {
-
-  @ViewChild('menuItems') menu: MenuItem[];
-  items: MenuItem[];
-  activeItem: MenuItem;
-  constructor() {}
+  
+  email: string;
+  constructor(
+    private storeValue: StoreValueService,
+    ) {}
 
   ngOnInit(): void {
-    this.items = [
-      { id: '1', label: 'Bài viết' },
-      { id: '2', label: '...' },
-    ];
-    this.activeItem = this.items[0];
-  }
-  activateMenu() {
-    this.activeItem = this.menu['activeItem'];
+    this.email = this.storeValue.getLocalStorage('email') ?? '';
   }
 
 }

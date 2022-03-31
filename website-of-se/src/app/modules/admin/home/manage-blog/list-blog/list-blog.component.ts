@@ -23,6 +23,7 @@ import { Blog } from '../../../admin.model';
 export class ListBlogComponent implements OnInit {
   productDialog: boolean;
   currentUserId: string;
+  isLoading: boolean = false;
 
   products: Blog[] = [];
 
@@ -39,6 +40,7 @@ export class ListBlogComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.getListBlog();
     this.currentUserId = this.storeValue.getLocalStorage('email');
     this.statuses = [{ label: '1', value: 'Actived' }, { label: '2', value: 'Deactived' }]
@@ -130,6 +132,8 @@ export class ListBlogComponent implements OnInit {
   getListBlog() {
     this.request.get(ResourcePath.BLOG).subscribe(x => {
       this.products = x.body as Blog[];
+      this.products.reverse();
+      this.isLoading = false;
     })
   }
   createId(): string {

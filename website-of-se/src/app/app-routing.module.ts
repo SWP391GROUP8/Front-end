@@ -31,13 +31,13 @@ const routes: Routes = [
   {
     path: 'profile',
     component: ProfileComponent,
-    data: { role: ['STUDENT', 'INSTRUCTOR'] },
+    data: { role: ['STUDENT', 'INSTRUCTOR', 'ADMIN', 'COMPANY'] },
     canActivate: [AuthGuard],
   },
   {
     path: 'home',
     component: HomeComponent,
-    data: { role: ['STUDENT', 'INSTRUCTOR'] },
+    data: { role: ['STUDENT', 'INSTRUCTOR', 'ADMIN', 'COMPANY'] },
     canActivate: [AuthGuard],
   },
   { path: 'createBlog', component: CreateBlogComponent },
@@ -56,7 +56,7 @@ const routes: Routes = [
         component: CourseQaDetailComponent,
       },
     ],
-    data: { role: ['STUDENT', 'INSTRUCTOR'] },
+    data: { role: ['STUDENT', 'INSTRUCTOR', 'ADMIN'] },
     canActivate: [AuthGuard],
   },
   {
@@ -66,10 +66,8 @@ const routes: Routes = [
       { path: '', component: ListBlogComponent },
       { path: 'create', component: CreateBlogComponent },
       { path: ':id', component: BlogDetailsComponent },
-      
-      
     ],
-    data: { role: ['STUDENT', 'INSTRUCTOR'] },
+    data: { role: ['STUDENT', 'INSTRUCTOR', 'ADMIN'] },
     canActivate: [AuthGuard],
   },
   {
@@ -79,6 +77,7 @@ const routes: Routes = [
       { path: '', component: ManageJobComponent },
       { path: 'createJob', component: CreateJobComponent },
     ],
+    data: { role: ['STUDENT', 'ADMIN', 'COMPANY'] },
   },
   {
     path: 'admin',

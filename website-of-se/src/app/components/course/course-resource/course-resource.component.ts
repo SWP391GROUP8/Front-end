@@ -1,3 +1,4 @@
+import { StoreValueService } from './../../../services/store-value.service';
 import { HttpParams } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
@@ -17,14 +18,17 @@ export class CourseResourceComponent implements OnInit {
   selectedProducts: any[];
   courseId: string = null;
   fileToUpload: File | null = null;
+  currentRole: any;
   constructor(
     private messageService: MessageService,
     private request: WebRequestService,
+    private storeValue: StoreValueService,
     private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
     this.courseId = this.route.snapshot.paramMap.get('id');
+    this.currentRole = this.storeValue.getLocalStorage('role');
     this.getCourseResourse();
   }
   deleteSelectedProducts() {

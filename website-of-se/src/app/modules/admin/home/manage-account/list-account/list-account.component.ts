@@ -22,6 +22,7 @@ import { Account, Role } from '../../../admin.model';
 export class ListAccountComponent implements OnInit {
 
   productDialog: boolean;
+  isLoading: boolean = false;
 
   products: Account[] = [];
   roles: Role[] = [
@@ -48,6 +49,7 @@ export class ListAccountComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.getListUser();
     this.statuses = [{ label: '1', value: 'Actived' }, { label: '2', value: 'Deactived' }]
   }
@@ -55,6 +57,7 @@ export class ListAccountComponent implements OnInit {
     this.dialogType = 'create';
     this.product = { email: '', birthDay: '', name: '', address: '', status: '', role: { id: '', name: '' } };
     this.submitted = false;
+    this.selectedRole = null;
     this.productDialog = true;
   }
   deleteSelectedProducts() {
@@ -77,7 +80,21 @@ export class ListAccountComponent implements OnInit {
     this.dialogType = 'edit';
     const res = await this.request.get(ResourcePath.USER, ResourcePath.GET_BY_ID, product.email).toPromise();
     this.product = res.body as Account;
-    this.selectedRole = this.product.role;
+    // this.selectedRole = this.product.role;
+    switch (this.product.role.name) {
+      case 'ADMIN':
+        this.selectedRole = this.roles[0];
+        break;
+      case 'INSTRUCTOR':
+        this.selectedRole = this.roles[1];
+        break;
+      case 'STUDENT':
+        this.selectedRole = this.roles[2];
+        break;
+      case 'COMPANY':
+        this.selectedRole = this.roles[3];
+        break;
+    }
     this.productDialog = true;
   }
   hideDialog() {
@@ -110,7 +127,7 @@ export class ListAccountComponent implements OnInit {
     delete this.product.role;
     if (this.dialogType === 'edit') {
       let updateAccount = { ...this.product, roleId: this.selectedRole.id };
-      this.request.put(updateAccount, null, ResourcePath.USER).subscribe(x => {
+      this.request.put(updateAccount, null, ResourcePath.USER, ResourcePath.USER_UPDATE).subscribe(x => {
         if (x.status === 200) {
           this.messageService.add({
             severity: 'success',
@@ -124,7 +141,7 @@ export class ListAccountComponent implements OnInit {
     } else {
       let createAccount = { email: this.email, password: this.password, confirmPassword: this.confirmPassword, roleId: this.selectedRole.id };
       this.request.post(createAccount, ResourcePath.USER).subscribe(x => {
-        
+
         if (x.status === 200) {
           this.messageService.add({
             severity: 'success',
@@ -141,9 +158,11 @@ export class ListAccountComponent implements OnInit {
   getListUser() {
     this.request.get(ResourcePath.USER, ResourcePath.GET_ALL).subscribe(x => {
       this.products = x.body as Account[];
+      this.products.reverse();
+      this.isLoading = false;
     })
   }
-  refresh(){
+  refresh() {
     this.email = null;
     this.password = null;
     this.confirmPassword = null;

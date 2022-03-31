@@ -1,6 +1,9 @@
 <app-header></app-header>
-<div class="w-full bg-gray-100">
-    <div class="w-4/5 m-auto bg-white py-10 px-36">
+<div *ngIf="isLoading">
+    <app-loading-screen></app-loading-screen>
+</div>
+<div class="w-full min-h-screen bg-gray-100">
+    <div class="w-4/5 m-auto min-h-screen bg-white py-10 px-36">
         <div class="w-full relative">
             <p class="w-full text-center font-bold text-2xl mb-10">Danh sách bài viết</p>
             <button 
@@ -17,12 +20,17 @@
                 class="w-full h-full max-h-96 rounded-xl 
                 cursor-pointer hover:shadow-xl hover:scale-105 transition-all"
                 (click)="navigateToBlogDetail(blog.id)" style="padding: 0 !important;">
-                <div class="w-full h-3/4 overflow-hidden bg-orange-500 rounded-t-xl">
-                    <img class="w-full block m-auto" src="../../../assets/img/daihocfpt.jpg" />
+                <div class="w-full h-3/4 overflow-hidden bg-orange-500 rounded-t-xl"
+                    style="background: #43547D"
+                >
+                    <!-- <img class="w-full block m-auto" src="../../../assets/img/daihocfpt.jpg" /> -->
+                    <p class="text-center text-5xl font-bold py-24 text-white">
+                        {{blog.title.charAt(0).toUpperCase()}}
+                    </p>
                 </div>
                 <div class="h-1/4 border-2 border-solid border-gray-200 rounded-b-xl p-4">
                     <div class="h-1/2 flex relative">
-                        <p class="font-light text-base">{{blog.authorId}}</p>
+                        <p class="font-light text-base">{{blog.author}}</p>
                         <div class="text-sm absolute right-0">
                             <span>
                                 <i class="fas fa-heart text-red-500"></i>

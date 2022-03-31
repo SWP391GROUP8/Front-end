@@ -20,6 +20,7 @@ export class LoginComponent implements OnInit {
   user: UserLogin = { email: null,
   password: null };
   isEnabledPassEys: boolean = false;
+  isLoading: boolean = false;
   constructor(
     private authService: AuthService,
     private storeValue: StoreValueService,
@@ -32,6 +33,7 @@ export class LoginComponent implements OnInit {
     }
   }
   onSubmit() {
+    this.isLoading = true;
     if (this.user.email !== null) {
       if (this.user.email.split('@')[1] === 'fpt.edu.vn' || this.user.email.split('@')[1] === 'fe.edu.vn') {
       } else {
@@ -56,6 +58,7 @@ export class LoginComponent implements OnInit {
             if (res.body['role'] === 'STUDENT' || res.body['role'] === 'INSTRUCTOR') {
               this.route.navigateByUrl('/home');
             }
+            this.isLoading = false;
           }
         },
         (err) => {

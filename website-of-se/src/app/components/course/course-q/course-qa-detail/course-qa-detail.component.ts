@@ -1,4 +1,5 @@
 import { HttpParams } from '@angular/common/http';
+import { ThisReceiver } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ResourcePath } from 'src/app/helper/resource-path';
@@ -13,6 +14,7 @@ export class CourseQaDetailComponent implements OnInit {
   qa: any;
   id: string;
   courseId: string;
+  isLoading: boolean = false;
   constructor(
     private activeRoute: ActivatedRoute,
     private route: Router,
@@ -20,6 +22,7 @@ export class CourseQaDetailComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.id = this.activeRoute.snapshot.paramMap.get('qaID');
     this.getQADetail();
   }
@@ -28,6 +31,7 @@ export class CourseQaDetailComponent implements OnInit {
     this.request.getWithQuery(params,ResourcePath.COURSE_QA, ResourcePath.GET_BY_ID).subscribe(x => {
       console.log(x);
       this.qa = x.body;
+      this.isLoading = false;
     });
   }
 }

@@ -1,3 +1,4 @@
+import { StoreValueService } from './../../../services/store-value.service';
 import { BlogManagement } from './../blog.model';
 import { MessageService } from 'primeng/api';
 import { Router } from '@angular/router';
@@ -15,19 +16,28 @@ export class CreateBlogComponent implements OnInit {
   title: string;
   content: string;
   submitted: boolean = false;
+  author: string;
   constructor(
     private route: Router,
     private messageService: MessageService,
-    private request: WebRequestService
+    private request: WebRequestService,
+    private storeValue: StoreValueService
   ) { }
 
   ngOnInit() {
+    this.author = this.storeValue.getLocalStorage('email') ?? null;
   }
 
   submit() {
     this.submitted = true;
     if (this.title != null && this.content != null) {
-      this.newBlog = { ...this.newBlog, title: this.title, content: this.content, status: '' };
+      this.newBlog = { 
+        ...this.newBlog,
+        author: this.author,
+        title: this.title, 
+        content: this.content, 
+        status: '' 
+      };
       this.request.post(this.newBlog, ResourcePath.BLOG).subscribe(x => {
         if (x.status === 200) {
           this.messageService.add({

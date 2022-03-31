@@ -4,8 +4,9 @@
     ">
         <img class="w-full h-full" alt="" src="../../../assets/img/daihocfpt.jpg" />
     </div>
-    <div class="w-2/5 px-20 py-40">
-        <div class="h-full bg-white py-16 rounded-lg shadow-2xl">
+    <div class="w-2/5 px-20 py-40 justify-center">
+        <div class="h-full bg-white py-16 rounded-lg shadow-2xl
+            border-2 border-solid border-gray-200">
             <form (ngSubmit)="onSubmit()" [formGroup]="form">
                 <div class="p-fluid p-formgrid p-grid justify-center">
                     <div class="p-field p-col-10">
@@ -58,7 +59,12 @@
 
 
                     <div class="p-field p-col-10 mt-5">
-                        <button class="btn w-full" type="submit">Đăng nhập</button>
+                        <button class="btn w-full" type="submit">
+                            <div *ngIf="isLoading" class="w-full m-auto">
+                                <img class="h-5 m-auto" src="..\..\..\assets\img\loading2.gif"/>
+                            </div>
+                            <span *ngIf="!isLoading">Đăng nhập</span>
+                        </button>
                         <button class="btn-back w-full mt-2" [routerLink]="'/register'">Đăng ký</button>
                     </div>
                 </div>

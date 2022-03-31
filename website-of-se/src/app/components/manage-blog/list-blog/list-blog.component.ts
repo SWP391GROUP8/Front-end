@@ -11,18 +11,21 @@ import { BlogManagement } from '../blog.model';
 })
 export class ListBlogComponent implements OnInit {
   listBlog: BlogManagement[] = [];
+  isLoading: boolean = false;
   constructor(
     private route: Router,
     private request: WebRequestService
   ) {}
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.getListBlog();
   }
   getListBlog() {
     this.request.get(ResourcePath.BLOG).subscribe(x => {
       this.listBlog = x.body as BlogManagement[];
       this.listBlog.reverse();
+      this.isLoading = false;
     })
   }
   navigateToBlogDetail(id: string) {

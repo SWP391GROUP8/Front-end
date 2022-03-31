@@ -1,6 +1,9 @@
 <p-toast></p-toast>
+<div *ngIf="isLoading">
+  <app-loading-screen></app-loading-screen>
+</div>
 
-<div class="card">
+<div *ngIf="!isLoading" class="card">
     <p-table #dt [value]="products" [rows]="10" [paginator]="true" [globalFilterFields]="['name','author','status']"
         [(selection)]="selectedProducts" [rowHover]="true" dataKey="id"
         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">

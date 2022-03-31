@@ -16,28 +16,32 @@ export interface Semester {
 export class ListCourseComponent implements OnInit {
   semesters: Semester[] = [{ id: null, name: null }];
   courses: Course[] = [];
+  isLoading: boolean = false;
+  avatarText: any[];
 
   course: Course = { id: '', author: '', code: '', name: '', status: '' };
   selectedSemester: Semester;
-  constructor(private request: WebRequestService, private router: Router) {}
+  constructor(private request: WebRequestService, private router: Router) { }
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.semesters = [
-      {name: 1, id: '1'},
-      {name: 2, id: '2'},
-      {name: 3, id: '3'},
-      {name: 4, id: '4'},
-      {name: 5, id: '5'},
-      {name: 6, id: '6'},
-      {name: 7, id: '7'},
-      {name: 8, id: '8'},
-      {name: 9, id: '9'}
-  ];
-  this.getListCourse();
+      { name: 1, id: '1' },
+      { name: 2, id: '2' },
+      { name: 3, id: '3' },
+      { name: 4, id: '4' },
+      { name: 5, id: '5' },
+      { name: 6, id: '6' },
+      { name: 7, id: '7' },
+      { name: 8, id: '8' },
+      { name: 9, id: '9' }
+    ];
+    this.getListCourse();
   }
-  getListCourse(){
+  getListCourse() {
     this.request.get(ResourcePath.COURSE, ResourcePath.GET_ALL).subscribe(x => {
       this.courses = x.body as Course[];
+      this.isLoading = false;
     })
   }
   navigateToCourseDetail(id) {
@@ -45,7 +49,7 @@ export class ListCourseComponent implements OnInit {
   }
   test() {
     const data = {
-      
+
     }
   }
 }

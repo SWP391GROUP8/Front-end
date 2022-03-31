@@ -1,3 +1,4 @@
+import { LoadingScreenComponent } from './loading-screen/loading-screen.component';
 import { ListJobComponent } from './list-job/list-job.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -65,6 +66,7 @@ const PRIMENG_MODULE = [
     ManageJobComponent,
     ListCvComponent,
     ListJobComponent,
+    LoadingScreenComponent,
   ],
   imports: [
     CommonModule,

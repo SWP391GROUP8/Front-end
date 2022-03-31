@@ -1,54 +1,84 @@
 <app-header></app-header>
 <p-toast></p-toast>
-<div class="bg-gray-100 px-48">
-    <div class="px-40 bg-white" style="
+<div *ngIf="isLoading">
+    <app-loading-screen></app-loading-screen>
+</div>
+<div class="w-full h-screen bg-gray-100">
+    <div class="w-4/5 h-full m-auto bg-white pt-10" style="
     min-height: calc(100vh - 90px);">
-        <div class=" border-gray-400 ">
+        <div class="w-4/5 m-auto border-2 border-solid border-gray-200">
             <div class="border-b-2 w-full flex">
-                <div class="border-r-2 w-1/3 relative cursor-pointer">
-                    <img alt="" class="px-16 py-2" src="../../../assets/img/avatar.jpg" />
+                <div class="border-r-2 w-1/3 relative" style="background: #650000">
+                    <div class="w-full m-auto relative">
+                        <!-- <img alt="" class="px-16 py-2" src="../../../assets/img/avatar.jpg" /> -->
+                        <p class="text-center text-5xl font-bold py-24 text-white relative">
+                            {{avatarText}}
+                        </p>
+                    </div>
                 </div>
                 <div class="w-2/3 p-10 self-center">
                     <p class="font-bold text-xl">{{userInfor.name}}</p>
-                    <p>{{userInfor.roleId}}</p>
+                    <p>{{currentRole}}</p>
                     <p>{{userInfor.email}}</p>
                 </div>
             </div>
-            <div class="w-full flex">
-                <div *ngIf="isChangePassword" class="w-full pt-10 pb-7 px-7">
-                    <app-change-password [email]="userInfor.email" (isChange)="changePassword($event)"></app-change-password>
-                </div>
-                <div *ngIf="!isChangePassword" class="w-full pt-10 pb-7 px-7">
-                    <div class="flex mb-3">
+            <div *ngIf="!isChangePassword" class="w-full flex">
+                <div class="w-1/3">
+                    <div class="pl-10 pt-10">
                         <p>Email<a class="text-red-500">*</a>:</p>
+                    </div>
+                    <div class="pl-10 pt-10">
+                        <p>Họ tên<a class="text-red-500">*</a>:</p>
+                    </div>
+                    <div class="pl-10 pt-10">
+                        <p>Ngày sinh:</p>
+                    </div>
+                    <div class="pl-10 pt-10">
+                        <p>Số điện thoại:</p>
+                    </div>
+                    <div class="pl-10 pt-10">
+                        <p>Địa chỉ:</p>
+                    </div>
+                </div>
+                <div class="w-2/3">
+                    <div class="pl-10 pt-10">
                         <input pInputText type="text" [(ngModel)]="userInfor.email" [disabled]="isEdit" required />
                     </div>
-                    <div class="flex mb-3">
-                        <p>Họ tên<a class="text-red-500">*</a>:</p>
+                    <div class="pl-10 pt-10">
                         <input pInputText type="text" [(ngModel)]="userInfor.name" [disabled]="isEdit" required />
                     </div>
-                    <div class="flex mb-3">
-                        <p>Ngày sinh:</p>
+                    <div class="pl-10 pt-10">
                         <input pInputText type="text" [(ngModel)]="userInfor.birthDay" [disabled]="isEdit" />
                     </div>
-                    <div class="flex mb-3">
-                        <p>Số điện thoại:</p>
+                    <div class="pl-10 pt-10">
                         <input pInputText type="text" [(ngModel)]="userInfor.phone" [disabled]="isEdit" />
                     </div>
-                    <div class="flex  mb-3">
-                        <p>Địa chỉ:</p>
+                    <div class="pl-10 pt-10">
                         <input pInputText type="text" [(ngModel)]="userInfor.address" [disabled]="isEdit" />
                     </div>
-                    <div class="flex mb-3">
-                        <p class="text-blue-500 cursor-pointer hover:text-orange-300" (click)="isChangePassword=true">
-                            Đổi mật khẩu</p>
-                        <button *ngIf="isEdit" type="button" class="btn w-1/3 ml-3" (click)="isEdit=false">Chỉnh sửa hồ
-                            sơ</button>
-                        <div class="grid w-1/3">
-                            <button *ngIf="!isEdit" type="button" class="btn mb-2" (click)="editProfile()">Xác
-                                nhận</button>
-                            <button *ngIf="!isEdit" type="button" class="btn-back" (click)="Cancel()">Hủy</button>
-                        </div>
+                </div>
+            </div>
+            <div *ngIf="isChangePassword" class="w-full pt-10">
+                <app-change-password [email]="userInfor.email" (isChange)="changePassword($event)">
+                </app-change-password>
+            </div>
+            <div class="w-full mb-3 flex">
+                <div class="w-1/3">
+                    <p *ngIf="isEdit && !isChangePassword"
+                        class="pl-10 pt-10 text-blue-500 cursor-pointer hover:text-orange-300"
+                        (click)="isChangePassword=true">
+                        Đổi mật khẩu
+                    </p>
+                </div>
+                <div class="w-2/3">
+                    <button *ngIf="isEdit && !isChangePassword" type="button" class="btn w-1/3 ml-10 mt-10" (click)="isEdit=false">
+                        Chỉnh sửa hồ sơ
+                    </button>
+                    <div class="w-1/3 ml-10 mt-10 flex flex-row justify-between">
+                        <button *ngIf="!isEdit" type="button" class="btn w-5/12" (click)="editProfile()">
+                            Xác nhận
+                        </button>
+                        <button *ngIf="!isEdit" type="button" class="btn-back w-5/12" (click)="Cancel()">Hủy</button>
                     </div>
                 </div>
             </div>

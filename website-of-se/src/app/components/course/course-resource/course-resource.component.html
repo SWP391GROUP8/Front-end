@@ -1,5 +1,5 @@
 <div class="card">
-    <p-toolbar styleClass="p-mb-4">
+    <p-toolbar *ngIf="currentRole === 'INSTRUCTOR'" styleClass="p-mb-4">
         <ng-template pTemplate="left">
             <div class="p-mr-2">
                 <p-fileUpload #fileUpload mode="basic" (onSelect)="onUpload($event)" [chooseLabel]="'Tải lên tài liệu'">
@@ -10,47 +10,53 @@
 
         </ng-template>
     </p-toolbar>
-    <p-table #dt [value]="courseResources" [rows]="10" [paginator]="true" [globalFilterFields]="['name','author','status']"
-        [(selection)]="selectedProducts" [rowHover]="true" dataKey="id"
-        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
+    <p-table #dt [value]="courseResources" [rows]="10" [paginator]="true"
+        [globalFilterFields]="['name','author','status']" [(selection)]="selectedProducts" [rowHover]="true"
+        dataKey="id" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        [showCurrentPageReport]="true">
         <ng-template pTemplate="caption">
             <div class="p-d-flex p-ai-center p-jc-between">
                 <h5 class="p-m-0">Quản lý Tài Nguyên Môn Học</h5>
                 <span class="p-input-icon-left">
                     <i class="pi pi-search"></i>
-                    <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search..." />
+                    <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
+                        placeholder="Search..." />
                 </span>
             </div>
         </ng-template>
         <ng-template pTemplate="header">
             <tr>
-                <th style="width: 3rem">
+                <th *ngIf="currentRole === 'INSTRUCTOR'" style="width: 3rem">
                     <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                 </th>
-                <th pSortableColumn="name">Tên file<p-sortIcon field="code"></p-sortIcon></th>
-                <th pSortableColumn="price">Ngày đăng<p-sortIcon field="name"></p-sortIcon></th>
-                <th>Tải xuống</th>
+                <th colspan="4" pSortableColumn="name">Tên file<p-sortIcon field="code"></p-sortIcon>
+                </th>
+                <th pSortableColumn="price">Ngày đăng<p-sortIcon field="name"></p-sortIcon>
+                </th>
+                <th></th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-product>
             <tr>
-                <td>
+                <td *ngIf="currentRole === 'INSTRUCTOR'">
                     <p-tableCheckbox [value]="product"></p-tableCheckbox>
                 </td>
-                <td>{{product.file.name}}</td>
+                <td colspan="4">
+                    <a [href]="product.file.path" class="text-blue-500 cursor-pointer mr-4">
+                        {{product.file.name}}
+                    </a>
+                </td>
                 <td>{{product.file.createDAte}}</td>
                 <td>
-                    <p >
-                        <a [href]="product.file.path" class="text-blue-300 cursor-pointer mr-4"
-                    >View</a>
+                    <div class="w-full text-right">
                         <a class="fa fa-download cursor-pointer"></a>
-                    </p>
+                    </div>
                 </td>
             </tr>
         </ng-template>
         <ng-template pTemplate="summary">
             <div class="p-d-flex p-ai-center p-jc-between">
-                Có tổng cộng {{products ? products.length : 0 }} môn học.
+                Có tổng cộng {{courseResources ? courseResources.length : 0 }} tài liệu.
             </div>
         </ng-template>
     </p-table>

@@ -21,6 +21,7 @@ import { Course } from '../../../admin.model';
 })
 export class ListCourseComponent implements OnInit {
   productDialog: boolean;
+  isLoading: boolean = false;
 
   products: Course[] = [];
 
@@ -36,6 +37,7 @@ export class ListCourseComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.getListCourse();
     this.email = localStorage.getItem('email').replace(/\"/g,"") ?? null;
     this.statuses = [{ label: '1', value: 'Actived' }, { label: '2', value: 'Deactived' }];
@@ -133,6 +135,7 @@ export class ListCourseComponent implements OnInit {
   getListCourse() {
     this.request.get(ResourcePath.COURSE, ResourcePath.GET_ALL).subscribe(x => {
       this.products = x.body as Course[];
+      this.isLoading = false;
       
     })
   }
