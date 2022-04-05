@@ -19,7 +19,7 @@ export class ListCourseComponent implements OnInit {
   isLoading: boolean = false;
   avatarText: any[];
 
-  course: Course = { id: '', author: '', code: '', name: '', status: '' };
+  course: Course = { id: '', author: '', code: '', name: '', status: '' ,preCourse:null};
   selectedSemester: Semester;
   constructor(private request: WebRequestService, private router: Router) { }
 

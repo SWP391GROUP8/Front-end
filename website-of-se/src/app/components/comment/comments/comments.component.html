@@ -25,7 +25,7 @@
                 <div class="actions my-2">
                     <span>{{post.createDate}}</span>
                     <span class="divider"></span>
-                    <button class="btn btn-sm btn-danger" (click)="removeComment(post.id,i)">
+                    <button *ngIf="post.user.email===email" class="btn btn-sm btn-danger" (click)="removeComment(post.id,i)">
                         <i class="fa fa-trash"></i>
                     </button>
                 </div>

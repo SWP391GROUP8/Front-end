@@ -2,6 +2,7 @@ import { HttpParams } from '@angular/common/http';
 import { Component, OnInit, Input, Output, OnChanges, EventEmitter,
   Directive, ViewContainerRef, ViewChildren, QueryList, ComponentFactoryResolver, AfterContentInit} from '@angular/core';
 import { ResourcePath } from 'src/app/helper/resource-path';
+import { StoreValueService } from 'src/app/services/store-value.service';
 import { WebRequestService } from 'src/app/services/web-request.service';
 import { ChildboxComponent } from '../childbox/childbox.component';
 
@@ -23,27 +24,23 @@ export class DatacontainerDirective  {
 export class CommentsComponent implements OnInit, OnChanges{
   @Input() postComment: Array<object> = [];
   @Output() countComments = new EventEmitter();
+  email : string;
   public loadComponent = false;
   public commentIndex = 0;
   public reply: Array<object> = [];
 
-  // @ViewChildren decorator to grab elements from the host view
-  /* The return type of ViewChildren is QueryList.
-  QueryList is just a fancy name for an object that stores
-  a list of items. What is special about this object is
-  when the state of the application changes Angular will
-  automatically update the object items for you. */
   @ViewChildren (DatacontainerDirective) entry: QueryList<DatacontainerDirective>;
 
-  constructor(private resolver: ComponentFactoryResolver, private request: WebRequestService) { }
+  constructor(private resolver: ComponentFactoryResolver, private request: WebRequestService, private sValue: StoreValueService) { }
 
   ngOnInit() {
+    
+    this.email = this.sValue.getLocalStorage('email') ?? null;
   }
 
 
   ngOnChanges() {
     if (this.postComment !== undefined) {
-      console.log('Main array====>', this.postComment);
     }
   }
 
@@ -52,7 +49,6 @@ export class CommentsComponent implements OnInit, OnChanges{
     this.countComments.emit(this.postComment);
     let params = new HttpParams().set('id',id);
     this.request.deleteWithQuery(params,ResourcePath.COMMENT).subscribe(x => {
-      console.log(x);
       
     })
   }

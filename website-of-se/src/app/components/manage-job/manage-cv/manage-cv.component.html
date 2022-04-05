@@ -18,13 +18,14 @@
                 </td>
                 <td class="text-left" colspan="2">{{product.createDAte}}</td>
                 <td>
-                    <!-- <div class="w-full text-right">
+                    <div class="w-full text-right">
                         <button pButton pRipple icon="pi pi-trash" class="p-button-danger"
                             (click)="deleteSelectedProducts(product.id)"></button>
-                    </div> -->
+                    </div>
                 </td>
             </tr>
         </ng-template>
     </p-table>
     <div *ngIf="listCV.length == 0">Không có dữ liệu</div>
 </div>
+<p-toast></p-toast>

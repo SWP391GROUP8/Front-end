@@ -4,6 +4,7 @@ export class Course {
   name: string;
   code: string;
   status: string;
+  preCourse: Course;
 }
 export class Blog {
     id: string;

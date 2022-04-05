@@ -36,14 +36,11 @@ export class ManageCvComponent implements OnInit {
         this.listCV = x.body as any[];
         this.isLoading = false;
       });
-
-    console.log(this.listCV);
   }
   onDownloadFile() {
     this.request
       .downloadFile(this.file.path, this.file.name)
       .subscribe((progress) => {
-        console.log(progress);
       });
   }
   onUpload(event) {
@@ -51,7 +48,21 @@ export class ManageCvComponent implements OnInit {
     this.postFile(this.fileToUpload);
     this.fileUpload.clear();
   }
-
+  deleteSelectedProducts(id) {
+    let params = new HttpParams().set('id',id);
+    this.request.deleteWithQuery(params,ResourcePath.FILE).subscribe(x=> {
+      if (x.status === 200) {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Thành công',
+          detail: 'Xóa CV thành công!',
+          life: 3000,
+        });
+        this.getFile();
+      }
+      
+    })
+  }
   postFile(postedFile) {
     const formData = new FormData();
     formData.append('file', postedFile);
@@ -59,7 +70,7 @@ export class ManageCvComponent implements OnInit {
     this.request.post(formData, ResourcePath.FILE, 'upload').subscribe((x) => {
       this.messageService.add({
         severity: 'success',
-        summary: 'Successful',
+        summary: 'Thành công',
         detail: 'Tải lên CV thành công!',
         life: 3000,
       });

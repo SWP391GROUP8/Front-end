@@ -109,6 +109,7 @@ export class ListBlogComponent implements OnInit {
               detail: 'Cập nhật bài viết thành công!',
             });
           }
+          this.getListBlog();
         })
       } else {
         // this.product.id = this.createId();

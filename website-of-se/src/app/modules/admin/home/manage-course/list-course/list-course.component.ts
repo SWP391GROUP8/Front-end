@@ -22,10 +22,11 @@ import { Course } from '../../../admin.model';
 export class ListCourseComponent implements OnInit {
   productDialog: boolean;
   isLoading: boolean = false;
+  listPrecourse: any[] = [];
 
   products: Course[] = [];
 
-  product: Course = { id: '', author: '', code: '', name: '', status: '' };
+  product: Course = { id: '', author: '', code: '', name: '', status: '' , preCourse: null};
   statuses: any[]
   selectedProducts: Course[];
   email: string;
@@ -43,9 +44,13 @@ export class ListCourseComponent implements OnInit {
     this.statuses = [{ label: '1', value: 'Actived' }, { label: '2', value: 'Deactived' }];
   }
   openNew() {
-    this.product = { id: '', author: '', code: '', name: '', status: '' };
+    this.product = { id: '', author: '', code: '', name: '', status: '' ,preCourse: null};
+    
     this.submitted = false;
     this.productDialog = true;
+    console.log(
+      this.product.preCourse);
+    
   }
   deleteSelectedProducts() {
     this.cfService.confirm({
@@ -69,7 +74,8 @@ export class ListCourseComponent implements OnInit {
       .set('id', product.id)
     const res = await this.request.getWithQuery(params, ResourcePath.COURSE, ResourcePath.GET_BY_ID).toPromise();
     this.product = res.body as Course;
-    this.productDialog = true;
+    this.getPreCourse();
+    
   }
   hideDialog() {
     this.productDialog = false;
@@ -87,13 +93,23 @@ export class ListCourseComponent implements OnInit {
           if (x.status === 200) {
             this.messageService.add({
               severity: 'success',
-              summary: 'Successful',
+              summary: 'Thành công',
               detail: 'Xóa môn học thành công!',
               life: 3000,
             });
             this.getListCourse();
           }
-        })
+        }, err => {
+          if (err.status===500) {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Thất bại',
+              detail: 'Môn học đang có sự kiện diễn ra! Không thể xóa môn học này!',
+              life: 3000,
+            });
+          }
+          
+        });
       },
     });
   }
@@ -102,6 +118,11 @@ export class ListCourseComponent implements OnInit {
     if (this.product.name.trim()) {
       this.product.author = this.email;
       if (this.product.id) {
+        let params = new HttpParams().set('courseId',this.product.id).set('preCourseId',this.product.preCourse.id);
+        this.request.postWithQuery(params,null,ResourcePath.COURSE,ResourcePath.ADD_PRE_COURSE).subscribe(x => {
+          console.log(x);
+          
+        })
         this.request.put(this.product, null, ResourcePath.COURSE).subscribe(x => {
           if (x.status === 200) {
             this.messageService.add({
@@ -116,6 +137,10 @@ export class ListCourseComponent implements OnInit {
       } else {
         this.product.status = 'ACTIVE';
         this.product.id = this.createId();
+        let params = new HttpParams().set('courseId',this.product.id).set('preCourseId',this.product.preCourse.id);
+        this.request.postWithQuery(params,null,ResourcePath.COURSE,ResourcePath.ADD_PRE_COURSE).subscribe(x => {
+          console.log(x);
+        })
         this.request.post(this.product, ResourcePath.COURSE).subscribe(x => {
           if (x.status === 200) {
             this.messageService.add({
@@ -127,7 +152,6 @@ export class ListCourseComponent implements OnInit {
             this.getListCourse();
           }
         })
-
       }
       this.productDialog = false;
     }
@@ -135,8 +159,18 @@ export class ListCourseComponent implements OnInit {
   getListCourse() {
     this.request.get(ResourcePath.COURSE, ResourcePath.GET_ALL).subscribe(x => {
       this.products = x.body as Course[];
+      this.listPrecourse = x.body as Course[];
       this.isLoading = false;
+      this.products.forEach(x=> {
+      })
+    })
+  }
+  getPreCourse() {
+    let params = new HttpParams().set('courseId',this.product.id)
+    this.request.getWithQuery(params,ResourcePath.COURSE, ResourcePath.PRE_COURSE).subscribe(x => {
+      this.product.preCourse = x.body[0] as Course;
       
+      this.productDialog = true;
     })
   }
   createId(): string {

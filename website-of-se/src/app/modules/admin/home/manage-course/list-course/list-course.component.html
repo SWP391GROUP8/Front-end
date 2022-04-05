@@ -12,7 +12,7 @@
                 (click)="deleteSelectedProducts()" [disabled]="!selectedProducts || !selectedProducts.length"></button> -->
         </ng-template>
     </p-toolbar>
-    <p-table #dt [value]="products" [rows]="10" [paginator]="true" [globalFilterFields]="['id','name']"
+    <p-table #dt [value]="products" [rows]="10" [paginator]="true" [globalFilterFields]="['code','name']"
         [(selection)]="selectedProducts" [rowHover]="true" dataKey="id"
         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
 
@@ -78,6 +78,8 @@
             <p>Tên môn học</p>
             <input type="text" pInputText [(ngModel)]="product.name" />
             <small class="p-invalid" *ngIf="submitted && !product.name">Vui lòng nhập tên môn học.</small>
+            <p>Môn tiên quyết</p>
+            <p-dropdown appendTo="body" [(ngModel)]="product.preCourse" optionLabel="name" [placeholder]="'Vui lòng chọn môn tiên quyết'" [options]="listPrecourse"></p-dropdown> 
         </div>
     </ng-template>
     <ng-template pTemplate="footer">
