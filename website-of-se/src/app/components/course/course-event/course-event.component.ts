@@ -46,7 +46,7 @@ export class CourseEventComponent implements OnInit {
     private sValue: StoreValueService,
     private message: MessageService,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.event.courseId = this.route.snapshot.paramMap.get('id');
@@ -57,10 +57,10 @@ export class CourseEventComponent implements OnInit {
     this.getScheduleByEmail();
     console.log(this.scheduleByUser);
   }
-  redirectTo(uri:string){
-    this.router.navigateByUrl('/', {skipLocationChange: true}).then(()=>
-    this.router.navigate([uri]));
- }
+  redirectTo(uri: string) {
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+      this.router.navigate([uri]));
+  }
   cancelEvent(id) {
     const data = {
       scheduleId: id,
@@ -189,7 +189,7 @@ export class CourseEventComponent implements OnInit {
     this.scheduleId = id;
     this.isDisplayDetail = true;
     this.getScheduleById();
-    this.getListUserByScheduleId(this.courseId);
+    this.getListUserByScheduleId();
   }
   getScheduleById() {
     this.isLoading = true;

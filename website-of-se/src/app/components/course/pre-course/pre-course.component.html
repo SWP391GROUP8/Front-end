@@ -1,0 +1,49 @@
+<div *ngIf="!isLoading && courses.length > 0" class="w-full">
+    <div class="w-4/5 m-auto bg-white">
+        <p class="text-center font-bold text-2xl py-10">Danh sách môn tiên quyết</p>
+        <!-- <div class="w-4/5 m-auto bg-orange-500 rounded-xl h-auto text-white text-xl">
+            <div class="inline-flex w-full place-content-center p-2">
+                <p-dropdown
+                    [options]="semesters" 
+                    [(ngModel)]="selectedSemester" 
+                    placeholder="Vui lòng chọn kỳ" 
+                    optionLabel="name" 
+                    [showClear]="true" 
+                >
+                    <ng-template pTemplate="selectedItem">
+                        <div class="country-item country-item-value">
+                            <div>Kỳ {{selectedSemester.name}}</div>
+                        </div>
+                    </ng-template>
+                    <ng-template let-semester pTemplate="item">
+                        <div class="country-item">
+                            <div>Kỳ {{semester.name}}</div>
+                        </div>
+                    </ng-template>
+                </p-dropdown>
+            </div>
+        </div> -->
+        <div  class="m-auto border-gray-200 grid grid-cols-3 gap-8 py-4">
+            <div 
+                *ngFor="let course of courses" 
+                (click)="redirectTo(course.id)" 
+                class="rounded-2xl border-2 cursor-pointer
+                hover:shadow-xl hover:scale-105 transition-all"
+            >
+                <div class="width-full max-h-64 overflow-hidden rounded-t-xl"
+                    style="background: #006E5E"
+                >
+                    <!-- <img class="w-full" src="../../../assets/img/member-avatar-02.png" /> -->
+                    <p class="text-center text-5xl font-bold py-24 text-white">
+                        {{course.name.charAt(0).toUpperCase()}}
+                    </p>
+                </div>
+                <div class="width-full h-20 overflow-hidden p-3">
+                    <p class="truncate font-bold">{{course.code}}</p>
+                    <p class="truncate">{{course.name}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div *ngIf="courses.length < 1" class="w-full text-center">Không có môn tiên quyết</div>

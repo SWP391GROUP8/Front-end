@@ -5,8 +5,8 @@
 </div>
 <div class="w-full h-screen m-auto bg-gray-100">
     <div class="w-4/5 h-full m-auto bg-white" style="min-height: calc(100vh - 90px);">
-        <div class="w-4/5 m-auto">
-            <div class="border-2 border-gray-200 mt-10">
+        <div class="w-4/5 m-auto pt-10">
+            <div class="border-2 border-gray-200">
                 <div class="border-b-2 w-full flex">
                     <div class="border-r-2 w-1/3 relative cursor-pointer" style="background: #006E5E">
                         <!-- <img alt="" class="px-16 py-2" src="../../../assets/img/avatar.jpg" /> -->
@@ -29,6 +29,9 @@
                         </p-tabPanel>
                         <p-tabPanel header="Sự kiện môn học">
                             <app-course-event></app-course-event>
+                        </p-tabPanel>
+                        <p-tabPanel header="Môn tiên quyết">
+                            <app-pre-course></app-pre-course>
                         </p-tabPanel>
                     </p-tabView>
                 </div>
