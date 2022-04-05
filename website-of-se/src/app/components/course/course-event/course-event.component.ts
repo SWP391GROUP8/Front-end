@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Schedule } from 'src/app/modules/admin/admin.model';
 import { StoreValueService } from 'src/app/services/store-value.service';
 import { WebRequestService } from 'src/app/services/web-request.service';
@@ -35,18 +35,71 @@ export class CourseEventComponent implements OnInit {
     status: null,
     title: null,
   };
+  scheduleByUser: any[] = [];
   constructor(
     private request: WebRequestService,
     private route: ActivatedRoute,
     private datePipe: DatePipe,
     private sValue: StoreValueService,
-    private message: MessageService
+    private message: MessageService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
     this.event.courseId = this.route.snapshot.paramMap.get('id');
     this.email = this.sValue.getLocalStorage('email') ?? null;
     this.getListSchedule();
+    this.getScheduleByEmail();
+    console.log(this.scheduleByUser);
+  }
+  redirectTo(uri:string){
+    this.router.navigateByUrl('/', {skipLocationChange: true}).then(()=>
+    this.router.navigate([uri]));
+ }
+  cancelEvent(id) {
+    const data = {
+      scheduleId: id,
+      userIdList: [this.email],
+    };
+    this.request
+      .postWithTextResponse(
+        data,
+        ResourcePath.SCHEDULE,
+        ResourcePath.SCHEDULE_REMOVE_USER
+      )
+      .subscribe(
+        (x) => {
+          if (x.status === 200) {
+            this.message.add({
+              severity: 'success',
+              summary: 'Thành công',
+              detail: 'Hủy đăng ký tham sự kiện thành công!',
+              life: 3000,
+            });
+            this.scheduleByUser = this.scheduleByUser.filter(x => x !== id);
+          }
+        },
+        (err) => {
+          if (err.status === 400) {
+            this.message.add({
+              severity: 'error',
+              summary: 'Thất bại',
+              detail: 'Bạn chưa tham gia sự kiện này!',
+              life: 3000,
+            });
+          }
+        }
+      );
+  }
+  async getScheduleByEmail() {
+    let params = new HttpParams().set('email', this.email);
+    const data = await this.request
+      .getWithQuery(params, ResourcePath.SCHEDULE, ResourcePath.GET_BY_EMAIL)
+      .toPromise();
+    const body = data.body as any[];
+    body.forEach((x) => {
+      this.scheduleByUser.push(x.id);
+    });
   }
   showDialog() {
     if (this.role === 'INSTRUCTOR') {
@@ -54,14 +107,16 @@ export class CourseEventComponent implements OnInit {
     }
   }
   getListUserByScheduleId() {
-    this.listUser = []
-    this.request.get(ResourcePath.USER,ResourcePath.GET_BY_SCHEDULE_ID,this.scheduleId).subscribe(x => {
-      console.log(x);
-      const data = x.body as any[]; 
-      data.forEach(e => {
-        this.listUser.push(e.email)
+    this.listUser = [];
+    this.request
+      .get(ResourcePath.USER, ResourcePath.GET_BY_SCHEDULE_ID, this.scheduleId)
+      .subscribe((x) => {
+        console.log(x);
+        const data = x.body as any[];
+        data.forEach((e) => {
+          this.listUser.push(e.email);
+        });
       });
-    })
   }
   joinEvent(event) {
     const data = {
@@ -83,6 +138,8 @@ export class CourseEventComponent implements OnInit {
               detail: 'Bạn đã đăng ký tham sự kiện này!',
               life: 3000,
             });
+            this.getListSchedule();
+            this.getScheduleByEmail();
           }
         },
         (err) => {
