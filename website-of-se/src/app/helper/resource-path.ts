@@ -28,6 +28,7 @@ export class ResourcePath {
   public static readonly COURSE = 'course';
   public static readonly COURSE_QA = 'course-q&a';
   public static readonly COURSE_QA_CREATE = 'create-course-q&a';
+  public static readonly PRE_COURSE = 'get-PreCourse-by-course-id';
   
   //Common
   public static readonly GET_BY_ID = 'get-by-id';
