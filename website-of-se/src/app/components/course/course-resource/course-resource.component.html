@@ -10,18 +10,17 @@
 
         </ng-template>
     </p-toolbar>
-    <p-table #dt [value]="courseResources" [rows]="10" [paginator]="true"
-        [globalFilterFields]="['name','author','status']" [(selection)]="selectedProducts" [rowHover]="true"
-        dataKey="id" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-        [showCurrentPageReport]="true">
+    <p-table #dt [value]="courseResources" [rows]="10" [paginator]="true" [globalFilterFields]="['search']"
+        [(selection)]="selectedProducts" [rowHover]="true" dataKey="id"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
         <ng-template pTemplate="caption">
             <div class="p-d-flex p-ai-center p-jc-between">
                 <h5 class="p-m-0">Quản lý Tài Nguyên Môn Học</h5>
-                <span class="p-input-icon-left">
+                <!-- <span class="p-input-icon-left">
                     <i class="pi pi-search"></i>
                     <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
                         placeholder="Search..." />
-                </span>
+                </span> -->
             </div>
         </ng-template>
         <ng-template pTemplate="header">
@@ -29,9 +28,9 @@
                 <th *ngIf="currentRole === 'INSTRUCTOR'" style="width: 3rem">
                     <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                 </th>
-                <th colspan="4" pSortableColumn="name">Tên file<p-sortIcon field="code"></p-sortIcon>
+                <th colspan="4">Tên file
                 </th>
-                <th pSortableColumn="price">Ngày đăng<p-sortIcon field="name"></p-sortIcon>
+                <th>Ngày đăng
                 </th>
                 <th></th>
             </tr>

@@ -67,15 +67,18 @@ export class LoginComponent implements OnInit {
               this.form.controls['email'].setErrors({
                 exist: true,
               });
+              this.isLoading = false;
             }
             
             this.form.controls['password'].setErrors({
               valid: true,
             });
+            this.isLoading = false;
           }
         }
       );
     } else {
+      this.isLoading = false;
       CommonFunction.validateAllFormFields(this.form);
     }
   }

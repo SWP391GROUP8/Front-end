@@ -1,3 +1,4 @@
+import { HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
@@ -25,8 +26,8 @@ export class CourseQComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.getListQA();
     this.courseId = this.active.snapshot.paramMap.get('id') ?? null;
+    this.getListQA();
   }
   showDialog() {
     this.isDisplay = true;
@@ -59,11 +60,10 @@ export class CourseQComponent implements OnInit {
     }
   }
   getListQA() {
-    this.request.get(ResourcePath.COURSE_QA).subscribe(x => {
+    let params = new HttpParams().set('id', this.courseId);
+    this.request.getWithQuery(params, ResourcePath.COURSE_QA, ResourcePath.GET_BY_COURSE_ID).subscribe(x => {
       if (x.status === 200) {
         this.listQA = x.body as any[];
-        console.log(this.listQA);
-        
       }
     })
   }

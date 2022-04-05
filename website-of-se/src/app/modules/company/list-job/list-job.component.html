@@ -6,21 +6,22 @@
   <p class="text-center font-bold text-2xl mb-10">Quản lý công việc</p>
   <p-toolbar styleClass="p-mb-4">
     <ng-template pTemplate="left">
-      <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success p-mr-2"
+      <button pButton pRipple label="Thêm" icon="pi pi-plus" class="p-button-success p-mr-2"
         (click)="openNew()"></button>
-      <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger"
-        (click)="deleteSelectedProducts()" [disabled]="!selectedProducts || !selectedProducts.length"></button>
+      <!-- <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger"
+        (click)="deleteSelectedProducts()" [disabled]="!selectedProducts || !selectedProducts.length"></button> -->
     </ng-template>
   </p-toolbar>
-  <p-table #dt [value]="products" [rows]="10" [paginator]="true" [(selection)]="selectedProducts" [rowHover]="true"
-    dataKey="id" currentPageReportTemplate="Hiển thị {last}/{totalRecords} công việc" [showCurrentPageReport]="true">
-    <ng-template pTemplate="caption">
+  <p-table #dt [value]="products" [rows]="10" [paginator]="true" [globalFilterFields]="['title']"
+        [(selection)]="selectedProducts" [rowHover]="true" dataKey="id"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
+       <ng-template pTemplate="caption">
       <div class="p-d-flex p-ai-center p-jc-between">
         <h5 class="p-m-0">Quản lý công việc</h5>
         <span class="p-input-icon-left">
           <i class="pi pi-search"></i>
           <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
-            placeholder="Search..." />
+            placeholder="Tiêu đề..." />
         </span>
       </div>
     </ng-template>
@@ -29,11 +30,15 @@
         <th style="width: 3rem">
           <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
         </th>
-        <th pSortableColumn="name">Mã công việc</th>
-        <th pSortableColumn="price">Tiêu đề</th>
-        <th pSortableColumn="category">Người tạo</th>
-        <th pSortableColumn="rating">Trạng thái</th>
-        <th pSortableColumn="inventoryStatus">Khu vực làm việc</th>
+        <th>Mã công việc
+        </th>
+        <th pSortableColumn="title">Tiêu đề<p-sortIcon field="title"></p-sortIcon>
+        </th>
+        <th>Người tạo</th>
+        <th pSortableColumn="status">Trạng thái<p-sortIcon field="status"></p-sortIcon>
+        </th>
+        <th pSortableColumn="city">Khu vực làm việc<p-sortIcon field="city"></p-sortIcon>
+        </th>
         <th></th>
       </tr>
     </ng-template>

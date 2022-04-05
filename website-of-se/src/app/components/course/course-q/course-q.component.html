@@ -1,7 +1,7 @@
 <div class="card">
     <button pButton label="{{'Tạo câu hỏi'}}" icon="pi pi-plus" class="btn" (click)="showDialog()"></button>
 
-    <p-table #dt [value]="listQA" [rows]="10" [paginator]="true" [globalFilterFields]="['name','author','status']"
+    <p-table #dt [value]="listQA" [rows]="10" [paginator]="true" [globalFilterFields]="['title','content']"
         [(selection)]="selectedProducts" [rowHover]="true" dataKey="id"
         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
         <ng-template pTemplate="caption">
@@ -9,15 +9,15 @@
                 <span class="p-input-icon-left">
                     <i class="pi pi-search"></i>
                     <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
-                        placeholder="Search..." />
+                        placeholder="Tìm kiếm..." />
                 </span>
             </div>
         </ng-template>
         <ng-template pTemplate="header">
             <tr>
-                <th colspan="2" pSortableColumn="name">Câu hỏi<p-sortIcon field="code"></p-sortIcon>
+                <th colspan="2" pSortableColumn="title">Câu hỏi<p-sortIcon field="title"></p-sortIcon>
                 </th>
-                <th colspan="2" pSortableColumn="price">Nội dung<p-sortIcon field="name"></p-sortIcon>
+                <th colspan="2" pSortableColumn="content">Nội dung<p-sortIcon field="content"></p-sortIcon>
                 </th>
                 <th></th>
             </tr>

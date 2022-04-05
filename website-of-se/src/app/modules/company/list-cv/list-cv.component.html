@@ -6,22 +6,24 @@
     <!-- <p-fileUpload #fileUpload mode="basic" accept="application/*" (onSelect)="onUpload($event)"
         [chooseLabel]="'Tải lên CV'">
     </p-fileUpload> -->
-    <p-table #dt [value]="listCV" [rows]="10" [paginator]="true" [rowHover]="true" dataKey="id"
-        currentPageReportTemplate="Hiển thị {last}/{totalRecords} CV" [showCurrentPageReport]="true">
+    <p-table #dt [value]="listCV" [rows]="10" [paginator]="true" [globalFilterFields]="['name']"
+        [(selection)]="selectedProducts" [rowHover]="true" dataKey="id"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
         <ng-template pTemplate="caption">
             <div class="p-d-flex p-ai-center p-jc-between">
                 <h5 class="p-m-0">Quản lý CV</h5>
                 <span class="p-input-icon-left">
                     <i class="pi pi-search"></i>
                     <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
-                        placeholder="Search..." />
+                        placeholder="Tên file..." />
                 </span>
             </div>
         </ng-template>
         <ng-template pTemplate="header">
             <tr>
-                <th colspan="6">Tên File</th>
-                <th colspan="1">Ngày Tải</th>
+                <th colspan="6" pColumn="name">Tên File</th>
+                <th colspan="1">Ngày tải
+                </th>
                 <th colspan="2">Người tải</th>
                 <!-- <th></th> -->
             </tr>

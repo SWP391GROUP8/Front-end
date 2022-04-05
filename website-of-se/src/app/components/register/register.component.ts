@@ -53,9 +53,8 @@ export class RegisterComponent implements OnInit {
         password: this.user.password,
         roleId: '3'
       }
-      this.request.post(data, ResourcePath.USER).subscribe(x => {
-        console.log(x);
-        
+      this.request.post(data, ResourcePath.USER, ResourcePath.USER_CREATE).subscribe(x => {
+        this.route.navigateByUrl('/login');
       })
     } else {
       CommonFunction.validateAllFormFields(this.form);

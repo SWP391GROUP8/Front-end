@@ -1,18 +1,18 @@
 <p-toast></p-toast>
 <div *ngIf="isLoading">
-  <app-loading-screen></app-loading-screen>
+    <app-loading-screen></app-loading-screen>
 </div>
 
 <div *ngIf="!isLoading" class="card">
     <p-toolbar styleClass="p-mb-4">
         <ng-template pTemplate="left">
-            <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success p-mr-2"
+            <button pButton pRipple label="Thêm" icon="pi pi-plus" class="p-button-success p-mr-2"
                 (click)="openNew()"></button>
-            <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger"
-                (click)="deleteSelectedProducts()" [disabled]="!selectedProducts || !selectedProducts.length"></button>
+            <!-- <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger"
+                (click)="deleteSelectedProducts()" [disabled]="!selectedProducts || !selectedProducts.length"></button> -->
         </ng-template>
     </p-toolbar>
-    <p-table #dt [value]="products" [rows]="10" [paginator]="true" [globalFilterFields]="['name','author','status']"
+    <p-table #dt [value]="products" [rows]="10" [paginator]="true" [globalFilterFields]="['title']"
         [(selection)]="selectedProducts" [rowHover]="true" dataKey="id"
         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
         <ng-template pTemplate="caption">
@@ -21,38 +21,38 @@
                 <span class="p-input-icon-left">
                     <i class="pi pi-search"></i>
                     <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
-                        placeholder="Search..." />
+                        placeholder="Tiêu đề..." />
                 </span>
             </div>
         </ng-template>
         <ng-template pTemplate="header">
             <tr>
-                <th style="width: 3rem">
+                <!-- <th style="width: 3rem">
                     <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                </th> -->
+                <th pSortableColumn="id">Mã bài viết<p-sortIcon field="id"></p-sortIcon>
                 </th>
-                <th pSortableColumn="name">Mã bài viết<p-sortIcon field="code"></p-sortIcon>
+                <th pSortableColumn="title">Tiêu đề<p-sortIcon field="title"></p-sortIcon>
                 </th>
-                <th pSortableColumn="price">Tiêu đề<p-sortIcon field="name"></p-sortIcon>
+                <th>Người tạo
                 </th>
-                <th pSortableColumn="category">Người tạo<p-sortIcon field="author"></p-sortIcon>
-                </th>
-                <th pSortableColumn="rating">Trạng thái<p-sortIcon field="rating"></p-sortIcon>
-                </th>
-                <th pSortableColumn="inventoryStatus">Lượng yêu thích<p-sortIcon field="event"></p-sortIcon>
+                <!-- <th pSortableColumn="rating">Trạng thái
+                </th> -->
+                <th pSortableColumn="reaction">Lượng yêu thích<p-sortIcon field="reaction"></p-sortIcon>
                 </th>
                 <th></th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-product>
             <tr>
-                <td>
+                <!-- <td>
                     <p-tableCheckbox [value]="product"></p-tableCheckbox>
-                </td>
+                </td> -->
                 <td>{{product.id}}</td>
                 <td>{{product.title}}</td>
                 <td>{{product.author}}</td>
-                <td><span [class]="'product-badge status-' + product.status.toLowerCase()">{{product.status}}</span>
-                </td>
+                <!-- <td><span [class]="'product-badge status-' + product.status.toLowerCase()">{{product.status}}</span>
+                </td> -->
                 <td>{{product.reaction}}</td>
                 <td>
                     <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2"

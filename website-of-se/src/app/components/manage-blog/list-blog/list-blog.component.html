@@ -30,16 +30,16 @@
                 </div>
                 <div class="h-1/4 border-2 border-solid border-gray-200 rounded-b-xl p-4">
                     <div class="h-1/2 flex relative">
-                        <p class="font-light text-base">{{blog.author}}</p>
+                        <p class="font-light text-base truncate">{{blog.author}}</p>
                         <div class="text-sm absolute right-0">
-                            <span>
+                            <span class="truncate">
                                 <i class="fas fa-heart text-red-500"></i>
                                 {{blog.reaction}} lượt thích
                             </span>
                         </div>
                     </div>
                     <div class="w-full h-1/2">
-                        <p class="font-bold text-lg">{{blog.title}}</p>
+                        <p class="font-bold text-lg truncate">{{blog.title}}</p>
                     </div>
                 </div>
             </div>

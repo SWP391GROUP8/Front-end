@@ -29,7 +29,6 @@ export class CourseQaDetailComponent implements OnInit {
   getQADetail(){
     let params = new HttpParams().set('id',this.id);
     this.request.getWithQuery(params,ResourcePath.COURSE_QA, ResourcePath.GET_BY_ID).subscribe(x => {
-      console.log(x);
       this.qa = x.body;
       this.isLoading = false;
     });
