@@ -1,9 +1,9 @@
-<div class="card">
+<div  *ngIf="!isLoading" class="card">
 
     <p-toast></p-toast>
     <button *ngIf="role==='INSTRUCTOR'" pButton pRipple label="{{'Tạo sự kiện cho môn học'}}" icon="pi pi-plus"
         class="p-button-success p-mr-2" (click)="showDialog()"></button>
-    <p-table #dt [value]="listSchedule" [rows]="10" [paginator]="true" [globalFilterFields]="['name','author','status']"
+    <p-table #dt [value]="listSchedule" [rows]="10" [paginator]="true" [globalFilterFields]="['title']"
         [(selection)]="selectedProducts" [rowHover]="true" dataKey="id"
         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
         <ng-template pTemplate="caption">
@@ -11,24 +11,23 @@
                 <span class="p-input-icon-left">
                     <i class="pi pi-search"></i>
                     <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
-                        placeholder="Search..." />
+                        placeholder="Tên sự kiện..." />
                 </span>
             </div>
         </ng-template>
         <ng-template pTemplate="header">
             <tr>
-                <th pSortableColumn="name">Tên sự kiện<p-sortIcon field="code"></p-sortIcon>
+                <th pSortableColumn="title">Tên sự kiện<p-sortIcon field="title"></p-sortIcon>
                 </th>
-                <th pSortableColumn="price">Nội dung<p-sortIcon field="name"></p-sortIcon>
+                <th>Nội dung
                 </th>
-                <th pSortableColumn="category">Người tạo<p-sortIcon field="author"></p-sortIcon>
+                <th>Người tạo
                 </th>
-                <th class="w-1/6" pSortableColumn="rating">Thời gian bắt đầu<p-sortIcon field="rating"></p-sortIcon>
+                <th class="w-1/6">Thời gian bắt đầu
                 </th>
-                <th class="w-1/6" pSortableColumn="inventoryStatus">Thời gian kết thúc<p-sortIcon field="event">
-                    </p-sortIcon>
+                <th class="w-1/6">Thời gian kết thúc
                 </th>
-                <th pSortableColumn="inventoryStatus">Trạng thái<p-sortIcon field="event"></p-sortIcon>
+                <th>Trạng thái
                 </th>
                 <th></th>
             </tr>
@@ -85,7 +84,7 @@
         </div>
     </div>
 </p-dialog>
-<p-dialog [header]="'Chi tiết sự kiện'" [(visible)]="isDisplayDetail" [modal]="true" [dismissableMask]="true"
+<p-dialog *ngIf="!isLoading" [header]="'Chi tiết sự kiện'" [(visible)]="isDisplayDetail" [modal]="true" [dismissableMask]="true"
     [style]="{ 'min-width': '30vw'}" [contentStyle]="{minHeight: '550px'}">
     <p-tabView>
         <p-tabPanel header="Chi tiết">

@@ -4,12 +4,23 @@
         <li *ngFor="let post of postComment; let i = index;">
             <div class="col-12 col-sm-12 comment-container">
                 <div class="flex">
+                    <div class="w-16 px-4 mr-4 flex justify-center" style="background: #650000">
+                        <span class="text-center text-lg font-bold pt-5 text-white">
+                            {{post.user.email.charAt(0).toUpperCase()}}
+                        </span>
+                    </div>
+                    <div>
+                        <p class="font-bold">{{post.user.email}}</p>
+                        <p>{{post.content}}</p>  
+                    </div>
+                </div>
+                <!-- <div class="flex">
                     <img class="mr-3" width="30" height="30" src="../../../../assets/img/member-avatar-01.png" />
                     <div>
                         <p class="font-bold">Tri Huynh</p>
                         <p>{{post.content}}</p>  
                     </div>
-                </div>
+                </div> -->
                 
                 <div class="actions my-2">
                     <span>{{post.createDate}}</span>

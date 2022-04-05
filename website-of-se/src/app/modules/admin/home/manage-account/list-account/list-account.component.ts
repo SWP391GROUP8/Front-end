@@ -23,6 +23,7 @@ export class ListAccountComponent implements OnInit {
 
   productDialog: boolean;
   isLoading: boolean = false;
+  emailError: string;
 
   products: Account[] = [];
   roles: Role[] = [
@@ -134,25 +135,46 @@ export class ListAccountComponent implements OnInit {
             summary: 'Successful',
             detail: 'Cập nhật tài khoản thành công!',
           });
+          this.submitted = false;
           this.productDialog = false;
           this.getListUser();
         }
       })
     } else {
+      if (this.email.split('@')[1] !== 'fpt.edu.vn') {
+        this.emailError = "Email không đúng format (fpt.edu.vn).";
+        return;
+      }
       let createAccount = { email: this.email, password: this.password, confirmPassword: this.confirmPassword, roleId: this.selectedRole.id };
-      this.request.post(createAccount, ResourcePath.USER).subscribe(x => {
-
-        if (x.status === 200) {
-          this.messageService.add({
-            severity: 'success',
-            summary: 'Successful',
-            detail: 'Tạo tài khoản thành công!',
-          });
-          this.productDialog = false;
-          this.getListUser();
-          this.refresh();
-        }
-      })
+      this.request.post(
+        createAccount,
+        ResourcePath.USER,
+        ResourcePath.USER_CREATE).subscribe(
+          (x) => {
+            console.log(x.status);
+            if (x.status === 200) {
+              this.messageService.add({
+                severity: 'success',
+                summary: 'Successful',
+                detail: 'Tạo tài khoản thành công!',
+              });
+              this.submitted = false;
+              this.productDialog = false;
+              this.getListUser();
+              this.refresh();
+            }
+          },
+          (err) => {
+            if (err.status === 400) {
+              this.messageService.add({
+                severity: 'error',
+                summary: 'Thất bại',
+                detail: 'Tạo tài khoản không thành công!',
+              });
+              this.emailError = "Email đã tồn tại.";
+            }
+          }
+        )
     }
   }
   getListUser() {

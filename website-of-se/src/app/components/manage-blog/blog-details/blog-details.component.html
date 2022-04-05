@@ -5,12 +5,12 @@
 <div *ngIf="isLoading">
     <app-loading-screen></app-loading-screen>
 </div>
-<div class="w-full h-screen bg-gray-100">
+<div *ngIf="!isLoading" class="w-full h-screen bg-gray-100 menuDrop">
     <div class="w-4/5 h-full m-auto bg-white py-10 px-8 border-l-2 border-r-2 border-solid border-gray-200"
         style="min-height: 700px">
         <div class="w-4/5 m-auto relative">
             <div *ngIf="isEditable" class="absolute right-0">
-                <p-menu class="left-0 top-0" #menu [popup]="true" [model]="items"></p-menu>
+                <p-menu class="left-0 top-0 fixed" #menu [popup]="true" [model]="items"></p-menu>
                 <button class="pButton rounded-full px-1 text-2xl
                         hover:bg-gray-200 transition-all" (click)="menu.toggle($event)">
                     <i class="fas fa-ellipsis-h"></i>

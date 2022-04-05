@@ -35,6 +35,9 @@ export class CourseEventComponent implements OnInit {
     status: null,
     title: null,
   };
+  courseId: string;
+  currentEvent: any[] = [];
+  isLoading: boolean = false;
   scheduleByUser: any[] = [];
   constructor(
     private request: WebRequestService,
@@ -47,6 +50,8 @@ export class CourseEventComponent implements OnInit {
 
   ngOnInit(): void {
     this.event.courseId = this.route.snapshot.paramMap.get('id');
+    this.courseId = this.event.courseId;
+    console.log(this.courseId);
     this.email = this.sValue.getLocalStorage('email') ?? null;
     this.getListSchedule();
     this.getScheduleByEmail();
@@ -106,6 +111,7 @@ export class CourseEventComponent implements OnInit {
       this.isDisplay = true;
     }
   }
+
   getListUserByScheduleId() {
     this.listUser = [];
     this.request
@@ -117,6 +123,7 @@ export class CourseEventComponent implements OnInit {
           this.listUser.push(e.email);
         });
       });
+
   }
   joinEvent(event) {
     const data = {
@@ -174,7 +181,6 @@ export class CourseEventComponent implements OnInit {
           this.isDisplay = false;
           this.getListSchedule();
         });
-        console.log(this.event);
       }
     } else {
     }
@@ -183,18 +189,20 @@ export class CourseEventComponent implements OnInit {
     this.scheduleId = id;
     this.isDisplayDetail = true;
     this.getScheduleById();
-    this.getListUserByScheduleId();
+    this.getListUserByScheduleId(this.courseId);
   }
   getScheduleById() {
+    this.isLoading = true;
     let params = new HttpParams().set('id', this.scheduleId);
     this.request
       .getWithQuery(params, ResourcePath.SCHEDULE, ResourcePath.GET_BY_ID)
       .subscribe((x) => {
-        console.log(x);
         this.schedule = x.body as Schedule;
+        this.isLoading = false;
       });
   }
   getListSchedule() {
+    this.isLoading = true;
     let params = new HttpParams().set('id', this.event.courseId);
     this.request
       .getWithQuery(
@@ -204,7 +212,7 @@ export class CourseEventComponent implements OnInit {
       )
       .subscribe((x) => {
         this.listSchedule = x.body as Schedule[];
-        console.log(this.listSchedule);
+        this.isLoading = false;
       });
   }
 

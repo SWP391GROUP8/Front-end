@@ -2,15 +2,25 @@
 <div *ngIf="isLoading">
     <app-loading-screen></app-loading-screen>
 </div>
-<div class="w-full h-screen m-auto bg-gray-100">
+<div *ngIf="!isLoading" class="w-full h-screen m-auto bg-gray-100">
     <div class="w-4/5 h-full m-auto bg-white py-10 px-8 border-l-2 border-r-2 border-solid border-gray-200"
         style="min-height: 700px">
         <div class="w-4/5 m-auto">
             <p class="font-bold">{{qa.title}}</p>
             <div class="flex my-4">
-                <img class="mr-3" width="30" height="30" src="../../../../assets/img/member-avatar-01.png" />
-                <!-- <a class="font-bold">{{qa.authorId}}</a> -->
+                <div class="w-16 px-4 mr-4" style="background: #650000">
+                    <p class="text-center text-xl font-bold py-2 text-white">
+                        {{qa.course.author.charAt(0).toUpperCase()}}
+                    </p>
+                </div>
+                <div class="w-auto flex justify-center">
+                    <a class="font-bold m-auto">{{qa.course.author}}</a>
+                </div>
             </div>
+            <!-- <div class="flex my-4">
+                <img class="mr-3" width="30" height="30" src="../../../../assets/img/member-avatar-01.png" />
+                <a class="font-bold">{{qa.authorId}}</a>
+            </div> -->
             <div>
                 <!-- <img class="my-0 mx-auto" width="400" height="200" src="../../../../assets/img/daihocfpt.jpg" /> -->
             </div>

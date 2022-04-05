@@ -59,12 +59,10 @@ export class CourseQComponent implements OnInit {
     }
   }
   getListQA() {
-    let params = new HttpParams().set('id',this.courseId);
-    this.request.getWithQuery(params,ResourcePath.COURSE_QA,ResourcePath.GET_BY_COURSE_ID).subscribe(x => {
+    let params = new HttpParams().set('id', this.courseId);
+    this.request.getWithQuery(params, ResourcePath.COURSE_QA, ResourcePath.GET_BY_COURSE_ID).subscribe(x => {
       if (x.status === 200) {
         this.listQA = x.body as any[];
-        console.log(this.listQA);
-        
       }
     })
   }

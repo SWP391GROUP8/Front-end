@@ -1,4 +1,6 @@
-:host ::ng-deep .p-menu{
-    left: 0 !important;
-    top: 100% !important;
+.menuDrop {
+    :host ::ng-deep .p-menu {
+        left: 0px !important;
+        top: 100% !important;
+    }
 }

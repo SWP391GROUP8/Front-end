@@ -23,14 +23,16 @@
                     <a href="/{{managementLink}}">Quản lý</a>
                 </li>
             </ul>
-            <ul class="items-center flex text-white w-1/5 justify-end cursor-pointer">
-                <li>
+            <ul class="items-center flex text-orange-500 w-1/5 justify-end">
+                <!-- <li>
                     <i class="fa fa-bell"></i>
-                </li>
+                </li> -->
                 <li style="padding-left: 0px !important;">
-                    <div class="overflow-hidden relative flex justify-center" style="height: 89px">
-                        <p (click)="menu.toggle($event)" class="flex items-center  ">
-                            <span class="text-center text-2xl font-bold px-6 py-10 text-white"
+                    <div class="px-4 overflow-hidden relative flex justify-center cursor-pointer bg-white" 
+                    (click)="menu.toggle($event)"
+                    style="height: 89px">
+                        <p class="flex items-center  ">
+                            <span class="text-center text-2xl font-bold px-6 py-10 "
                                 >
                                 {{avatarText}}
                             </span>

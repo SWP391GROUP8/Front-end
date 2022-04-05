@@ -46,6 +46,8 @@
                     </div>
                     <div class="pl-10 pt-10">
                         <input pInputText type="text" [(ngModel)]="userInfor.name" [disabled]="isEdit" required />
+                        <small class="p-invalid text-red-500" *ngIf="submitted && !userInfor.name">Vui lòng email.</small>
+      
                     </div>
                     <div class="pl-10 pt-10">
                         <input pInputText type="text" [(ngModel)]="userInfor.birthDay" [disabled]="isEdit" />

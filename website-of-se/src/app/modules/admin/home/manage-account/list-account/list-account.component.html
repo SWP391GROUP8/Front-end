@@ -5,13 +5,13 @@
 <div *ngIf="!isLoading" class="card">
   <p-toolbar styleClass="p-mb-4">
     <ng-template pTemplate="left">
-      <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success p-mr-2"
+      <button pButton pRipple label="Thêm" icon="pi pi-plus" class="p-button-success p-mr-2"
         (click)="openNew()"></button>
-      <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger"
-        (click)="deleteSelectedProducts()" [disabled]="!selectedProducts || !selectedProducts.length"></button>
+      <!-- <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger"
+        (click)="deleteSelectedProducts()" [disabled]="!selectedProducts || !selectedProducts.length"></button> -->
     </ng-template>
   </p-toolbar>
-  <p-table #dt [value]="products" [rows]="10" [paginator]="true" [globalFilterFields]="['name','email','status']"
+  <p-table #dt [value]="products" [rows]="10" [paginator]="true" [globalFilterFields]="['name', 'email']"
     [(selection)]="selectedProducts" [rowHover]="true" dataKey="id"
     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
 
@@ -21,33 +21,33 @@
         <span class="p-input-icon-left">
           <i class="pi pi-search"></i>
           <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
-            placeholder="Search..." />
+            placeholder="Email, tên..." />
         </span>
       </div>
     </ng-template>
     <ng-template pTemplate="header">
       <tr>
-        <th style="width: 3rem">
+        <!-- <th style="width: 3rem">
           <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-        </th>
+        </th> -->
         <th pSortableColumn="email">Email<p-sortIcon field="email"></p-sortIcon>
         </th>
-        <th pSortableColumn="name">Tên<p-sortIcon field="name"></p-sortIcon>
+        <th pColumn="name">Tên
         </th>
-        <th pSortableColumn="category">Số điện thoại<p-sortIcon field="author"></p-sortIcon>
+        <th>Số điện thoại
         </th>
-        <th pSortableColumn="status">Trạng thái<p-sortIcon field="status"></p-sortIcon>
+        <th>Trạng thái
         </th>
-        <th pSortableColumn="inventoryStatus">Vai trò<p-sortIcon field="event"></p-sortIcon>
+        <th>Vai trò
         </th>
         <th></th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-product>
       <tr>
-        <td>
+        <!-- <td>
           <p-tableCheckbox [value]="product"></p-tableCheckbox>
-        </td>
+        </td> -->
         <td>{{product.email}}</td>
         <td>{{product.name}}</td>
         <td>{{product.phone}}</td>
@@ -77,32 +77,26 @@
       <p>Email</p>
       <input type="text" pInputText [(ngModel)]="email" autofocus />
       <small class="p-invalid text-red-500" *ngIf="submitted && !email">Vui lòng email.</small>
+      <small class="p-invalid text-red-500" *ngIf="submitted">{{emailError}}</small>
       <p>Mật khẩu</p>
       <input type="password" pInputText [(ngModel)]="password" />
       <small class="p-invalid text-red-500" *ngIf="submitted && !password">Vui lòng nhập mật khẩu.</small>
       <p>Nhập lại mật khẩu</p>
       <input type="password" pInputText [(ngModel)]="confirmPassword" />
-      <small class="p-invalid text-red-500" *ngIf="(submitted && !confirmPassword) || confirmPassword != password">Mật khẩu không khớp nhau.</small>
+      <small class="p-invalid text-red-500" *ngIf="(submitted && !confirmPassword) || confirmPassword != password">Mật
+        khẩu không khớp nhau.</small>
       <p>Vai trò</p>
-      <p-dropdown [options]="roles" 
-      [(ngModel)]="selectedRole" 
-      placeholder="Chọn vai trò" 
-      optionLabel="name" 
-      [showClear]="true"
-      ></p-dropdown>
+      <p-dropdown [options]="roles" [(ngModel)]="selectedRole" placeholder="Chọn vai trò" optionLabel="name"
+        [showClear]="true"></p-dropdown>
       <small class="p-invalid text-red-500" *ngIf="submitted && !selectedRole">Vui lòng chọn vai trò.</small>
     </div>
     <!-- End Create -->
     <!-- Edit -->
     <div *ngIf="dialogType === 'edit'" class="p-field">
       <p>Vai trò</p>
-      <p-dropdown [options]="roles" 
-      [(ngModel)]="selectedRole" 
-      placeholder="Chọn vai trò"
-      optionLabel="name" 
-      [showClear]="true"
-      >
-      <!-- <ng-template let-option pTemplate="selectedItem">
+      <p-dropdown [options]="roles" [(ngModel)]="selectedRole" placeholder="Chọn vai trò" optionLabel="name"
+        [showClear]="true">
+        <!-- <ng-template let-option pTemplate="selectedItem">
         <div>{{ option.name }}</div>
       </ng-template>
       <ng-template let-option pTemplate="item">
