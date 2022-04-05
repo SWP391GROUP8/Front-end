@@ -16,7 +16,7 @@ import { MessageService } from 'primeng/api';
 export class CourseEventComponent implements OnInit {
   isDisplay: boolean = false;
   isDisplayDetail: boolean = false;
-  listUser: any[];
+  listUser: any[] = [];
   role: string = this.sValue.getLocalStorage('role') ?? null;
   listSchedule: Schedule[];
   schedule: Schedule;
@@ -54,10 +54,14 @@ export class CourseEventComponent implements OnInit {
     }
   }
   getListUserByScheduleId() {
-    this.listUser = [
-      { id: 1, email: 'triht@fpt.edu.vn' },
-      { id: 2, email: 'quanbt@fpt.edu.vn' },
-    ];
+    this.listUser = []
+    this.request.get(ResourcePath.USER,ResourcePath.GET_BY_SCHEDULE_ID,this.scheduleId).subscribe(x => {
+      console.log(x);
+      const data = x.body as any[]; 
+      data.forEach(e => {
+        this.listUser.push(e.email)
+      });
+    })
   }
   joinEvent(event) {
     const data = {

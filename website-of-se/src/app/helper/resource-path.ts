@@ -33,6 +33,8 @@ export class ResourcePath {
   public static readonly GET_BY_COURSE_ID = 'get-by-course-id';
   
   public static readonly GET_BY_USER_ID = 'get-by-user-id';
+  
+  public static readonly GET_BY_SCHEDULE_ID = 'get-by-schedule-id';
 
   //Blog
   public static readonly BLOG = 'blog';
