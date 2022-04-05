@@ -41,8 +41,14 @@
                 <td>{{product.endTime}}</td>
                 <td>{{product.status}}</td>
                 <td>
-                    <button *ngIf="product.createdBy!==email" class="btn" (click)="joinEvent(product.id)">Tham gia sự
+                    <button *ngIf="product.createdBy!==email && !scheduleByUser.includes(product.id)" class="btn" (click)="joinEvent(product.id)">Tham gia sự
                         kiện</button>
+                    <ng-container *ngIf="scheduleByUser.length!==0">
+                        <button *ngIf="product.createdBy!==email && scheduleByUser.includes(product.id)" class="btn" (click)="cancelEvent(product.id)">Hủy tham
+                            gia
+                            sự
+                            kiện</button>
+                    </ng-container>
                     <button *ngIf="product.createdBy===email" class="btn" (click)="viewDetail(product.id)">Xem chi
                         tiết</button>
                 </td>
@@ -107,11 +113,11 @@
         </p-tabPanel>
         <p-tabPanel header="Danh sách sinh viên tham gia">
             <div *ngFor="let user of listUser" class="font-bold mb-2">
-                {{user.email}}
+                <span><a class="mr-3">{{user}}</a></span>\
+                <!-- <i class="fas fa-trash-alt cursor-pointer" *ngIf="role==='INSTRUCTOR'" (click)="deleteUserFrom"></i> -->
             </div>
         </p-tabPanel>
     </p-tabView>
-        
-        <div>
-        </div>
+    <div>
+    </div>
 </p-dialog>

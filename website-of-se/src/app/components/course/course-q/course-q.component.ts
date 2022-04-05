@@ -24,7 +24,6 @@ export class CourseQComponent implements OnInit {
     private request: WebRequestService,
     private active: ActivatedRoute
   ) { }
-
   ngOnInit() {
     this.courseId = this.active.snapshot.paramMap.get('id') ?? null;
     this.getListQA();

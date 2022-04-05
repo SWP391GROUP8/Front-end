@@ -1,6 +1,7 @@
 export class ResourcePath {
   // USER
   public static readonly USER = 'user';
+  public static readonly CREATE_USER = 'create-user';
   public static readonly CHANGE_PASSWORD = 'change-password';
   public static readonly USER_CREATE = 'create-user';
   public static readonly USER_UPDATE = 'update-user';
@@ -34,6 +35,9 @@ export class ResourcePath {
   public static readonly GET_BY_COURSE_ID = 'get-by-course-id';
   
   public static readonly GET_BY_USER_ID = 'get-by-user-id';
+  
+  public static readonly GET_BY_EMAIL = 'get-by-email';
+  public static readonly GET_BY_SCHEDULE_ID = 'get-by-schedule-id';
 
   //Blog
   public static readonly BLOG = 'blog';
@@ -43,6 +47,7 @@ export class ResourcePath {
   //Shcedules
   public static readonly SCHEDULE = 'schedule';
   public static readonly SCHEDULE_ADD_USER = 'add-user';
+  public static readonly SCHEDULE_REMOVE_USER = 'remove-user';
 
   //Job
   public static readonly JOB = 'job-posting';
